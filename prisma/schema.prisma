@@ -1,0 +1,139 @@
+// Prisma schema file for Progress Platform
+// Compatible with both SQLite (local development) and PostgreSQL (production).
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+model User {
+  id          String                 @id @default(cuid())
+  email       String                 @unique
+  name        String?
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+  goals       Goal[]
+  connections PlatformConnection[]
+  submissions NormalizedSubmission[]
+  contests    ContestHistory[]
+
+  @@map("users")
+}
+
+model Goal {
+  id                    String    @id @default(cuid())
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title                 String
+  category              String    // "competitive_programming" | "dsa"
+  targetMetric          String    // "codeforces_rating" | "leetcode_solved_medium" | etc.
+  targetValue           Float     // e.g. 1400
+  initialValue          Float     // e.g. 1284
+
+  startDate             DateTime  @default(now())
+  deadline              DateTime  // Target achievement date
+  availableHoursPerWeek Float?
+
+  status                String    @default("active") // "active" | "completed" | "abandoned"
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId, status])
+  @@map("goals")
+}
+
+model PlatformConnection {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform     String    // "codeforces" | "leetcode"
+  username     String
+  status       String    @default("connected") // "connected" | "syncing" | "error"
+  lastError    String?
+  lastSyncedAt DateTime?
+
+  // Cached profile data snapshot (JSON string)
+  profileData  String?
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([userId, platform])
+  @@map("platform_connections")
+}
+
+model Problem {
+  id                   String                 @id @default(cuid())
+  platform             String                 // "codeforces" | "leetcode"
+  externalProblemId    String                 // e.g. "1800B", "two-sum"
+  title                String
+  difficulty           String                 // Native difficulty string: "1300", "Medium", etc.
+  numericDifficulty    Int?                   // For CF: 1300. For LC: 1 (Easy), 2 (Med), 3 (Hard)
+  topics               String                 // JSON array of canonical topic slugs
+  rawTags              String                 // JSON array of original platform tags
+  metadata             String?                // JSON-serialized extra metadata
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  submissions          NormalizedSubmission[]
+
+  @@unique([platform, externalProblemId])
+  @@map("problems")
+}
+
+model NormalizedSubmission {
+  id                   String    @id @default(cuid())
+  userId               String
+  user                 User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform             String    // "codeforces" | "leetcode"
+  externalSubmissionId String
+
+  problemId            String
+  problem              Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  problemTitle         String
+
+  verdict              String    // "ACCEPTED" | "WRONG_ANSWER" | "TIME_LIMIT_EXCEEDED" | etc.
+  accepted             Boolean
+  language             String?
+
+  difficulty           String    // Native difficulty at submission time
+  topics               String    // JSON array of canonical topics
+
+  timestamp            DateTime
+  contestId            String?
+  rawData              String?   // Diagnostic snapshot
+
+  createdAt            DateTime  @default(now())
+
+  // Defensive uniqueness constraint scoped per user as specified in Amendment 5:
+  @@unique([userId, platform, externalSubmissionId])
+  @@index([userId, platform, timestamp])
+  @@index([userId, accepted])
+  @@map("normalized_submissions")
+}
+
+model ContestHistory {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  platform     String    // "codeforces"
+  contestId    String
+  contestName  String
+  rank         Int
+  oldRating    Int
+  newRating    Int
+  ratingChange Int
+  timestamp    DateTime
+  createdAt    DateTime  @default(now())
+
+  @@unique([userId, platform, contestId])
+  @@index([userId, timestamp])
+  @@map("contest_history")
+}
