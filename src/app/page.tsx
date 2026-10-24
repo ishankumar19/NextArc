@@ -8,6 +8,9 @@ import { GoalHero } from "@/components/goal-hero";
 import { EvidenceCard } from "@/components/evidence-card";
 import { ActivityFeed } from "@/components/activity-feed";
 import { CreateGoalModal } from "@/components/create-goal-modal";
+import { PlanCard } from "@/components/plan/plan-card";
+import { PlanRepository } from "@/planning/plan.repository";
+import { TaskEvidenceMatcher } from "@/planning/matching/task-matcher";
 import Link from "next/link";
 import { Target, ArrowRight, BarChart3, Layers, Compass } from "lucide-react";
 
@@ -83,12 +86,24 @@ export default async function DashboardPage() {
     primaryGoal.id
   );
 
+  // Sync latest matches and load active plan
+  await TaskEvidenceMatcher.matchTasksForGoal(primaryGoal.id);
+  const activePlanRaw = await PlanRepository.getActivePlan(primaryGoal.id);
+
+  // Safely serialize dates to strings for client component
+  const initialPlan = activePlanRaw
+    ? JSON.parse(JSON.stringify(activePlanRaw))
+    : null;
+
   return (
     <main className="space-y-8">
       {/* 1. Dominant Section: YOUR GOAL */}
       <GoalHero goal={primaryGoal} />
 
-      {/* 2. Supporting Section: THIS WEEK'S EVIDENCE */}
+      {/* 2. Core Adaptive Planning Section: YOUR PLAN */}
+      <PlanCard initialPlan={initialPlan as any} goalId={primaryGoal.id} />
+
+      {/* 3. Supporting Section: THIS WEEK'S EVIDENCE */}
       <EvidenceCard evidence={evidence} />
 
       {/* 3. Two-Column Layout: RECENT ACTIVITY & PRACTICE SUMMARY */}
