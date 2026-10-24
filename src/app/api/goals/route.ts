@@ -3,9 +3,9 @@ import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
 import { apiSuccess, apiError } from "@/lib/api-response";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const goals = await GoalService.getUserGoals(userId);
     return apiSuccess(goals);
   } catch (err: any) {

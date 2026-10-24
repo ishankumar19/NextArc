@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
 import { EvidenceService } from "@/goals/evidence.service";
@@ -6,9 +7,9 @@ import { AnalyticsService } from "@/analytics/analytics.service";
 import prisma from "@/lib/prisma";
 import { apiSuccess, apiError } from "@/lib/api-response";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
 
     const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
       GoalService.getUserGoals(userId),

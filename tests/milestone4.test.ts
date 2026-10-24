@@ -82,7 +82,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/goals should return goals with honest gap and remaining days", async () => {
-      const res = await getGoals();
+      const req = new NextRequest("http://localhost:3000/api/goals");
+      const res = await getGoals(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();
@@ -127,7 +128,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/platforms should list connections with quality reports", async () => {
-      const res = await getPlatforms();
+      const req = new NextRequest("http://localhost:3000/api/platforms");
+      const res = await getPlatforms(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();
@@ -144,7 +146,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Dashboard & Activity Feed API", () => {
     it("GET /api/dashboard should return aggregated goal-first payload", async () => {
-      const res = await getDashboard();
+      const req = new NextRequest("http://localhost:3000/api/dashboard");
+      const res = await getDashboard(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();
@@ -173,7 +176,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Analytics Endpoints", () => {
     it("GET /api/analytics/activity should return 7d/30d and streak facts", async () => {
-      const res = await getActivityAnalytics();
+      const req = new NextRequest("http://localhost:3000/api/analytics/activity");
+      const res = await getActivityAnalytics(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();
@@ -184,7 +188,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/analytics/difficulty should return distinct CF and LC coordinates", async () => {
-      const res = await getDifficultyAnalytics();
+      const req = new NextRequest("http://localhost:3000/api/analytics/difficulty");
+      const res = await getDifficultyAnalytics(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();
@@ -196,7 +201,8 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/analytics/topics should return canonical topic facts", async () => {
-      const res = await getTopicAnalytics();
+      const req = new NextRequest("http://localhost:3000/api/analytics/topics");
+      const res = await getTopicAnalytics(req);
       expect(res.status).toBe(200);
 
       const json = await res.json();

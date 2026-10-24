@@ -1,12 +1,13 @@
+import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getPlatformQualityReport } from "@/platforms/capabilities";
 import { PlatformType } from "@/core/types";
 import { apiSuccess, apiError } from "@/lib/api-response";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const connections = await prisma.platformConnection.findMany({
       where: { userId },
       orderBy: { createdAt: "asc" },
