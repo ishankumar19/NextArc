@@ -16,6 +16,13 @@ export class ProgressContextService {
    * Builds the versioned canonical ProgressContextV1 object for a user and goal.
    * This serves as the factual bedrock for Phase 1 dashboards and Phase 2 LLM planning.
    */
+  static async generateContext(
+    userId: string,
+    goalId?: string
+  ): Promise<ProgressContextV1> {
+    return this.getUserProgressContext(userId, goalId);
+  }
+
   static async getUserProgressContext(
     userId: string,
     goalId?: string

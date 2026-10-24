@@ -201,6 +201,71 @@ exports.Prisma.ContestHistoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PlanScalarFieldEnum = {
+  id: 'id',
+  goalId: 'goalId',
+  userId: 'userId',
+  status: 'status',
+  currentVersionNum: 'currentVersionNum',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PlanVersionScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  versionNumber: 'versionNumber',
+  schemaVersion: 'schemaVersion',
+  summary: 'summary',
+  milestoneTitle: 'milestoneTitle',
+  bottleneckType: 'bottleneckType',
+  planData: 'planData',
+  startDate: 'startDate',
+  targetReviewDate: 'targetReviewDate',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PlanTaskScalarFieldEnum = {
+  id: 'id',
+  planVersionId: 'planVersionId',
+  externalTaskId: 'externalTaskId',
+  type: 'type',
+  title: 'title',
+  quantity: 'quantity',
+  quantityCompleted: 'quantityCompleted',
+  platform: 'platform',
+  minDifficulty: 'minDifficulty',
+  maxDifficulty: 'maxDifficulty',
+  difficultyTier: 'difficultyTier',
+  topics: 'topics',
+  reason: 'reason',
+  evidenceReferences: 'evidenceReferences',
+  completionMetric: 'completionMetric',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.TaskEvidenceMatchScalarFieldEnum = {
+  id: 'id',
+  taskId: 'taskId',
+  submissionId: 'submissionId',
+  contestHistoryId: 'contestHistoryId',
+  matchedAt: 'matchedAt',
+  notes: 'notes'
+};
+
+exports.Prisma.PlanEvaluationScalarFieldEnum = {
+  id: 'id',
+  planId: 'planId',
+  evaluatedVersionNum: 'evaluatedVersionNum',
+  completionRate: 'completionRate',
+  tasksPlanned: 'tasksPlanned',
+  tasksCompleted: 'tasksCompleted',
+  ratingChange: 'ratingChange',
+  outcomeData: 'outcomeData',
+  evaluatedAt: 'evaluatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -218,7 +283,12 @@ exports.Prisma.ModelName = {
   PlatformConnection: 'PlatformConnection',
   Problem: 'Problem',
   NormalizedSubmission: 'NormalizedSubmission',
-  ContestHistory: 'ContestHistory'
+  ContestHistory: 'ContestHistory',
+  Plan: 'Plan',
+  PlanVersion: 'PlanVersion',
+  PlanTask: 'PlanTask',
+  TaskEvidenceMatch: 'TaskEvidenceMatch',
+  PlanEvaluation: 'PlanEvaluation'
 };
 
 /**

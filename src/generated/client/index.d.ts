@@ -43,6 +43,31 @@ export type NormalizedSubmission = $Result.DefaultSelection<Prisma.$NormalizedSu
  * 
  */
 export type ContestHistory = $Result.DefaultSelection<Prisma.$ContestHistoryPayload>
+/**
+ * Model Plan
+ * 
+ */
+export type Plan = $Result.DefaultSelection<Prisma.$PlanPayload>
+/**
+ * Model PlanVersion
+ * 
+ */
+export type PlanVersion = $Result.DefaultSelection<Prisma.$PlanVersionPayload>
+/**
+ * Model PlanTask
+ * 
+ */
+export type PlanTask = $Result.DefaultSelection<Prisma.$PlanTaskPayload>
+/**
+ * Model TaskEvidenceMatch
+ * 
+ */
+export type TaskEvidenceMatch = $Result.DefaultSelection<Prisma.$TaskEvidenceMatchPayload>
+/**
+ * Model PlanEvaluation
+ * 
+ */
+export type PlanEvaluation = $Result.DefaultSelection<Prisma.$PlanEvaluationPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -221,6 +246,56 @@ export class PrismaClient<
     * ```
     */
   get contestHistory(): Prisma.ContestHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.plan`: Exposes CRUD operations for the **Plan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Plans
+    * const plans = await prisma.plan.findMany()
+    * ```
+    */
+  get plan(): Prisma.PlanDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.planVersion`: Exposes CRUD operations for the **PlanVersion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlanVersions
+    * const planVersions = await prisma.planVersion.findMany()
+    * ```
+    */
+  get planVersion(): Prisma.PlanVersionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.planTask`: Exposes CRUD operations for the **PlanTask** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlanTasks
+    * const planTasks = await prisma.planTask.findMany()
+    * ```
+    */
+  get planTask(): Prisma.PlanTaskDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taskEvidenceMatch`: Exposes CRUD operations for the **TaskEvidenceMatch** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaskEvidenceMatches
+    * const taskEvidenceMatches = await prisma.taskEvidenceMatch.findMany()
+    * ```
+    */
+  get taskEvidenceMatch(): Prisma.TaskEvidenceMatchDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.planEvaluation`: Exposes CRUD operations for the **PlanEvaluation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlanEvaluations
+    * const planEvaluations = await prisma.planEvaluation.findMany()
+    * ```
+    */
+  get planEvaluation(): Prisma.PlanEvaluationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -667,7 +742,12 @@ export namespace Prisma {
     PlatformConnection: 'PlatformConnection',
     Problem: 'Problem',
     NormalizedSubmission: 'NormalizedSubmission',
-    ContestHistory: 'ContestHistory'
+    ContestHistory: 'ContestHistory',
+    Plan: 'Plan',
+    PlanVersion: 'PlanVersion',
+    PlanTask: 'PlanTask',
+    TaskEvidenceMatch: 'TaskEvidenceMatch',
+    PlanEvaluation: 'PlanEvaluation'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -686,7 +766,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "goal" | "platformConnection" | "problem" | "normalizedSubmission" | "contestHistory"
+      modelProps: "user" | "goal" | "platformConnection" | "problem" | "normalizedSubmission" | "contestHistory" | "plan" | "planVersion" | "planTask" | "taskEvidenceMatch" | "planEvaluation"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1134,6 +1214,376 @@ export namespace Prisma {
           }
         }
       }
+      Plan: {
+        payload: Prisma.$PlanPayload<ExtArgs>
+        fields: Prisma.PlanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          findFirst: {
+            args: Prisma.PlanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          findMany: {
+            args: Prisma.PlanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>[]
+          }
+          create: {
+            args: Prisma.PlanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          createMany: {
+            args: Prisma.PlanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>[]
+          }
+          delete: {
+            args: Prisma.PlanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          update: {
+            args: Prisma.PlanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanPayload>
+          }
+          aggregate: {
+            args: Prisma.PlanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlan>
+          }
+          groupBy: {
+            args: Prisma.PlanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlanCountArgs<ExtArgs>
+            result: $Utils.Optional<PlanCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlanVersion: {
+        payload: Prisma.$PlanVersionPayload<ExtArgs>
+        fields: Prisma.PlanVersionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlanVersionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlanVersionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          findFirst: {
+            args: Prisma.PlanVersionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlanVersionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          findMany: {
+            args: Prisma.PlanVersionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>[]
+          }
+          create: {
+            args: Prisma.PlanVersionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          createMany: {
+            args: Prisma.PlanVersionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlanVersionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>[]
+          }
+          delete: {
+            args: Prisma.PlanVersionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          update: {
+            args: Prisma.PlanVersionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlanVersionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlanVersionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlanVersionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlanVersionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanVersionPayload>
+          }
+          aggregate: {
+            args: Prisma.PlanVersionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlanVersion>
+          }
+          groupBy: {
+            args: Prisma.PlanVersionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlanVersionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlanVersionCountArgs<ExtArgs>
+            result: $Utils.Optional<PlanVersionCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlanTask: {
+        payload: Prisma.$PlanTaskPayload<ExtArgs>
+        fields: Prisma.PlanTaskFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlanTaskFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlanTaskFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          findFirst: {
+            args: Prisma.PlanTaskFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlanTaskFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          findMany: {
+            args: Prisma.PlanTaskFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>[]
+          }
+          create: {
+            args: Prisma.PlanTaskCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          createMany: {
+            args: Prisma.PlanTaskCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlanTaskCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>[]
+          }
+          delete: {
+            args: Prisma.PlanTaskDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          update: {
+            args: Prisma.PlanTaskUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlanTaskDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlanTaskUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlanTaskUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlanTaskUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanTaskPayload>
+          }
+          aggregate: {
+            args: Prisma.PlanTaskAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlanTask>
+          }
+          groupBy: {
+            args: Prisma.PlanTaskGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlanTaskGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlanTaskCountArgs<ExtArgs>
+            result: $Utils.Optional<PlanTaskCountAggregateOutputType> | number
+          }
+        }
+      }
+      TaskEvidenceMatch: {
+        payload: Prisma.$TaskEvidenceMatchPayload<ExtArgs>
+        fields: Prisma.TaskEvidenceMatchFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaskEvidenceMatchFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaskEvidenceMatchFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          findFirst: {
+            args: Prisma.TaskEvidenceMatchFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaskEvidenceMatchFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          findMany: {
+            args: Prisma.TaskEvidenceMatchFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>[]
+          }
+          create: {
+            args: Prisma.TaskEvidenceMatchCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          createMany: {
+            args: Prisma.TaskEvidenceMatchCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaskEvidenceMatchCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>[]
+          }
+          delete: {
+            args: Prisma.TaskEvidenceMatchDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          update: {
+            args: Prisma.TaskEvidenceMatchUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaskEvidenceMatchDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaskEvidenceMatchUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaskEvidenceMatchUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaskEvidenceMatchUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskEvidenceMatchPayload>
+          }
+          aggregate: {
+            args: Prisma.TaskEvidenceMatchAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaskEvidenceMatch>
+          }
+          groupBy: {
+            args: Prisma.TaskEvidenceMatchGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaskEvidenceMatchGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaskEvidenceMatchCountArgs<ExtArgs>
+            result: $Utils.Optional<TaskEvidenceMatchCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlanEvaluation: {
+        payload: Prisma.$PlanEvaluationPayload<ExtArgs>
+        fields: Prisma.PlanEvaluationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlanEvaluationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlanEvaluationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          findFirst: {
+            args: Prisma.PlanEvaluationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlanEvaluationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          findMany: {
+            args: Prisma.PlanEvaluationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>[]
+          }
+          create: {
+            args: Prisma.PlanEvaluationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          createMany: {
+            args: Prisma.PlanEvaluationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlanEvaluationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>[]
+          }
+          delete: {
+            args: Prisma.PlanEvaluationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          update: {
+            args: Prisma.PlanEvaluationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlanEvaluationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlanEvaluationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlanEvaluationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlanEvaluationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlanEvaluationPayload>
+          }
+          aggregate: {
+            args: Prisma.PlanEvaluationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlanEvaluation>
+          }
+          groupBy: {
+            args: Prisma.PlanEvaluationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlanEvaluationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlanEvaluationCountArgs<ExtArgs>
+            result: $Utils.Optional<PlanEvaluationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1236,6 +1686,11 @@ export namespace Prisma {
     problem?: ProblemOmit
     normalizedSubmission?: NormalizedSubmissionOmit
     contestHistory?: ContestHistoryOmit
+    plan?: PlanOmit
+    planVersion?: PlanVersionOmit
+    planTask?: PlanTaskOmit
+    taskEvidenceMatch?: TaskEvidenceMatchOmit
+    planEvaluation?: PlanEvaluationOmit
   }
 
   /* Types for Logging */
@@ -1370,6 +1825,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type GoalCountOutputType
+   */
+
+  export type GoalCountOutputType = {
+    plans: number
+  }
+
+  export type GoalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plans?: boolean | GoalCountOutputTypeCountPlansArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GoalCountOutputType without action
+   */
+  export type GoalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GoalCountOutputType
+     */
+    select?: GoalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GoalCountOutputType without action
+   */
+  export type GoalCountOutputTypeCountPlansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanWhereInput
+  }
+
+
+  /**
    * Count Type ProblemCountOutputType
    */
 
@@ -1397,6 +1883,170 @@ export namespace Prisma {
    */
   export type ProblemCountOutputTypeCountSubmissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NormalizedSubmissionWhereInput
+  }
+
+
+  /**
+   * Count Type NormalizedSubmissionCountOutputType
+   */
+
+  export type NormalizedSubmissionCountOutputType = {
+    taskMatches: number
+  }
+
+  export type NormalizedSubmissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taskMatches?: boolean | NormalizedSubmissionCountOutputTypeCountTaskMatchesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NormalizedSubmissionCountOutputType without action
+   */
+  export type NormalizedSubmissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NormalizedSubmissionCountOutputType
+     */
+    select?: NormalizedSubmissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NormalizedSubmissionCountOutputType without action
+   */
+  export type NormalizedSubmissionCountOutputTypeCountTaskMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskEvidenceMatchWhereInput
+  }
+
+
+  /**
+   * Count Type ContestHistoryCountOutputType
+   */
+
+  export type ContestHistoryCountOutputType = {
+    taskMatches: number
+  }
+
+  export type ContestHistoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taskMatches?: boolean | ContestHistoryCountOutputTypeCountTaskMatchesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContestHistoryCountOutputType without action
+   */
+  export type ContestHistoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestHistoryCountOutputType
+     */
+    select?: ContestHistoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContestHistoryCountOutputType without action
+   */
+  export type ContestHistoryCountOutputTypeCountTaskMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskEvidenceMatchWhereInput
+  }
+
+
+  /**
+   * Count Type PlanCountOutputType
+   */
+
+  export type PlanCountOutputType = {
+    versions: number
+    evaluations: number
+  }
+
+  export type PlanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    versions?: boolean | PlanCountOutputTypeCountVersionsArgs
+    evaluations?: boolean | PlanCountOutputTypeCountEvaluationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlanCountOutputType without action
+   */
+  export type PlanCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanCountOutputType
+     */
+    select?: PlanCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlanCountOutputType without action
+   */
+  export type PlanCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanVersionWhereInput
+  }
+
+  /**
+   * PlanCountOutputType without action
+   */
+  export type PlanCountOutputTypeCountEvaluationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanEvaluationWhereInput
+  }
+
+
+  /**
+   * Count Type PlanVersionCountOutputType
+   */
+
+  export type PlanVersionCountOutputType = {
+    tasks: number
+  }
+
+  export type PlanVersionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tasks?: boolean | PlanVersionCountOutputTypeCountTasksArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlanVersionCountOutputType without action
+   */
+  export type PlanVersionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersionCountOutputType
+     */
+    select?: PlanVersionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlanVersionCountOutputType without action
+   */
+  export type PlanVersionCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanTaskWhereInput
+  }
+
+
+  /**
+   * Count Type PlanTaskCountOutputType
+   */
+
+  export type PlanTaskCountOutputType = {
+    matches: number
+  }
+
+  export type PlanTaskCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    matches?: boolean | PlanTaskCountOutputTypeCountMatchesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlanTaskCountOutputType without action
+   */
+  export type PlanTaskCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTaskCountOutputType
+     */
+    select?: PlanTaskCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlanTaskCountOutputType without action
+   */
+  export type PlanTaskCountOutputTypeCountMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskEvidenceMatchWhereInput
   }
 
 
@@ -2827,6 +3477,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    plans?: boolean | Goal$plansArgs<ExtArgs>
+    _count?: boolean | GoalCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["goal"]>
 
   export type GoalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2882,6 +3534,8 @@ export namespace Prisma {
   export type GoalOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "category" | "targetMetric" | "targetValue" | "initialValue" | "startDate" | "deadline" | "availableHoursPerWeek" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["goal"]>
   export type GoalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    plans?: boolean | Goal$plansArgs<ExtArgs>
+    _count?: boolean | GoalCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GoalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2894,6 +3548,7 @@ export namespace Prisma {
     name: "Goal"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      plans: Prisma.$PlanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3304,6 +3959,7 @@ export namespace Prisma {
   export interface Prisma__GoalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    plans<T extends Goal$plansArgs<ExtArgs> = {}>(args?: Subset<T, Goal$plansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3737,6 +4393,30 @@ export namespace Prisma {
      * Limit how many Goals to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Goal.plans
+   */
+  export type Goal$plansArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    where?: PlanWhereInput
+    orderBy?: PlanOrderByWithRelationInput | PlanOrderByWithRelationInput[]
+    cursor?: PlanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlanScalarFieldEnum | PlanScalarFieldEnum[]
   }
 
   /**
@@ -6305,6 +6985,8 @@ export namespace Prisma {
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    taskMatches?: boolean | NormalizedSubmission$taskMatchesArgs<ExtArgs>
+    _count?: boolean | NormalizedSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["normalizedSubmission"]>
 
   export type NormalizedSubmissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6369,6 +7051,8 @@ export namespace Prisma {
   export type NormalizedSubmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     problem?: boolean | ProblemDefaultArgs<ExtArgs>
+    taskMatches?: boolean | NormalizedSubmission$taskMatchesArgs<ExtArgs>
+    _count?: boolean | NormalizedSubmissionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NormalizedSubmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -6384,6 +7068,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       problem: Prisma.$ProblemPayload<ExtArgs>
+      taskMatches: Prisma.$TaskEvidenceMatchPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6797,6 +7482,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     problem<T extends ProblemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProblemDefaultArgs<ExtArgs>>): Prisma__ProblemClient<$Result.GetResult<Prisma.$ProblemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    taskMatches<T extends NormalizedSubmission$taskMatchesArgs<ExtArgs> = {}>(args?: Subset<T, NormalizedSubmission$taskMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7235,6 +7921,30 @@ export namespace Prisma {
   }
 
   /**
+   * NormalizedSubmission.taskMatches
+   */
+  export type NormalizedSubmission$taskMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    where?: TaskEvidenceMatchWhereInput
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
    * NormalizedSubmission without action
    */
   export type NormalizedSubmissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7512,6 +8222,8 @@ export namespace Prisma {
     timestamp?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
+    taskMatches?: boolean | ContestHistory$taskMatchesArgs<ExtArgs>
+    _count?: boolean | ContestHistoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contestHistory"]>
 
   export type ContestHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7561,6 +8273,8 @@ export namespace Prisma {
   export type ContestHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "platform" | "contestId" | "contestName" | "rank" | "oldRating" | "newRating" | "ratingChange" | "timestamp" | "createdAt", ExtArgs["result"]["contestHistory"]>
   export type ContestHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
+    taskMatches?: boolean | ContestHistory$taskMatchesArgs<ExtArgs>
+    _count?: boolean | ContestHistoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ContestHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7573,6 +8287,7 @@ export namespace Prisma {
     name: "ContestHistory"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
+      taskMatches: Prisma.$TaskEvidenceMatchPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7981,6 +8696,7 @@ export namespace Prisma {
   export interface Prisma__ContestHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    taskMatches<T extends ContestHistory$taskMatchesArgs<ExtArgs> = {}>(args?: Subset<T, ContestHistory$taskMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8415,6 +9131,30 @@ export namespace Prisma {
   }
 
   /**
+   * ContestHistory.taskMatches
+   */
+  export type ContestHistory$taskMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    where?: TaskEvidenceMatchWhereInput
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
    * ContestHistory without action
    */
   export type ContestHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8430,6 +9170,5947 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ContestHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Plan
+   */
+
+  export type AggregatePlan = {
+    _count: PlanCountAggregateOutputType | null
+    _avg: PlanAvgAggregateOutputType | null
+    _sum: PlanSumAggregateOutputType | null
+    _min: PlanMinAggregateOutputType | null
+    _max: PlanMaxAggregateOutputType | null
+  }
+
+  export type PlanAvgAggregateOutputType = {
+    currentVersionNum: number | null
+  }
+
+  export type PlanSumAggregateOutputType = {
+    currentVersionNum: number | null
+  }
+
+  export type PlanMinAggregateOutputType = {
+    id: string | null
+    goalId: string | null
+    userId: string | null
+    status: string | null
+    currentVersionNum: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlanMaxAggregateOutputType = {
+    id: string | null
+    goalId: string | null
+    userId: string | null
+    status: string | null
+    currentVersionNum: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PlanCountAggregateOutputType = {
+    id: number
+    goalId: number
+    userId: number
+    status: number
+    currentVersionNum: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PlanAvgAggregateInputType = {
+    currentVersionNum?: true
+  }
+
+  export type PlanSumAggregateInputType = {
+    currentVersionNum?: true
+  }
+
+  export type PlanMinAggregateInputType = {
+    id?: true
+    goalId?: true
+    userId?: true
+    status?: true
+    currentVersionNum?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlanMaxAggregateInputType = {
+    id?: true
+    goalId?: true
+    userId?: true
+    status?: true
+    currentVersionNum?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PlanCountAggregateInputType = {
+    id?: true
+    goalId?: true
+    userId?: true
+    status?: true
+    currentVersionNum?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PlanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Plan to aggregate.
+     */
+    where?: PlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Plans to fetch.
+     */
+    orderBy?: PlanOrderByWithRelationInput | PlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Plans
+    **/
+    _count?: true | PlanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlanMaxAggregateInputType
+  }
+
+  export type GetPlanAggregateType<T extends PlanAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlan[P]>
+      : GetScalarType<T[P], AggregatePlan[P]>
+  }
+
+
+
+
+  export type PlanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanWhereInput
+    orderBy?: PlanOrderByWithAggregationInput | PlanOrderByWithAggregationInput[]
+    by: PlanScalarFieldEnum[] | PlanScalarFieldEnum
+    having?: PlanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlanCountAggregateInputType | true
+    _avg?: PlanAvgAggregateInputType
+    _sum?: PlanSumAggregateInputType
+    _min?: PlanMinAggregateInputType
+    _max?: PlanMaxAggregateInputType
+  }
+
+  export type PlanGroupByOutputType = {
+    id: string
+    goalId: string
+    userId: string
+    status: string
+    currentVersionNum: number
+    createdAt: Date
+    updatedAt: Date
+    _count: PlanCountAggregateOutputType | null
+    _avg: PlanAvgAggregateOutputType | null
+    _sum: PlanSumAggregateOutputType | null
+    _min: PlanMinAggregateOutputType | null
+    _max: PlanMaxAggregateOutputType | null
+  }
+
+  type GetPlanGroupByPayload<T extends PlanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlanGroupByOutputType[P]>
+            : GetScalarType<T[P], PlanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    goalId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentVersionNum?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+    versions?: boolean | Plan$versionsArgs<ExtArgs>
+    evaluations?: boolean | Plan$evaluationsArgs<ExtArgs>
+    _count?: boolean | PlanCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["plan"]>
+
+  export type PlanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    goalId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentVersionNum?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["plan"]>
+
+  export type PlanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    goalId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentVersionNum?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["plan"]>
+
+  export type PlanSelectScalar = {
+    id?: boolean
+    goalId?: boolean
+    userId?: boolean
+    status?: boolean
+    currentVersionNum?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "goalId" | "userId" | "status" | "currentVersionNum" | "createdAt" | "updatedAt", ExtArgs["result"]["plan"]>
+  export type PlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+    versions?: boolean | Plan$versionsArgs<ExtArgs>
+    evaluations?: boolean | Plan$evaluationsArgs<ExtArgs>
+    _count?: boolean | PlanCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+  }
+  export type PlanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    goal?: boolean | GoalDefaultArgs<ExtArgs>
+  }
+
+  export type $PlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Plan"
+    objects: {
+      goal: Prisma.$GoalPayload<ExtArgs>
+      versions: Prisma.$PlanVersionPayload<ExtArgs>[]
+      evaluations: Prisma.$PlanEvaluationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      goalId: string
+      userId: string
+      status: string
+      currentVersionNum: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["plan"]>
+    composites: {}
+  }
+
+  type PlanGetPayload<S extends boolean | null | undefined | PlanDefaultArgs> = $Result.GetResult<Prisma.$PlanPayload, S>
+
+  type PlanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlanCountAggregateInputType | true
+    }
+
+  export interface PlanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Plan'], meta: { name: 'Plan' } }
+    /**
+     * Find zero or one Plan that matches the filter.
+     * @param {PlanFindUniqueArgs} args - Arguments to find a Plan
+     * @example
+     * // Get one Plan
+     * const plan = await prisma.plan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlanFindUniqueArgs>(args: SelectSubset<T, PlanFindUniqueArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Plan that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlanFindUniqueOrThrowArgs} args - Arguments to find a Plan
+     * @example
+     * // Get one Plan
+     * const plan = await prisma.plan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlanFindUniqueOrThrowArgs>(args: SelectSubset<T, PlanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Plan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanFindFirstArgs} args - Arguments to find a Plan
+     * @example
+     * // Get one Plan
+     * const plan = await prisma.plan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlanFindFirstArgs>(args?: SelectSubset<T, PlanFindFirstArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Plan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanFindFirstOrThrowArgs} args - Arguments to find a Plan
+     * @example
+     * // Get one Plan
+     * const plan = await prisma.plan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlanFindFirstOrThrowArgs>(args?: SelectSubset<T, PlanFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Plans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Plans
+     * const plans = await prisma.plan.findMany()
+     * 
+     * // Get first 10 Plans
+     * const plans = await prisma.plan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const planWithIdOnly = await prisma.plan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlanFindManyArgs>(args?: SelectSubset<T, PlanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Plan.
+     * @param {PlanCreateArgs} args - Arguments to create a Plan.
+     * @example
+     * // Create one Plan
+     * const Plan = await prisma.plan.create({
+     *   data: {
+     *     // ... data to create a Plan
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlanCreateArgs>(args: SelectSubset<T, PlanCreateArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Plans.
+     * @param {PlanCreateManyArgs} args - Arguments to create many Plans.
+     * @example
+     * // Create many Plans
+     * const plan = await prisma.plan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlanCreateManyArgs>(args?: SelectSubset<T, PlanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Plans and returns the data saved in the database.
+     * @param {PlanCreateManyAndReturnArgs} args - Arguments to create many Plans.
+     * @example
+     * // Create many Plans
+     * const plan = await prisma.plan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Plans and only return the `id`
+     * const planWithIdOnly = await prisma.plan.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlanCreateManyAndReturnArgs>(args?: SelectSubset<T, PlanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Plan.
+     * @param {PlanDeleteArgs} args - Arguments to delete one Plan.
+     * @example
+     * // Delete one Plan
+     * const Plan = await prisma.plan.delete({
+     *   where: {
+     *     // ... filter to delete one Plan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlanDeleteArgs>(args: SelectSubset<T, PlanDeleteArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Plan.
+     * @param {PlanUpdateArgs} args - Arguments to update one Plan.
+     * @example
+     * // Update one Plan
+     * const plan = await prisma.plan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlanUpdateArgs>(args: SelectSubset<T, PlanUpdateArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Plans.
+     * @param {PlanDeleteManyArgs} args - Arguments to filter Plans to delete.
+     * @example
+     * // Delete a few Plans
+     * const { count } = await prisma.plan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlanDeleteManyArgs>(args?: SelectSubset<T, PlanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Plans
+     * const plan = await prisma.plan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlanUpdateManyArgs>(args: SelectSubset<T, PlanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Plans and returns the data updated in the database.
+     * @param {PlanUpdateManyAndReturnArgs} args - Arguments to update many Plans.
+     * @example
+     * // Update many Plans
+     * const plan = await prisma.plan.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Plans and only return the `id`
+     * const planWithIdOnly = await prisma.plan.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlanUpdateManyAndReturnArgs>(args: SelectSubset<T, PlanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Plan.
+     * @param {PlanUpsertArgs} args - Arguments to update or create a Plan.
+     * @example
+     * // Update or create a Plan
+     * const plan = await prisma.plan.upsert({
+     *   create: {
+     *     // ... data to create a Plan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Plan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlanUpsertArgs>(args: SelectSubset<T, PlanUpsertArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Plans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanCountArgs} args - Arguments to filter Plans to count.
+     * @example
+     * // Count the number of Plans
+     * const count = await prisma.plan.count({
+     *   where: {
+     *     // ... the filter for the Plans we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlanCountArgs>(
+      args?: Subset<T, PlanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Plan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlanAggregateArgs>(args: Subset<T, PlanAggregateArgs>): Prisma.PrismaPromise<GetPlanAggregateType<T>>
+
+    /**
+     * Group by Plan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlanGroupByArgs['orderBy'] }
+        : { orderBy?: PlanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Plan model
+   */
+  readonly fields: PlanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Plan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    goal<T extends GoalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GoalDefaultArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    versions<T extends Plan$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Plan$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    evaluations<T extends Plan$evaluationsArgs<ExtArgs> = {}>(args?: Subset<T, Plan$evaluationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Plan model
+   */
+  interface PlanFieldRefs {
+    readonly id: FieldRef<"Plan", 'String'>
+    readonly goalId: FieldRef<"Plan", 'String'>
+    readonly userId: FieldRef<"Plan", 'String'>
+    readonly status: FieldRef<"Plan", 'String'>
+    readonly currentVersionNum: FieldRef<"Plan", 'Int'>
+    readonly createdAt: FieldRef<"Plan", 'DateTime'>
+    readonly updatedAt: FieldRef<"Plan", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Plan findUnique
+   */
+  export type PlanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter, which Plan to fetch.
+     */
+    where: PlanWhereUniqueInput
+  }
+
+  /**
+   * Plan findUniqueOrThrow
+   */
+  export type PlanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter, which Plan to fetch.
+     */
+    where: PlanWhereUniqueInput
+  }
+
+  /**
+   * Plan findFirst
+   */
+  export type PlanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter, which Plan to fetch.
+     */
+    where?: PlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Plans to fetch.
+     */
+    orderBy?: PlanOrderByWithRelationInput | PlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Plans.
+     */
+    cursor?: PlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Plans.
+     */
+    distinct?: PlanScalarFieldEnum | PlanScalarFieldEnum[]
+  }
+
+  /**
+   * Plan findFirstOrThrow
+   */
+  export type PlanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter, which Plan to fetch.
+     */
+    where?: PlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Plans to fetch.
+     */
+    orderBy?: PlanOrderByWithRelationInput | PlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Plans.
+     */
+    cursor?: PlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Plans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Plans.
+     */
+    distinct?: PlanScalarFieldEnum | PlanScalarFieldEnum[]
+  }
+
+  /**
+   * Plan findMany
+   */
+  export type PlanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter, which Plans to fetch.
+     */
+    where?: PlanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Plans to fetch.
+     */
+    orderBy?: PlanOrderByWithRelationInput | PlanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Plans.
+     */
+    cursor?: PlanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Plans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Plans.
+     */
+    skip?: number
+    distinct?: PlanScalarFieldEnum | PlanScalarFieldEnum[]
+  }
+
+  /**
+   * Plan create
+   */
+  export type PlanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Plan.
+     */
+    data: XOR<PlanCreateInput, PlanUncheckedCreateInput>
+  }
+
+  /**
+   * Plan createMany
+   */
+  export type PlanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Plans.
+     */
+    data: PlanCreateManyInput | PlanCreateManyInput[]
+  }
+
+  /**
+   * Plan createManyAndReturn
+   */
+  export type PlanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * The data used to create many Plans.
+     */
+    data: PlanCreateManyInput | PlanCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Plan update
+   */
+  export type PlanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Plan.
+     */
+    data: XOR<PlanUpdateInput, PlanUncheckedUpdateInput>
+    /**
+     * Choose, which Plan to update.
+     */
+    where: PlanWhereUniqueInput
+  }
+
+  /**
+   * Plan updateMany
+   */
+  export type PlanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Plans.
+     */
+    data: XOR<PlanUpdateManyMutationInput, PlanUncheckedUpdateManyInput>
+    /**
+     * Filter which Plans to update
+     */
+    where?: PlanWhereInput
+    /**
+     * Limit how many Plans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Plan updateManyAndReturn
+   */
+  export type PlanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * The data used to update Plans.
+     */
+    data: XOR<PlanUpdateManyMutationInput, PlanUncheckedUpdateManyInput>
+    /**
+     * Filter which Plans to update
+     */
+    where?: PlanWhereInput
+    /**
+     * Limit how many Plans to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Plan upsert
+   */
+  export type PlanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Plan to update in case it exists.
+     */
+    where: PlanWhereUniqueInput
+    /**
+     * In case the Plan found by the `where` argument doesn't exist, create a new Plan with this data.
+     */
+    create: XOR<PlanCreateInput, PlanUncheckedCreateInput>
+    /**
+     * In case the Plan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlanUpdateInput, PlanUncheckedUpdateInput>
+  }
+
+  /**
+   * Plan delete
+   */
+  export type PlanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+    /**
+     * Filter which Plan to delete.
+     */
+    where: PlanWhereUniqueInput
+  }
+
+  /**
+   * Plan deleteMany
+   */
+  export type PlanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Plans to delete
+     */
+    where?: PlanWhereInput
+    /**
+     * Limit how many Plans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Plan.versions
+   */
+  export type Plan$versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    where?: PlanVersionWhereInput
+    orderBy?: PlanVersionOrderByWithRelationInput | PlanVersionOrderByWithRelationInput[]
+    cursor?: PlanVersionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlanVersionScalarFieldEnum | PlanVersionScalarFieldEnum[]
+  }
+
+  /**
+   * Plan.evaluations
+   */
+  export type Plan$evaluationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    where?: PlanEvaluationWhereInput
+    orderBy?: PlanEvaluationOrderByWithRelationInput | PlanEvaluationOrderByWithRelationInput[]
+    cursor?: PlanEvaluationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlanEvaluationScalarFieldEnum | PlanEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * Plan without action
+   */
+  export type PlanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Plan
+     */
+    select?: PlanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Plan
+     */
+    omit?: PlanOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlanVersion
+   */
+
+  export type AggregatePlanVersion = {
+    _count: PlanVersionCountAggregateOutputType | null
+    _avg: PlanVersionAvgAggregateOutputType | null
+    _sum: PlanVersionSumAggregateOutputType | null
+    _min: PlanVersionMinAggregateOutputType | null
+    _max: PlanVersionMaxAggregateOutputType | null
+  }
+
+  export type PlanVersionAvgAggregateOutputType = {
+    versionNumber: number | null
+  }
+
+  export type PlanVersionSumAggregateOutputType = {
+    versionNumber: number | null
+  }
+
+  export type PlanVersionMinAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    versionNumber: number | null
+    schemaVersion: string | null
+    summary: string | null
+    milestoneTitle: string | null
+    bottleneckType: string | null
+    planData: string | null
+    startDate: Date | null
+    targetReviewDate: Date | null
+    createdAt: Date | null
+  }
+
+  export type PlanVersionMaxAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    versionNumber: number | null
+    schemaVersion: string | null
+    summary: string | null
+    milestoneTitle: string | null
+    bottleneckType: string | null
+    planData: string | null
+    startDate: Date | null
+    targetReviewDate: Date | null
+    createdAt: Date | null
+  }
+
+  export type PlanVersionCountAggregateOutputType = {
+    id: number
+    planId: number
+    versionNumber: number
+    schemaVersion: number
+    summary: number
+    milestoneTitle: number
+    bottleneckType: number
+    planData: number
+    startDate: number
+    targetReviewDate: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PlanVersionAvgAggregateInputType = {
+    versionNumber?: true
+  }
+
+  export type PlanVersionSumAggregateInputType = {
+    versionNumber?: true
+  }
+
+  export type PlanVersionMinAggregateInputType = {
+    id?: true
+    planId?: true
+    versionNumber?: true
+    schemaVersion?: true
+    summary?: true
+    milestoneTitle?: true
+    bottleneckType?: true
+    planData?: true
+    startDate?: true
+    targetReviewDate?: true
+    createdAt?: true
+  }
+
+  export type PlanVersionMaxAggregateInputType = {
+    id?: true
+    planId?: true
+    versionNumber?: true
+    schemaVersion?: true
+    summary?: true
+    milestoneTitle?: true
+    bottleneckType?: true
+    planData?: true
+    startDate?: true
+    targetReviewDate?: true
+    createdAt?: true
+  }
+
+  export type PlanVersionCountAggregateInputType = {
+    id?: true
+    planId?: true
+    versionNumber?: true
+    schemaVersion?: true
+    summary?: true
+    milestoneTitle?: true
+    bottleneckType?: true
+    planData?: true
+    startDate?: true
+    targetReviewDate?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PlanVersionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanVersion to aggregate.
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanVersions to fetch.
+     */
+    orderBy?: PlanVersionOrderByWithRelationInput | PlanVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlanVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlanVersions
+    **/
+    _count?: true | PlanVersionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlanVersionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlanVersionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlanVersionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlanVersionMaxAggregateInputType
+  }
+
+  export type GetPlanVersionAggregateType<T extends PlanVersionAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlanVersion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlanVersion[P]>
+      : GetScalarType<T[P], AggregatePlanVersion[P]>
+  }
+
+
+
+
+  export type PlanVersionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanVersionWhereInput
+    orderBy?: PlanVersionOrderByWithAggregationInput | PlanVersionOrderByWithAggregationInput[]
+    by: PlanVersionScalarFieldEnum[] | PlanVersionScalarFieldEnum
+    having?: PlanVersionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlanVersionCountAggregateInputType | true
+    _avg?: PlanVersionAvgAggregateInputType
+    _sum?: PlanVersionSumAggregateInputType
+    _min?: PlanVersionMinAggregateInputType
+    _max?: PlanVersionMaxAggregateInputType
+  }
+
+  export type PlanVersionGroupByOutputType = {
+    id: string
+    planId: string
+    versionNumber: number
+    schemaVersion: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date
+    targetReviewDate: Date
+    createdAt: Date
+    _count: PlanVersionCountAggregateOutputType | null
+    _avg: PlanVersionAvgAggregateOutputType | null
+    _sum: PlanVersionSumAggregateOutputType | null
+    _min: PlanVersionMinAggregateOutputType | null
+    _max: PlanVersionMaxAggregateOutputType | null
+  }
+
+  type GetPlanVersionGroupByPayload<T extends PlanVersionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlanVersionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlanVersionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlanVersionGroupByOutputType[P]>
+            : GetScalarType<T[P], PlanVersionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlanVersionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    versionNumber?: boolean
+    schemaVersion?: boolean
+    summary?: boolean
+    milestoneTitle?: boolean
+    bottleneckType?: boolean
+    planData?: boolean
+    startDate?: boolean
+    targetReviewDate?: boolean
+    createdAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+    tasks?: boolean | PlanVersion$tasksArgs<ExtArgs>
+    _count?: boolean | PlanVersionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planVersion"]>
+
+  export type PlanVersionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    versionNumber?: boolean
+    schemaVersion?: boolean
+    summary?: boolean
+    milestoneTitle?: boolean
+    bottleneckType?: boolean
+    planData?: boolean
+    startDate?: boolean
+    targetReviewDate?: boolean
+    createdAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planVersion"]>
+
+  export type PlanVersionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    versionNumber?: boolean
+    schemaVersion?: boolean
+    summary?: boolean
+    milestoneTitle?: boolean
+    bottleneckType?: boolean
+    planData?: boolean
+    startDate?: boolean
+    targetReviewDate?: boolean
+    createdAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planVersion"]>
+
+  export type PlanVersionSelectScalar = {
+    id?: boolean
+    planId?: boolean
+    versionNumber?: boolean
+    schemaVersion?: boolean
+    summary?: boolean
+    milestoneTitle?: boolean
+    bottleneckType?: boolean
+    planData?: boolean
+    startDate?: boolean
+    targetReviewDate?: boolean
+    createdAt?: boolean
+  }
+
+  export type PlanVersionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planId" | "versionNumber" | "schemaVersion" | "summary" | "milestoneTitle" | "bottleneckType" | "planData" | "startDate" | "targetReviewDate" | "createdAt", ExtArgs["result"]["planVersion"]>
+  export type PlanVersionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+    tasks?: boolean | PlanVersion$tasksArgs<ExtArgs>
+    _count?: boolean | PlanVersionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlanVersionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+  export type PlanVersionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+
+  export type $PlanVersionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlanVersion"
+    objects: {
+      plan: Prisma.$PlanPayload<ExtArgs>
+      tasks: Prisma.$PlanTaskPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      planId: string
+      versionNumber: number
+      schemaVersion: string
+      summary: string
+      milestoneTitle: string
+      bottleneckType: string
+      planData: string
+      startDate: Date
+      targetReviewDate: Date
+      createdAt: Date
+    }, ExtArgs["result"]["planVersion"]>
+    composites: {}
+  }
+
+  type PlanVersionGetPayload<S extends boolean | null | undefined | PlanVersionDefaultArgs> = $Result.GetResult<Prisma.$PlanVersionPayload, S>
+
+  type PlanVersionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlanVersionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlanVersionCountAggregateInputType | true
+    }
+
+  export interface PlanVersionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlanVersion'], meta: { name: 'PlanVersion' } }
+    /**
+     * Find zero or one PlanVersion that matches the filter.
+     * @param {PlanVersionFindUniqueArgs} args - Arguments to find a PlanVersion
+     * @example
+     * // Get one PlanVersion
+     * const planVersion = await prisma.planVersion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlanVersionFindUniqueArgs>(args: SelectSubset<T, PlanVersionFindUniqueArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlanVersion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlanVersionFindUniqueOrThrowArgs} args - Arguments to find a PlanVersion
+     * @example
+     * // Get one PlanVersion
+     * const planVersion = await prisma.planVersion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlanVersionFindUniqueOrThrowArgs>(args: SelectSubset<T, PlanVersionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanVersion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionFindFirstArgs} args - Arguments to find a PlanVersion
+     * @example
+     * // Get one PlanVersion
+     * const planVersion = await prisma.planVersion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlanVersionFindFirstArgs>(args?: SelectSubset<T, PlanVersionFindFirstArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanVersion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionFindFirstOrThrowArgs} args - Arguments to find a PlanVersion
+     * @example
+     * // Get one PlanVersion
+     * const planVersion = await prisma.planVersion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlanVersionFindFirstOrThrowArgs>(args?: SelectSubset<T, PlanVersionFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlanVersions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlanVersions
+     * const planVersions = await prisma.planVersion.findMany()
+     * 
+     * // Get first 10 PlanVersions
+     * const planVersions = await prisma.planVersion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const planVersionWithIdOnly = await prisma.planVersion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlanVersionFindManyArgs>(args?: SelectSubset<T, PlanVersionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlanVersion.
+     * @param {PlanVersionCreateArgs} args - Arguments to create a PlanVersion.
+     * @example
+     * // Create one PlanVersion
+     * const PlanVersion = await prisma.planVersion.create({
+     *   data: {
+     *     // ... data to create a PlanVersion
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlanVersionCreateArgs>(args: SelectSubset<T, PlanVersionCreateArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlanVersions.
+     * @param {PlanVersionCreateManyArgs} args - Arguments to create many PlanVersions.
+     * @example
+     * // Create many PlanVersions
+     * const planVersion = await prisma.planVersion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlanVersionCreateManyArgs>(args?: SelectSubset<T, PlanVersionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlanVersions and returns the data saved in the database.
+     * @param {PlanVersionCreateManyAndReturnArgs} args - Arguments to create many PlanVersions.
+     * @example
+     * // Create many PlanVersions
+     * const planVersion = await prisma.planVersion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlanVersions and only return the `id`
+     * const planVersionWithIdOnly = await prisma.planVersion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlanVersionCreateManyAndReturnArgs>(args?: SelectSubset<T, PlanVersionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlanVersion.
+     * @param {PlanVersionDeleteArgs} args - Arguments to delete one PlanVersion.
+     * @example
+     * // Delete one PlanVersion
+     * const PlanVersion = await prisma.planVersion.delete({
+     *   where: {
+     *     // ... filter to delete one PlanVersion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlanVersionDeleteArgs>(args: SelectSubset<T, PlanVersionDeleteArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlanVersion.
+     * @param {PlanVersionUpdateArgs} args - Arguments to update one PlanVersion.
+     * @example
+     * // Update one PlanVersion
+     * const planVersion = await prisma.planVersion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlanVersionUpdateArgs>(args: SelectSubset<T, PlanVersionUpdateArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlanVersions.
+     * @param {PlanVersionDeleteManyArgs} args - Arguments to filter PlanVersions to delete.
+     * @example
+     * // Delete a few PlanVersions
+     * const { count } = await prisma.planVersion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlanVersionDeleteManyArgs>(args?: SelectSubset<T, PlanVersionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlanVersions
+     * const planVersion = await prisma.planVersion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlanVersionUpdateManyArgs>(args: SelectSubset<T, PlanVersionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanVersions and returns the data updated in the database.
+     * @param {PlanVersionUpdateManyAndReturnArgs} args - Arguments to update many PlanVersions.
+     * @example
+     * // Update many PlanVersions
+     * const planVersion = await prisma.planVersion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlanVersions and only return the `id`
+     * const planVersionWithIdOnly = await prisma.planVersion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlanVersionUpdateManyAndReturnArgs>(args: SelectSubset<T, PlanVersionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlanVersion.
+     * @param {PlanVersionUpsertArgs} args - Arguments to update or create a PlanVersion.
+     * @example
+     * // Update or create a PlanVersion
+     * const planVersion = await prisma.planVersion.upsert({
+     *   create: {
+     *     // ... data to create a PlanVersion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlanVersion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlanVersionUpsertArgs>(args: SelectSubset<T, PlanVersionUpsertArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlanVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionCountArgs} args - Arguments to filter PlanVersions to count.
+     * @example
+     * // Count the number of PlanVersions
+     * const count = await prisma.planVersion.count({
+     *   where: {
+     *     // ... the filter for the PlanVersions we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlanVersionCountArgs>(
+      args?: Subset<T, PlanVersionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlanVersionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlanVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlanVersionAggregateArgs>(args: Subset<T, PlanVersionAggregateArgs>): Prisma.PrismaPromise<GetPlanVersionAggregateType<T>>
+
+    /**
+     * Group by PlanVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanVersionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlanVersionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlanVersionGroupByArgs['orderBy'] }
+        : { orderBy?: PlanVersionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlanVersionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlanVersionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlanVersion model
+   */
+  readonly fields: PlanVersionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlanVersion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlanVersionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    plan<T extends PlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanDefaultArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tasks<T extends PlanVersion$tasksArgs<ExtArgs> = {}>(args?: Subset<T, PlanVersion$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlanVersion model
+   */
+  interface PlanVersionFieldRefs {
+    readonly id: FieldRef<"PlanVersion", 'String'>
+    readonly planId: FieldRef<"PlanVersion", 'String'>
+    readonly versionNumber: FieldRef<"PlanVersion", 'Int'>
+    readonly schemaVersion: FieldRef<"PlanVersion", 'String'>
+    readonly summary: FieldRef<"PlanVersion", 'String'>
+    readonly milestoneTitle: FieldRef<"PlanVersion", 'String'>
+    readonly bottleneckType: FieldRef<"PlanVersion", 'String'>
+    readonly planData: FieldRef<"PlanVersion", 'String'>
+    readonly startDate: FieldRef<"PlanVersion", 'DateTime'>
+    readonly targetReviewDate: FieldRef<"PlanVersion", 'DateTime'>
+    readonly createdAt: FieldRef<"PlanVersion", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlanVersion findUnique
+   */
+  export type PlanVersionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanVersion to fetch.
+     */
+    where: PlanVersionWhereUniqueInput
+  }
+
+  /**
+   * PlanVersion findUniqueOrThrow
+   */
+  export type PlanVersionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanVersion to fetch.
+     */
+    where: PlanVersionWhereUniqueInput
+  }
+
+  /**
+   * PlanVersion findFirst
+   */
+  export type PlanVersionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanVersion to fetch.
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanVersions to fetch.
+     */
+    orderBy?: PlanVersionOrderByWithRelationInput | PlanVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanVersions.
+     */
+    cursor?: PlanVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanVersions.
+     */
+    distinct?: PlanVersionScalarFieldEnum | PlanVersionScalarFieldEnum[]
+  }
+
+  /**
+   * PlanVersion findFirstOrThrow
+   */
+  export type PlanVersionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanVersion to fetch.
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanVersions to fetch.
+     */
+    orderBy?: PlanVersionOrderByWithRelationInput | PlanVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanVersions.
+     */
+    cursor?: PlanVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanVersions.
+     */
+    distinct?: PlanVersionScalarFieldEnum | PlanVersionScalarFieldEnum[]
+  }
+
+  /**
+   * PlanVersion findMany
+   */
+  export type PlanVersionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanVersions to fetch.
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanVersions to fetch.
+     */
+    orderBy?: PlanVersionOrderByWithRelationInput | PlanVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlanVersions.
+     */
+    cursor?: PlanVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanVersions.
+     */
+    skip?: number
+    distinct?: PlanVersionScalarFieldEnum | PlanVersionScalarFieldEnum[]
+  }
+
+  /**
+   * PlanVersion create
+   */
+  export type PlanVersionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlanVersion.
+     */
+    data: XOR<PlanVersionCreateInput, PlanVersionUncheckedCreateInput>
+  }
+
+  /**
+   * PlanVersion createMany
+   */
+  export type PlanVersionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlanVersions.
+     */
+    data: PlanVersionCreateManyInput | PlanVersionCreateManyInput[]
+  }
+
+  /**
+   * PlanVersion createManyAndReturn
+   */
+  export type PlanVersionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlanVersions.
+     */
+    data: PlanVersionCreateManyInput | PlanVersionCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanVersion update
+   */
+  export type PlanVersionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlanVersion.
+     */
+    data: XOR<PlanVersionUpdateInput, PlanVersionUncheckedUpdateInput>
+    /**
+     * Choose, which PlanVersion to update.
+     */
+    where: PlanVersionWhereUniqueInput
+  }
+
+  /**
+   * PlanVersion updateMany
+   */
+  export type PlanVersionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlanVersions.
+     */
+    data: XOR<PlanVersionUpdateManyMutationInput, PlanVersionUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanVersions to update
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * Limit how many PlanVersions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanVersion updateManyAndReturn
+   */
+  export type PlanVersionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * The data used to update PlanVersions.
+     */
+    data: XOR<PlanVersionUpdateManyMutationInput, PlanVersionUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanVersions to update
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * Limit how many PlanVersions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanVersion upsert
+   */
+  export type PlanVersionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlanVersion to update in case it exists.
+     */
+    where: PlanVersionWhereUniqueInput
+    /**
+     * In case the PlanVersion found by the `where` argument doesn't exist, create a new PlanVersion with this data.
+     */
+    create: XOR<PlanVersionCreateInput, PlanVersionUncheckedCreateInput>
+    /**
+     * In case the PlanVersion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlanVersionUpdateInput, PlanVersionUncheckedUpdateInput>
+  }
+
+  /**
+   * PlanVersion delete
+   */
+  export type PlanVersionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+    /**
+     * Filter which PlanVersion to delete.
+     */
+    where: PlanVersionWhereUniqueInput
+  }
+
+  /**
+   * PlanVersion deleteMany
+   */
+  export type PlanVersionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanVersions to delete
+     */
+    where?: PlanVersionWhereInput
+    /**
+     * Limit how many PlanVersions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanVersion.tasks
+   */
+  export type PlanVersion$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    where?: PlanTaskWhereInput
+    orderBy?: PlanTaskOrderByWithRelationInput | PlanTaskOrderByWithRelationInput[]
+    cursor?: PlanTaskWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlanTaskScalarFieldEnum | PlanTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PlanVersion without action
+   */
+  export type PlanVersionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanVersion
+     */
+    select?: PlanVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanVersion
+     */
+    omit?: PlanVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanVersionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlanTask
+   */
+
+  export type AggregatePlanTask = {
+    _count: PlanTaskCountAggregateOutputType | null
+    _avg: PlanTaskAvgAggregateOutputType | null
+    _sum: PlanTaskSumAggregateOutputType | null
+    _min: PlanTaskMinAggregateOutputType | null
+    _max: PlanTaskMaxAggregateOutputType | null
+  }
+
+  export type PlanTaskAvgAggregateOutputType = {
+    quantity: number | null
+    quantityCompleted: number | null
+    minDifficulty: number | null
+    maxDifficulty: number | null
+  }
+
+  export type PlanTaskSumAggregateOutputType = {
+    quantity: number | null
+    quantityCompleted: number | null
+    minDifficulty: number | null
+    maxDifficulty: number | null
+  }
+
+  export type PlanTaskMinAggregateOutputType = {
+    id: string | null
+    planVersionId: string | null
+    externalTaskId: string | null
+    type: string | null
+    title: string | null
+    quantity: number | null
+    quantityCompleted: number | null
+    platform: string | null
+    minDifficulty: number | null
+    maxDifficulty: number | null
+    difficultyTier: string | null
+    topics: string | null
+    reason: string | null
+    evidenceReferences: string | null
+    completionMetric: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PlanTaskMaxAggregateOutputType = {
+    id: string | null
+    planVersionId: string | null
+    externalTaskId: string | null
+    type: string | null
+    title: string | null
+    quantity: number | null
+    quantityCompleted: number | null
+    platform: string | null
+    minDifficulty: number | null
+    maxDifficulty: number | null
+    difficultyTier: string | null
+    topics: string | null
+    reason: string | null
+    evidenceReferences: string | null
+    completionMetric: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type PlanTaskCountAggregateOutputType = {
+    id: number
+    planVersionId: number
+    externalTaskId: number
+    type: number
+    title: number
+    quantity: number
+    quantityCompleted: number
+    platform: number
+    minDifficulty: number
+    maxDifficulty: number
+    difficultyTier: number
+    topics: number
+    reason: number
+    evidenceReferences: number
+    completionMetric: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PlanTaskAvgAggregateInputType = {
+    quantity?: true
+    quantityCompleted?: true
+    minDifficulty?: true
+    maxDifficulty?: true
+  }
+
+  export type PlanTaskSumAggregateInputType = {
+    quantity?: true
+    quantityCompleted?: true
+    minDifficulty?: true
+    maxDifficulty?: true
+  }
+
+  export type PlanTaskMinAggregateInputType = {
+    id?: true
+    planVersionId?: true
+    externalTaskId?: true
+    type?: true
+    title?: true
+    quantity?: true
+    quantityCompleted?: true
+    platform?: true
+    minDifficulty?: true
+    maxDifficulty?: true
+    difficultyTier?: true
+    topics?: true
+    reason?: true
+    evidenceReferences?: true
+    completionMetric?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PlanTaskMaxAggregateInputType = {
+    id?: true
+    planVersionId?: true
+    externalTaskId?: true
+    type?: true
+    title?: true
+    quantity?: true
+    quantityCompleted?: true
+    platform?: true
+    minDifficulty?: true
+    maxDifficulty?: true
+    difficultyTier?: true
+    topics?: true
+    reason?: true
+    evidenceReferences?: true
+    completionMetric?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type PlanTaskCountAggregateInputType = {
+    id?: true
+    planVersionId?: true
+    externalTaskId?: true
+    type?: true
+    title?: true
+    quantity?: true
+    quantityCompleted?: true
+    platform?: true
+    minDifficulty?: true
+    maxDifficulty?: true
+    difficultyTier?: true
+    topics?: true
+    reason?: true
+    evidenceReferences?: true
+    completionMetric?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PlanTaskAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanTask to aggregate.
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanTasks to fetch.
+     */
+    orderBy?: PlanTaskOrderByWithRelationInput | PlanTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlanTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlanTasks
+    **/
+    _count?: true | PlanTaskCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlanTaskAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlanTaskSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlanTaskMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlanTaskMaxAggregateInputType
+  }
+
+  export type GetPlanTaskAggregateType<T extends PlanTaskAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlanTask]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlanTask[P]>
+      : GetScalarType<T[P], AggregatePlanTask[P]>
+  }
+
+
+
+
+  export type PlanTaskGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanTaskWhereInput
+    orderBy?: PlanTaskOrderByWithAggregationInput | PlanTaskOrderByWithAggregationInput[]
+    by: PlanTaskScalarFieldEnum[] | PlanTaskScalarFieldEnum
+    having?: PlanTaskScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlanTaskCountAggregateInputType | true
+    _avg?: PlanTaskAvgAggregateInputType
+    _sum?: PlanTaskSumAggregateInputType
+    _min?: PlanTaskMinAggregateInputType
+    _max?: PlanTaskMaxAggregateInputType
+  }
+
+  export type PlanTaskGroupByOutputType = {
+    id: string
+    planVersionId: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity: number
+    quantityCompleted: number
+    platform: string | null
+    minDifficulty: number | null
+    maxDifficulty: number | null
+    difficultyTier: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status: string
+    createdAt: Date
+    _count: PlanTaskCountAggregateOutputType | null
+    _avg: PlanTaskAvgAggregateOutputType | null
+    _sum: PlanTaskSumAggregateOutputType | null
+    _min: PlanTaskMinAggregateOutputType | null
+    _max: PlanTaskMaxAggregateOutputType | null
+  }
+
+  type GetPlanTaskGroupByPayload<T extends PlanTaskGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlanTaskGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlanTaskGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlanTaskGroupByOutputType[P]>
+            : GetScalarType<T[P], PlanTaskGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlanTaskSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planVersionId?: boolean
+    externalTaskId?: boolean
+    type?: boolean
+    title?: boolean
+    quantity?: boolean
+    quantityCompleted?: boolean
+    platform?: boolean
+    minDifficulty?: boolean
+    maxDifficulty?: boolean
+    difficultyTier?: boolean
+    topics?: boolean
+    reason?: boolean
+    evidenceReferences?: boolean
+    completionMetric?: boolean
+    status?: boolean
+    createdAt?: boolean
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+    matches?: boolean | PlanTask$matchesArgs<ExtArgs>
+    _count?: boolean | PlanTaskCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planTask"]>
+
+  export type PlanTaskSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planVersionId?: boolean
+    externalTaskId?: boolean
+    type?: boolean
+    title?: boolean
+    quantity?: boolean
+    quantityCompleted?: boolean
+    platform?: boolean
+    minDifficulty?: boolean
+    maxDifficulty?: boolean
+    difficultyTier?: boolean
+    topics?: boolean
+    reason?: boolean
+    evidenceReferences?: boolean
+    completionMetric?: boolean
+    status?: boolean
+    createdAt?: boolean
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planTask"]>
+
+  export type PlanTaskSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planVersionId?: boolean
+    externalTaskId?: boolean
+    type?: boolean
+    title?: boolean
+    quantity?: boolean
+    quantityCompleted?: boolean
+    platform?: boolean
+    minDifficulty?: boolean
+    maxDifficulty?: boolean
+    difficultyTier?: boolean
+    topics?: boolean
+    reason?: boolean
+    evidenceReferences?: boolean
+    completionMetric?: boolean
+    status?: boolean
+    createdAt?: boolean
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planTask"]>
+
+  export type PlanTaskSelectScalar = {
+    id?: boolean
+    planVersionId?: boolean
+    externalTaskId?: boolean
+    type?: boolean
+    title?: boolean
+    quantity?: boolean
+    quantityCompleted?: boolean
+    platform?: boolean
+    minDifficulty?: boolean
+    maxDifficulty?: boolean
+    difficultyTier?: boolean
+    topics?: boolean
+    reason?: boolean
+    evidenceReferences?: boolean
+    completionMetric?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type PlanTaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planVersionId" | "externalTaskId" | "type" | "title" | "quantity" | "quantityCompleted" | "platform" | "minDifficulty" | "maxDifficulty" | "difficultyTier" | "topics" | "reason" | "evidenceReferences" | "completionMetric" | "status" | "createdAt", ExtArgs["result"]["planTask"]>
+  export type PlanTaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+    matches?: boolean | PlanTask$matchesArgs<ExtArgs>
+    _count?: boolean | PlanTaskCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlanTaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+  }
+  export type PlanTaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    planVersion?: boolean | PlanVersionDefaultArgs<ExtArgs>
+  }
+
+  export type $PlanTaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlanTask"
+    objects: {
+      planVersion: Prisma.$PlanVersionPayload<ExtArgs>
+      matches: Prisma.$TaskEvidenceMatchPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      planVersionId: string
+      externalTaskId: string
+      type: string
+      title: string
+      quantity: number
+      quantityCompleted: number
+      platform: string | null
+      minDifficulty: number | null
+      maxDifficulty: number | null
+      difficultyTier: string | null
+      topics: string
+      reason: string
+      evidenceReferences: string
+      completionMetric: string
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["planTask"]>
+    composites: {}
+  }
+
+  type PlanTaskGetPayload<S extends boolean | null | undefined | PlanTaskDefaultArgs> = $Result.GetResult<Prisma.$PlanTaskPayload, S>
+
+  type PlanTaskCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlanTaskFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlanTaskCountAggregateInputType | true
+    }
+
+  export interface PlanTaskDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlanTask'], meta: { name: 'PlanTask' } }
+    /**
+     * Find zero or one PlanTask that matches the filter.
+     * @param {PlanTaskFindUniqueArgs} args - Arguments to find a PlanTask
+     * @example
+     * // Get one PlanTask
+     * const planTask = await prisma.planTask.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlanTaskFindUniqueArgs>(args: SelectSubset<T, PlanTaskFindUniqueArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlanTask that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlanTaskFindUniqueOrThrowArgs} args - Arguments to find a PlanTask
+     * @example
+     * // Get one PlanTask
+     * const planTask = await prisma.planTask.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlanTaskFindUniqueOrThrowArgs>(args: SelectSubset<T, PlanTaskFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanTask that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskFindFirstArgs} args - Arguments to find a PlanTask
+     * @example
+     * // Get one PlanTask
+     * const planTask = await prisma.planTask.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlanTaskFindFirstArgs>(args?: SelectSubset<T, PlanTaskFindFirstArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanTask that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskFindFirstOrThrowArgs} args - Arguments to find a PlanTask
+     * @example
+     * // Get one PlanTask
+     * const planTask = await prisma.planTask.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlanTaskFindFirstOrThrowArgs>(args?: SelectSubset<T, PlanTaskFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlanTasks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlanTasks
+     * const planTasks = await prisma.planTask.findMany()
+     * 
+     * // Get first 10 PlanTasks
+     * const planTasks = await prisma.planTask.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const planTaskWithIdOnly = await prisma.planTask.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlanTaskFindManyArgs>(args?: SelectSubset<T, PlanTaskFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlanTask.
+     * @param {PlanTaskCreateArgs} args - Arguments to create a PlanTask.
+     * @example
+     * // Create one PlanTask
+     * const PlanTask = await prisma.planTask.create({
+     *   data: {
+     *     // ... data to create a PlanTask
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlanTaskCreateArgs>(args: SelectSubset<T, PlanTaskCreateArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlanTasks.
+     * @param {PlanTaskCreateManyArgs} args - Arguments to create many PlanTasks.
+     * @example
+     * // Create many PlanTasks
+     * const planTask = await prisma.planTask.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlanTaskCreateManyArgs>(args?: SelectSubset<T, PlanTaskCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlanTasks and returns the data saved in the database.
+     * @param {PlanTaskCreateManyAndReturnArgs} args - Arguments to create many PlanTasks.
+     * @example
+     * // Create many PlanTasks
+     * const planTask = await prisma.planTask.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlanTasks and only return the `id`
+     * const planTaskWithIdOnly = await prisma.planTask.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlanTaskCreateManyAndReturnArgs>(args?: SelectSubset<T, PlanTaskCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlanTask.
+     * @param {PlanTaskDeleteArgs} args - Arguments to delete one PlanTask.
+     * @example
+     * // Delete one PlanTask
+     * const PlanTask = await prisma.planTask.delete({
+     *   where: {
+     *     // ... filter to delete one PlanTask
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlanTaskDeleteArgs>(args: SelectSubset<T, PlanTaskDeleteArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlanTask.
+     * @param {PlanTaskUpdateArgs} args - Arguments to update one PlanTask.
+     * @example
+     * // Update one PlanTask
+     * const planTask = await prisma.planTask.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlanTaskUpdateArgs>(args: SelectSubset<T, PlanTaskUpdateArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlanTasks.
+     * @param {PlanTaskDeleteManyArgs} args - Arguments to filter PlanTasks to delete.
+     * @example
+     * // Delete a few PlanTasks
+     * const { count } = await prisma.planTask.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlanTaskDeleteManyArgs>(args?: SelectSubset<T, PlanTaskDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlanTasks
+     * const planTask = await prisma.planTask.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlanTaskUpdateManyArgs>(args: SelectSubset<T, PlanTaskUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanTasks and returns the data updated in the database.
+     * @param {PlanTaskUpdateManyAndReturnArgs} args - Arguments to update many PlanTasks.
+     * @example
+     * // Update many PlanTasks
+     * const planTask = await prisma.planTask.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlanTasks and only return the `id`
+     * const planTaskWithIdOnly = await prisma.planTask.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlanTaskUpdateManyAndReturnArgs>(args: SelectSubset<T, PlanTaskUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlanTask.
+     * @param {PlanTaskUpsertArgs} args - Arguments to update or create a PlanTask.
+     * @example
+     * // Update or create a PlanTask
+     * const planTask = await prisma.planTask.upsert({
+     *   create: {
+     *     // ... data to create a PlanTask
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlanTask we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlanTaskUpsertArgs>(args: SelectSubset<T, PlanTaskUpsertArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlanTasks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskCountArgs} args - Arguments to filter PlanTasks to count.
+     * @example
+     * // Count the number of PlanTasks
+     * const count = await prisma.planTask.count({
+     *   where: {
+     *     // ... the filter for the PlanTasks we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlanTaskCountArgs>(
+      args?: Subset<T, PlanTaskCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlanTaskCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlanTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlanTaskAggregateArgs>(args: Subset<T, PlanTaskAggregateArgs>): Prisma.PrismaPromise<GetPlanTaskAggregateType<T>>
+
+    /**
+     * Group by PlanTask.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanTaskGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlanTaskGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlanTaskGroupByArgs['orderBy'] }
+        : { orderBy?: PlanTaskGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlanTaskGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlanTaskGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlanTask model
+   */
+  readonly fields: PlanTaskFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlanTask.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlanTaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    planVersion<T extends PlanVersionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanVersionDefaultArgs<ExtArgs>>): Prisma__PlanVersionClient<$Result.GetResult<Prisma.$PlanVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    matches<T extends PlanTask$matchesArgs<ExtArgs> = {}>(args?: Subset<T, PlanTask$matchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlanTask model
+   */
+  interface PlanTaskFieldRefs {
+    readonly id: FieldRef<"PlanTask", 'String'>
+    readonly planVersionId: FieldRef<"PlanTask", 'String'>
+    readonly externalTaskId: FieldRef<"PlanTask", 'String'>
+    readonly type: FieldRef<"PlanTask", 'String'>
+    readonly title: FieldRef<"PlanTask", 'String'>
+    readonly quantity: FieldRef<"PlanTask", 'Int'>
+    readonly quantityCompleted: FieldRef<"PlanTask", 'Int'>
+    readonly platform: FieldRef<"PlanTask", 'String'>
+    readonly minDifficulty: FieldRef<"PlanTask", 'Int'>
+    readonly maxDifficulty: FieldRef<"PlanTask", 'Int'>
+    readonly difficultyTier: FieldRef<"PlanTask", 'String'>
+    readonly topics: FieldRef<"PlanTask", 'String'>
+    readonly reason: FieldRef<"PlanTask", 'String'>
+    readonly evidenceReferences: FieldRef<"PlanTask", 'String'>
+    readonly completionMetric: FieldRef<"PlanTask", 'String'>
+    readonly status: FieldRef<"PlanTask", 'String'>
+    readonly createdAt: FieldRef<"PlanTask", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlanTask findUnique
+   */
+  export type PlanTaskFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanTask to fetch.
+     */
+    where: PlanTaskWhereUniqueInput
+  }
+
+  /**
+   * PlanTask findUniqueOrThrow
+   */
+  export type PlanTaskFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanTask to fetch.
+     */
+    where: PlanTaskWhereUniqueInput
+  }
+
+  /**
+   * PlanTask findFirst
+   */
+  export type PlanTaskFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanTask to fetch.
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanTasks to fetch.
+     */
+    orderBy?: PlanTaskOrderByWithRelationInput | PlanTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanTasks.
+     */
+    cursor?: PlanTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanTasks.
+     */
+    distinct?: PlanTaskScalarFieldEnum | PlanTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PlanTask findFirstOrThrow
+   */
+  export type PlanTaskFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanTask to fetch.
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanTasks to fetch.
+     */
+    orderBy?: PlanTaskOrderByWithRelationInput | PlanTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanTasks.
+     */
+    cursor?: PlanTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanTasks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanTasks.
+     */
+    distinct?: PlanTaskScalarFieldEnum | PlanTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PlanTask findMany
+   */
+  export type PlanTaskFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanTasks to fetch.
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanTasks to fetch.
+     */
+    orderBy?: PlanTaskOrderByWithRelationInput | PlanTaskOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlanTasks.
+     */
+    cursor?: PlanTaskWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanTasks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanTasks.
+     */
+    skip?: number
+    distinct?: PlanTaskScalarFieldEnum | PlanTaskScalarFieldEnum[]
+  }
+
+  /**
+   * PlanTask create
+   */
+  export type PlanTaskCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlanTask.
+     */
+    data: XOR<PlanTaskCreateInput, PlanTaskUncheckedCreateInput>
+  }
+
+  /**
+   * PlanTask createMany
+   */
+  export type PlanTaskCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlanTasks.
+     */
+    data: PlanTaskCreateManyInput | PlanTaskCreateManyInput[]
+  }
+
+  /**
+   * PlanTask createManyAndReturn
+   */
+  export type PlanTaskCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlanTasks.
+     */
+    data: PlanTaskCreateManyInput | PlanTaskCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanTask update
+   */
+  export type PlanTaskUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlanTask.
+     */
+    data: XOR<PlanTaskUpdateInput, PlanTaskUncheckedUpdateInput>
+    /**
+     * Choose, which PlanTask to update.
+     */
+    where: PlanTaskWhereUniqueInput
+  }
+
+  /**
+   * PlanTask updateMany
+   */
+  export type PlanTaskUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlanTasks.
+     */
+    data: XOR<PlanTaskUpdateManyMutationInput, PlanTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanTasks to update
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * Limit how many PlanTasks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanTask updateManyAndReturn
+   */
+  export type PlanTaskUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * The data used to update PlanTasks.
+     */
+    data: XOR<PlanTaskUpdateManyMutationInput, PlanTaskUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanTasks to update
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * Limit how many PlanTasks to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanTask upsert
+   */
+  export type PlanTaskUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlanTask to update in case it exists.
+     */
+    where: PlanTaskWhereUniqueInput
+    /**
+     * In case the PlanTask found by the `where` argument doesn't exist, create a new PlanTask with this data.
+     */
+    create: XOR<PlanTaskCreateInput, PlanTaskUncheckedCreateInput>
+    /**
+     * In case the PlanTask was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlanTaskUpdateInput, PlanTaskUncheckedUpdateInput>
+  }
+
+  /**
+   * PlanTask delete
+   */
+  export type PlanTaskDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+    /**
+     * Filter which PlanTask to delete.
+     */
+    where: PlanTaskWhereUniqueInput
+  }
+
+  /**
+   * PlanTask deleteMany
+   */
+  export type PlanTaskDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanTasks to delete
+     */
+    where?: PlanTaskWhereInput
+    /**
+     * Limit how many PlanTasks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanTask.matches
+   */
+  export type PlanTask$matchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    where?: TaskEvidenceMatchWhereInput
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
+   * PlanTask without action
+   */
+  export type PlanTaskDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanTask
+     */
+    select?: PlanTaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanTask
+     */
+    omit?: PlanTaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanTaskInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TaskEvidenceMatch
+   */
+
+  export type AggregateTaskEvidenceMatch = {
+    _count: TaskEvidenceMatchCountAggregateOutputType | null
+    _min: TaskEvidenceMatchMinAggregateOutputType | null
+    _max: TaskEvidenceMatchMaxAggregateOutputType | null
+  }
+
+  export type TaskEvidenceMatchMinAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    submissionId: string | null
+    contestHistoryId: string | null
+    matchedAt: Date | null
+    notes: string | null
+  }
+
+  export type TaskEvidenceMatchMaxAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    submissionId: string | null
+    contestHistoryId: string | null
+    matchedAt: Date | null
+    notes: string | null
+  }
+
+  export type TaskEvidenceMatchCountAggregateOutputType = {
+    id: number
+    taskId: number
+    submissionId: number
+    contestHistoryId: number
+    matchedAt: number
+    notes: number
+    _all: number
+  }
+
+
+  export type TaskEvidenceMatchMinAggregateInputType = {
+    id?: true
+    taskId?: true
+    submissionId?: true
+    contestHistoryId?: true
+    matchedAt?: true
+    notes?: true
+  }
+
+  export type TaskEvidenceMatchMaxAggregateInputType = {
+    id?: true
+    taskId?: true
+    submissionId?: true
+    contestHistoryId?: true
+    matchedAt?: true
+    notes?: true
+  }
+
+  export type TaskEvidenceMatchCountAggregateInputType = {
+    id?: true
+    taskId?: true
+    submissionId?: true
+    contestHistoryId?: true
+    matchedAt?: true
+    notes?: true
+    _all?: true
+  }
+
+  export type TaskEvidenceMatchAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskEvidenceMatch to aggregate.
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskEvidenceMatches to fetch.
+     */
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskEvidenceMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskEvidenceMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaskEvidenceMatches
+    **/
+    _count?: true | TaskEvidenceMatchCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaskEvidenceMatchMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaskEvidenceMatchMaxAggregateInputType
+  }
+
+  export type GetTaskEvidenceMatchAggregateType<T extends TaskEvidenceMatchAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaskEvidenceMatch]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaskEvidenceMatch[P]>
+      : GetScalarType<T[P], AggregateTaskEvidenceMatch[P]>
+  }
+
+
+
+
+  export type TaskEvidenceMatchGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskEvidenceMatchWhereInput
+    orderBy?: TaskEvidenceMatchOrderByWithAggregationInput | TaskEvidenceMatchOrderByWithAggregationInput[]
+    by: TaskEvidenceMatchScalarFieldEnum[] | TaskEvidenceMatchScalarFieldEnum
+    having?: TaskEvidenceMatchScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaskEvidenceMatchCountAggregateInputType | true
+    _min?: TaskEvidenceMatchMinAggregateInputType
+    _max?: TaskEvidenceMatchMaxAggregateInputType
+  }
+
+  export type TaskEvidenceMatchGroupByOutputType = {
+    id: string
+    taskId: string
+    submissionId: string | null
+    contestHistoryId: string | null
+    matchedAt: Date
+    notes: string | null
+    _count: TaskEvidenceMatchCountAggregateOutputType | null
+    _min: TaskEvidenceMatchMinAggregateOutputType | null
+    _max: TaskEvidenceMatchMaxAggregateOutputType | null
+  }
+
+  type GetTaskEvidenceMatchGroupByPayload<T extends TaskEvidenceMatchGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaskEvidenceMatchGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaskEvidenceMatchGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaskEvidenceMatchGroupByOutputType[P]>
+            : GetScalarType<T[P], TaskEvidenceMatchGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaskEvidenceMatchSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    submissionId?: boolean
+    contestHistoryId?: boolean
+    matchedAt?: boolean
+    notes?: boolean
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }, ExtArgs["result"]["taskEvidenceMatch"]>
+
+  export type TaskEvidenceMatchSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    submissionId?: boolean
+    contestHistoryId?: boolean
+    matchedAt?: boolean
+    notes?: boolean
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }, ExtArgs["result"]["taskEvidenceMatch"]>
+
+  export type TaskEvidenceMatchSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    submissionId?: boolean
+    contestHistoryId?: boolean
+    matchedAt?: boolean
+    notes?: boolean
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }, ExtArgs["result"]["taskEvidenceMatch"]>
+
+  export type TaskEvidenceMatchSelectScalar = {
+    id?: boolean
+    taskId?: boolean
+    submissionId?: boolean
+    contestHistoryId?: boolean
+    matchedAt?: boolean
+    notes?: boolean
+  }
+
+  export type TaskEvidenceMatchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "taskId" | "submissionId" | "contestHistoryId" | "matchedAt" | "notes", ExtArgs["result"]["taskEvidenceMatch"]>
+  export type TaskEvidenceMatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }
+  export type TaskEvidenceMatchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }
+  export type TaskEvidenceMatchIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | PlanTaskDefaultArgs<ExtArgs>
+    submission?: boolean | TaskEvidenceMatch$submissionArgs<ExtArgs>
+    contestHistory?: boolean | TaskEvidenceMatch$contestHistoryArgs<ExtArgs>
+  }
+
+  export type $TaskEvidenceMatchPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaskEvidenceMatch"
+    objects: {
+      task: Prisma.$PlanTaskPayload<ExtArgs>
+      submission: Prisma.$NormalizedSubmissionPayload<ExtArgs> | null
+      contestHistory: Prisma.$ContestHistoryPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      taskId: string
+      submissionId: string | null
+      contestHistoryId: string | null
+      matchedAt: Date
+      notes: string | null
+    }, ExtArgs["result"]["taskEvidenceMatch"]>
+    composites: {}
+  }
+
+  type TaskEvidenceMatchGetPayload<S extends boolean | null | undefined | TaskEvidenceMatchDefaultArgs> = $Result.GetResult<Prisma.$TaskEvidenceMatchPayload, S>
+
+  type TaskEvidenceMatchCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaskEvidenceMatchFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaskEvidenceMatchCountAggregateInputType | true
+    }
+
+  export interface TaskEvidenceMatchDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaskEvidenceMatch'], meta: { name: 'TaskEvidenceMatch' } }
+    /**
+     * Find zero or one TaskEvidenceMatch that matches the filter.
+     * @param {TaskEvidenceMatchFindUniqueArgs} args - Arguments to find a TaskEvidenceMatch
+     * @example
+     * // Get one TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaskEvidenceMatchFindUniqueArgs>(args: SelectSubset<T, TaskEvidenceMatchFindUniqueArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaskEvidenceMatch that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaskEvidenceMatchFindUniqueOrThrowArgs} args - Arguments to find a TaskEvidenceMatch
+     * @example
+     * // Get one TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaskEvidenceMatchFindUniqueOrThrowArgs>(args: SelectSubset<T, TaskEvidenceMatchFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskEvidenceMatch that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchFindFirstArgs} args - Arguments to find a TaskEvidenceMatch
+     * @example
+     * // Get one TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaskEvidenceMatchFindFirstArgs>(args?: SelectSubset<T, TaskEvidenceMatchFindFirstArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskEvidenceMatch that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchFindFirstOrThrowArgs} args - Arguments to find a TaskEvidenceMatch
+     * @example
+     * // Get one TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaskEvidenceMatchFindFirstOrThrowArgs>(args?: SelectSubset<T, TaskEvidenceMatchFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaskEvidenceMatches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaskEvidenceMatches
+     * const taskEvidenceMatches = await prisma.taskEvidenceMatch.findMany()
+     * 
+     * // Get first 10 TaskEvidenceMatches
+     * const taskEvidenceMatches = await prisma.taskEvidenceMatch.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taskEvidenceMatchWithIdOnly = await prisma.taskEvidenceMatch.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaskEvidenceMatchFindManyArgs>(args?: SelectSubset<T, TaskEvidenceMatchFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaskEvidenceMatch.
+     * @param {TaskEvidenceMatchCreateArgs} args - Arguments to create a TaskEvidenceMatch.
+     * @example
+     * // Create one TaskEvidenceMatch
+     * const TaskEvidenceMatch = await prisma.taskEvidenceMatch.create({
+     *   data: {
+     *     // ... data to create a TaskEvidenceMatch
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaskEvidenceMatchCreateArgs>(args: SelectSubset<T, TaskEvidenceMatchCreateArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaskEvidenceMatches.
+     * @param {TaskEvidenceMatchCreateManyArgs} args - Arguments to create many TaskEvidenceMatches.
+     * @example
+     * // Create many TaskEvidenceMatches
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaskEvidenceMatchCreateManyArgs>(args?: SelectSubset<T, TaskEvidenceMatchCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaskEvidenceMatches and returns the data saved in the database.
+     * @param {TaskEvidenceMatchCreateManyAndReturnArgs} args - Arguments to create many TaskEvidenceMatches.
+     * @example
+     * // Create many TaskEvidenceMatches
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaskEvidenceMatches and only return the `id`
+     * const taskEvidenceMatchWithIdOnly = await prisma.taskEvidenceMatch.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaskEvidenceMatchCreateManyAndReturnArgs>(args?: SelectSubset<T, TaskEvidenceMatchCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaskEvidenceMatch.
+     * @param {TaskEvidenceMatchDeleteArgs} args - Arguments to delete one TaskEvidenceMatch.
+     * @example
+     * // Delete one TaskEvidenceMatch
+     * const TaskEvidenceMatch = await prisma.taskEvidenceMatch.delete({
+     *   where: {
+     *     // ... filter to delete one TaskEvidenceMatch
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaskEvidenceMatchDeleteArgs>(args: SelectSubset<T, TaskEvidenceMatchDeleteArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaskEvidenceMatch.
+     * @param {TaskEvidenceMatchUpdateArgs} args - Arguments to update one TaskEvidenceMatch.
+     * @example
+     * // Update one TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaskEvidenceMatchUpdateArgs>(args: SelectSubset<T, TaskEvidenceMatchUpdateArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaskEvidenceMatches.
+     * @param {TaskEvidenceMatchDeleteManyArgs} args - Arguments to filter TaskEvidenceMatches to delete.
+     * @example
+     * // Delete a few TaskEvidenceMatches
+     * const { count } = await prisma.taskEvidenceMatch.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaskEvidenceMatchDeleteManyArgs>(args?: SelectSubset<T, TaskEvidenceMatchDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskEvidenceMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaskEvidenceMatches
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaskEvidenceMatchUpdateManyArgs>(args: SelectSubset<T, TaskEvidenceMatchUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskEvidenceMatches and returns the data updated in the database.
+     * @param {TaskEvidenceMatchUpdateManyAndReturnArgs} args - Arguments to update many TaskEvidenceMatches.
+     * @example
+     * // Update many TaskEvidenceMatches
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaskEvidenceMatches and only return the `id`
+     * const taskEvidenceMatchWithIdOnly = await prisma.taskEvidenceMatch.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaskEvidenceMatchUpdateManyAndReturnArgs>(args: SelectSubset<T, TaskEvidenceMatchUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaskEvidenceMatch.
+     * @param {TaskEvidenceMatchUpsertArgs} args - Arguments to update or create a TaskEvidenceMatch.
+     * @example
+     * // Update or create a TaskEvidenceMatch
+     * const taskEvidenceMatch = await prisma.taskEvidenceMatch.upsert({
+     *   create: {
+     *     // ... data to create a TaskEvidenceMatch
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaskEvidenceMatch we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaskEvidenceMatchUpsertArgs>(args: SelectSubset<T, TaskEvidenceMatchUpsertArgs<ExtArgs>>): Prisma__TaskEvidenceMatchClient<$Result.GetResult<Prisma.$TaskEvidenceMatchPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaskEvidenceMatches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchCountArgs} args - Arguments to filter TaskEvidenceMatches to count.
+     * @example
+     * // Count the number of TaskEvidenceMatches
+     * const count = await prisma.taskEvidenceMatch.count({
+     *   where: {
+     *     // ... the filter for the TaskEvidenceMatches we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaskEvidenceMatchCountArgs>(
+      args?: Subset<T, TaskEvidenceMatchCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaskEvidenceMatchCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaskEvidenceMatch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaskEvidenceMatchAggregateArgs>(args: Subset<T, TaskEvidenceMatchAggregateArgs>): Prisma.PrismaPromise<GetTaskEvidenceMatchAggregateType<T>>
+
+    /**
+     * Group by TaskEvidenceMatch.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskEvidenceMatchGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaskEvidenceMatchGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaskEvidenceMatchGroupByArgs['orderBy'] }
+        : { orderBy?: TaskEvidenceMatchGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaskEvidenceMatchGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaskEvidenceMatchGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaskEvidenceMatch model
+   */
+  readonly fields: TaskEvidenceMatchFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaskEvidenceMatch.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaskEvidenceMatchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task<T extends PlanTaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanTaskDefaultArgs<ExtArgs>>): Prisma__PlanTaskClient<$Result.GetResult<Prisma.$PlanTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    submission<T extends TaskEvidenceMatch$submissionArgs<ExtArgs> = {}>(args?: Subset<T, TaskEvidenceMatch$submissionArgs<ExtArgs>>): Prisma__NormalizedSubmissionClient<$Result.GetResult<Prisma.$NormalizedSubmissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    contestHistory<T extends TaskEvidenceMatch$contestHistoryArgs<ExtArgs> = {}>(args?: Subset<T, TaskEvidenceMatch$contestHistoryArgs<ExtArgs>>): Prisma__ContestHistoryClient<$Result.GetResult<Prisma.$ContestHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaskEvidenceMatch model
+   */
+  interface TaskEvidenceMatchFieldRefs {
+    readonly id: FieldRef<"TaskEvidenceMatch", 'String'>
+    readonly taskId: FieldRef<"TaskEvidenceMatch", 'String'>
+    readonly submissionId: FieldRef<"TaskEvidenceMatch", 'String'>
+    readonly contestHistoryId: FieldRef<"TaskEvidenceMatch", 'String'>
+    readonly matchedAt: FieldRef<"TaskEvidenceMatch", 'DateTime'>
+    readonly notes: FieldRef<"TaskEvidenceMatch", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaskEvidenceMatch findUnique
+   */
+  export type TaskEvidenceMatchFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskEvidenceMatch to fetch.
+     */
+    where: TaskEvidenceMatchWhereUniqueInput
+  }
+
+  /**
+   * TaskEvidenceMatch findUniqueOrThrow
+   */
+  export type TaskEvidenceMatchFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskEvidenceMatch to fetch.
+     */
+    where: TaskEvidenceMatchWhereUniqueInput
+  }
+
+  /**
+   * TaskEvidenceMatch findFirst
+   */
+  export type TaskEvidenceMatchFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskEvidenceMatch to fetch.
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskEvidenceMatches to fetch.
+     */
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskEvidenceMatches.
+     */
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskEvidenceMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskEvidenceMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskEvidenceMatches.
+     */
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
+   * TaskEvidenceMatch findFirstOrThrow
+   */
+  export type TaskEvidenceMatchFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskEvidenceMatch to fetch.
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskEvidenceMatches to fetch.
+     */
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskEvidenceMatches.
+     */
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskEvidenceMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskEvidenceMatches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskEvidenceMatches.
+     */
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
+   * TaskEvidenceMatch findMany
+   */
+  export type TaskEvidenceMatchFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskEvidenceMatches to fetch.
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskEvidenceMatches to fetch.
+     */
+    orderBy?: TaskEvidenceMatchOrderByWithRelationInput | TaskEvidenceMatchOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaskEvidenceMatches.
+     */
+    cursor?: TaskEvidenceMatchWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskEvidenceMatches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskEvidenceMatches.
+     */
+    skip?: number
+    distinct?: TaskEvidenceMatchScalarFieldEnum | TaskEvidenceMatchScalarFieldEnum[]
+  }
+
+  /**
+   * TaskEvidenceMatch create
+   */
+  export type TaskEvidenceMatchCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaskEvidenceMatch.
+     */
+    data: XOR<TaskEvidenceMatchCreateInput, TaskEvidenceMatchUncheckedCreateInput>
+  }
+
+  /**
+   * TaskEvidenceMatch createMany
+   */
+  export type TaskEvidenceMatchCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaskEvidenceMatches.
+     */
+    data: TaskEvidenceMatchCreateManyInput | TaskEvidenceMatchCreateManyInput[]
+  }
+
+  /**
+   * TaskEvidenceMatch createManyAndReturn
+   */
+  export type TaskEvidenceMatchCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaskEvidenceMatches.
+     */
+    data: TaskEvidenceMatchCreateManyInput | TaskEvidenceMatchCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskEvidenceMatch update
+   */
+  export type TaskEvidenceMatchUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaskEvidenceMatch.
+     */
+    data: XOR<TaskEvidenceMatchUpdateInput, TaskEvidenceMatchUncheckedUpdateInput>
+    /**
+     * Choose, which TaskEvidenceMatch to update.
+     */
+    where: TaskEvidenceMatchWhereUniqueInput
+  }
+
+  /**
+   * TaskEvidenceMatch updateMany
+   */
+  export type TaskEvidenceMatchUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaskEvidenceMatches.
+     */
+    data: XOR<TaskEvidenceMatchUpdateManyMutationInput, TaskEvidenceMatchUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskEvidenceMatches to update
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * Limit how many TaskEvidenceMatches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskEvidenceMatch updateManyAndReturn
+   */
+  export type TaskEvidenceMatchUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * The data used to update TaskEvidenceMatches.
+     */
+    data: XOR<TaskEvidenceMatchUpdateManyMutationInput, TaskEvidenceMatchUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskEvidenceMatches to update
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * Limit how many TaskEvidenceMatches to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskEvidenceMatch upsert
+   */
+  export type TaskEvidenceMatchUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaskEvidenceMatch to update in case it exists.
+     */
+    where: TaskEvidenceMatchWhereUniqueInput
+    /**
+     * In case the TaskEvidenceMatch found by the `where` argument doesn't exist, create a new TaskEvidenceMatch with this data.
+     */
+    create: XOR<TaskEvidenceMatchCreateInput, TaskEvidenceMatchUncheckedCreateInput>
+    /**
+     * In case the TaskEvidenceMatch was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaskEvidenceMatchUpdateInput, TaskEvidenceMatchUncheckedUpdateInput>
+  }
+
+  /**
+   * TaskEvidenceMatch delete
+   */
+  export type TaskEvidenceMatchDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+    /**
+     * Filter which TaskEvidenceMatch to delete.
+     */
+    where: TaskEvidenceMatchWhereUniqueInput
+  }
+
+  /**
+   * TaskEvidenceMatch deleteMany
+   */
+  export type TaskEvidenceMatchDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskEvidenceMatches to delete
+     */
+    where?: TaskEvidenceMatchWhereInput
+    /**
+     * Limit how many TaskEvidenceMatches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskEvidenceMatch.submission
+   */
+  export type TaskEvidenceMatch$submissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NormalizedSubmission
+     */
+    select?: NormalizedSubmissionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the NormalizedSubmission
+     */
+    omit?: NormalizedSubmissionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NormalizedSubmissionInclude<ExtArgs> | null
+    where?: NormalizedSubmissionWhereInput
+  }
+
+  /**
+   * TaskEvidenceMatch.contestHistory
+   */
+  export type TaskEvidenceMatch$contestHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContestHistory
+     */
+    select?: ContestHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContestHistory
+     */
+    omit?: ContestHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContestHistoryInclude<ExtArgs> | null
+    where?: ContestHistoryWhereInput
+  }
+
+  /**
+   * TaskEvidenceMatch without action
+   */
+  export type TaskEvidenceMatchDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskEvidenceMatch
+     */
+    select?: TaskEvidenceMatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskEvidenceMatch
+     */
+    omit?: TaskEvidenceMatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskEvidenceMatchInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlanEvaluation
+   */
+
+  export type AggregatePlanEvaluation = {
+    _count: PlanEvaluationCountAggregateOutputType | null
+    _avg: PlanEvaluationAvgAggregateOutputType | null
+    _sum: PlanEvaluationSumAggregateOutputType | null
+    _min: PlanEvaluationMinAggregateOutputType | null
+    _max: PlanEvaluationMaxAggregateOutputType | null
+  }
+
+  export type PlanEvaluationAvgAggregateOutputType = {
+    evaluatedVersionNum: number | null
+    completionRate: number | null
+    tasksPlanned: number | null
+    tasksCompleted: number | null
+    ratingChange: number | null
+  }
+
+  export type PlanEvaluationSumAggregateOutputType = {
+    evaluatedVersionNum: number | null
+    completionRate: number | null
+    tasksPlanned: number | null
+    tasksCompleted: number | null
+    ratingChange: number | null
+  }
+
+  export type PlanEvaluationMinAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    evaluatedVersionNum: number | null
+    completionRate: number | null
+    tasksPlanned: number | null
+    tasksCompleted: number | null
+    ratingChange: number | null
+    outcomeData: string | null
+    evaluatedAt: Date | null
+  }
+
+  export type PlanEvaluationMaxAggregateOutputType = {
+    id: string | null
+    planId: string | null
+    evaluatedVersionNum: number | null
+    completionRate: number | null
+    tasksPlanned: number | null
+    tasksCompleted: number | null
+    ratingChange: number | null
+    outcomeData: string | null
+    evaluatedAt: Date | null
+  }
+
+  export type PlanEvaluationCountAggregateOutputType = {
+    id: number
+    planId: number
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange: number
+    outcomeData: number
+    evaluatedAt: number
+    _all: number
+  }
+
+
+  export type PlanEvaluationAvgAggregateInputType = {
+    evaluatedVersionNum?: true
+    completionRate?: true
+    tasksPlanned?: true
+    tasksCompleted?: true
+    ratingChange?: true
+  }
+
+  export type PlanEvaluationSumAggregateInputType = {
+    evaluatedVersionNum?: true
+    completionRate?: true
+    tasksPlanned?: true
+    tasksCompleted?: true
+    ratingChange?: true
+  }
+
+  export type PlanEvaluationMinAggregateInputType = {
+    id?: true
+    planId?: true
+    evaluatedVersionNum?: true
+    completionRate?: true
+    tasksPlanned?: true
+    tasksCompleted?: true
+    ratingChange?: true
+    outcomeData?: true
+    evaluatedAt?: true
+  }
+
+  export type PlanEvaluationMaxAggregateInputType = {
+    id?: true
+    planId?: true
+    evaluatedVersionNum?: true
+    completionRate?: true
+    tasksPlanned?: true
+    tasksCompleted?: true
+    ratingChange?: true
+    outcomeData?: true
+    evaluatedAt?: true
+  }
+
+  export type PlanEvaluationCountAggregateInputType = {
+    id?: true
+    planId?: true
+    evaluatedVersionNum?: true
+    completionRate?: true
+    tasksPlanned?: true
+    tasksCompleted?: true
+    ratingChange?: true
+    outcomeData?: true
+    evaluatedAt?: true
+    _all?: true
+  }
+
+  export type PlanEvaluationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanEvaluation to aggregate.
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanEvaluations to fetch.
+     */
+    orderBy?: PlanEvaluationOrderByWithRelationInput | PlanEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlanEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlanEvaluations
+    **/
+    _count?: true | PlanEvaluationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PlanEvaluationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PlanEvaluationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlanEvaluationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlanEvaluationMaxAggregateInputType
+  }
+
+  export type GetPlanEvaluationAggregateType<T extends PlanEvaluationAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlanEvaluation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlanEvaluation[P]>
+      : GetScalarType<T[P], AggregatePlanEvaluation[P]>
+  }
+
+
+
+
+  export type PlanEvaluationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlanEvaluationWhereInput
+    orderBy?: PlanEvaluationOrderByWithAggregationInput | PlanEvaluationOrderByWithAggregationInput[]
+    by: PlanEvaluationScalarFieldEnum[] | PlanEvaluationScalarFieldEnum
+    having?: PlanEvaluationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlanEvaluationCountAggregateInputType | true
+    _avg?: PlanEvaluationAvgAggregateInputType
+    _sum?: PlanEvaluationSumAggregateInputType
+    _min?: PlanEvaluationMinAggregateInputType
+    _max?: PlanEvaluationMaxAggregateInputType
+  }
+
+  export type PlanEvaluationGroupByOutputType = {
+    id: string
+    planId: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange: number | null
+    outcomeData: string
+    evaluatedAt: Date
+    _count: PlanEvaluationCountAggregateOutputType | null
+    _avg: PlanEvaluationAvgAggregateOutputType | null
+    _sum: PlanEvaluationSumAggregateOutputType | null
+    _min: PlanEvaluationMinAggregateOutputType | null
+    _max: PlanEvaluationMaxAggregateOutputType | null
+  }
+
+  type GetPlanEvaluationGroupByPayload<T extends PlanEvaluationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlanEvaluationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlanEvaluationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlanEvaluationGroupByOutputType[P]>
+            : GetScalarType<T[P], PlanEvaluationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlanEvaluationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    evaluatedVersionNum?: boolean
+    completionRate?: boolean
+    tasksPlanned?: boolean
+    tasksCompleted?: boolean
+    ratingChange?: boolean
+    outcomeData?: boolean
+    evaluatedAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planEvaluation"]>
+
+  export type PlanEvaluationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    evaluatedVersionNum?: boolean
+    completionRate?: boolean
+    tasksPlanned?: boolean
+    tasksCompleted?: boolean
+    ratingChange?: boolean
+    outcomeData?: boolean
+    evaluatedAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planEvaluation"]>
+
+  export type PlanEvaluationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    planId?: boolean
+    evaluatedVersionNum?: boolean
+    completionRate?: boolean
+    tasksPlanned?: boolean
+    tasksCompleted?: boolean
+    ratingChange?: boolean
+    outcomeData?: boolean
+    evaluatedAt?: boolean
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["planEvaluation"]>
+
+  export type PlanEvaluationSelectScalar = {
+    id?: boolean
+    planId?: boolean
+    evaluatedVersionNum?: boolean
+    completionRate?: boolean
+    tasksPlanned?: boolean
+    tasksCompleted?: boolean
+    ratingChange?: boolean
+    outcomeData?: boolean
+    evaluatedAt?: boolean
+  }
+
+  export type PlanEvaluationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "planId" | "evaluatedVersionNum" | "completionRate" | "tasksPlanned" | "tasksCompleted" | "ratingChange" | "outcomeData" | "evaluatedAt", ExtArgs["result"]["planEvaluation"]>
+  export type PlanEvaluationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+  export type PlanEvaluationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+  export type PlanEvaluationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    plan?: boolean | PlanDefaultArgs<ExtArgs>
+  }
+
+  export type $PlanEvaluationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlanEvaluation"
+    objects: {
+      plan: Prisma.$PlanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      planId: string
+      evaluatedVersionNum: number
+      completionRate: number
+      tasksPlanned: number
+      tasksCompleted: number
+      ratingChange: number | null
+      outcomeData: string
+      evaluatedAt: Date
+    }, ExtArgs["result"]["planEvaluation"]>
+    composites: {}
+  }
+
+  type PlanEvaluationGetPayload<S extends boolean | null | undefined | PlanEvaluationDefaultArgs> = $Result.GetResult<Prisma.$PlanEvaluationPayload, S>
+
+  type PlanEvaluationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlanEvaluationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlanEvaluationCountAggregateInputType | true
+    }
+
+  export interface PlanEvaluationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlanEvaluation'], meta: { name: 'PlanEvaluation' } }
+    /**
+     * Find zero or one PlanEvaluation that matches the filter.
+     * @param {PlanEvaluationFindUniqueArgs} args - Arguments to find a PlanEvaluation
+     * @example
+     * // Get one PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlanEvaluationFindUniqueArgs>(args: SelectSubset<T, PlanEvaluationFindUniqueArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlanEvaluation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlanEvaluationFindUniqueOrThrowArgs} args - Arguments to find a PlanEvaluation
+     * @example
+     * // Get one PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlanEvaluationFindUniqueOrThrowArgs>(args: SelectSubset<T, PlanEvaluationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanEvaluation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationFindFirstArgs} args - Arguments to find a PlanEvaluation
+     * @example
+     * // Get one PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlanEvaluationFindFirstArgs>(args?: SelectSubset<T, PlanEvaluationFindFirstArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlanEvaluation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationFindFirstOrThrowArgs} args - Arguments to find a PlanEvaluation
+     * @example
+     * // Get one PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlanEvaluationFindFirstOrThrowArgs>(args?: SelectSubset<T, PlanEvaluationFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlanEvaluations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlanEvaluations
+     * const planEvaluations = await prisma.planEvaluation.findMany()
+     * 
+     * // Get first 10 PlanEvaluations
+     * const planEvaluations = await prisma.planEvaluation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const planEvaluationWithIdOnly = await prisma.planEvaluation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlanEvaluationFindManyArgs>(args?: SelectSubset<T, PlanEvaluationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlanEvaluation.
+     * @param {PlanEvaluationCreateArgs} args - Arguments to create a PlanEvaluation.
+     * @example
+     * // Create one PlanEvaluation
+     * const PlanEvaluation = await prisma.planEvaluation.create({
+     *   data: {
+     *     // ... data to create a PlanEvaluation
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlanEvaluationCreateArgs>(args: SelectSubset<T, PlanEvaluationCreateArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlanEvaluations.
+     * @param {PlanEvaluationCreateManyArgs} args - Arguments to create many PlanEvaluations.
+     * @example
+     * // Create many PlanEvaluations
+     * const planEvaluation = await prisma.planEvaluation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlanEvaluationCreateManyArgs>(args?: SelectSubset<T, PlanEvaluationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlanEvaluations and returns the data saved in the database.
+     * @param {PlanEvaluationCreateManyAndReturnArgs} args - Arguments to create many PlanEvaluations.
+     * @example
+     * // Create many PlanEvaluations
+     * const planEvaluation = await prisma.planEvaluation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlanEvaluations and only return the `id`
+     * const planEvaluationWithIdOnly = await prisma.planEvaluation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlanEvaluationCreateManyAndReturnArgs>(args?: SelectSubset<T, PlanEvaluationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlanEvaluation.
+     * @param {PlanEvaluationDeleteArgs} args - Arguments to delete one PlanEvaluation.
+     * @example
+     * // Delete one PlanEvaluation
+     * const PlanEvaluation = await prisma.planEvaluation.delete({
+     *   where: {
+     *     // ... filter to delete one PlanEvaluation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlanEvaluationDeleteArgs>(args: SelectSubset<T, PlanEvaluationDeleteArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlanEvaluation.
+     * @param {PlanEvaluationUpdateArgs} args - Arguments to update one PlanEvaluation.
+     * @example
+     * // Update one PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlanEvaluationUpdateArgs>(args: SelectSubset<T, PlanEvaluationUpdateArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlanEvaluations.
+     * @param {PlanEvaluationDeleteManyArgs} args - Arguments to filter PlanEvaluations to delete.
+     * @example
+     * // Delete a few PlanEvaluations
+     * const { count } = await prisma.planEvaluation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlanEvaluationDeleteManyArgs>(args?: SelectSubset<T, PlanEvaluationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlanEvaluations
+     * const planEvaluation = await prisma.planEvaluation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlanEvaluationUpdateManyArgs>(args: SelectSubset<T, PlanEvaluationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlanEvaluations and returns the data updated in the database.
+     * @param {PlanEvaluationUpdateManyAndReturnArgs} args - Arguments to update many PlanEvaluations.
+     * @example
+     * // Update many PlanEvaluations
+     * const planEvaluation = await prisma.planEvaluation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlanEvaluations and only return the `id`
+     * const planEvaluationWithIdOnly = await prisma.planEvaluation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlanEvaluationUpdateManyAndReturnArgs>(args: SelectSubset<T, PlanEvaluationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlanEvaluation.
+     * @param {PlanEvaluationUpsertArgs} args - Arguments to update or create a PlanEvaluation.
+     * @example
+     * // Update or create a PlanEvaluation
+     * const planEvaluation = await prisma.planEvaluation.upsert({
+     *   create: {
+     *     // ... data to create a PlanEvaluation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlanEvaluation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlanEvaluationUpsertArgs>(args: SelectSubset<T, PlanEvaluationUpsertArgs<ExtArgs>>): Prisma__PlanEvaluationClient<$Result.GetResult<Prisma.$PlanEvaluationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlanEvaluations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationCountArgs} args - Arguments to filter PlanEvaluations to count.
+     * @example
+     * // Count the number of PlanEvaluations
+     * const count = await prisma.planEvaluation.count({
+     *   where: {
+     *     // ... the filter for the PlanEvaluations we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlanEvaluationCountArgs>(
+      args?: Subset<T, PlanEvaluationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlanEvaluationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlanEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlanEvaluationAggregateArgs>(args: Subset<T, PlanEvaluationAggregateArgs>): Prisma.PrismaPromise<GetPlanEvaluationAggregateType<T>>
+
+    /**
+     * Group by PlanEvaluation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlanEvaluationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlanEvaluationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlanEvaluationGroupByArgs['orderBy'] }
+        : { orderBy?: PlanEvaluationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlanEvaluationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlanEvaluationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlanEvaluation model
+   */
+  readonly fields: PlanEvaluationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlanEvaluation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlanEvaluationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    plan<T extends PlanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlanDefaultArgs<ExtArgs>>): Prisma__PlanClient<$Result.GetResult<Prisma.$PlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlanEvaluation model
+   */
+  interface PlanEvaluationFieldRefs {
+    readonly id: FieldRef<"PlanEvaluation", 'String'>
+    readonly planId: FieldRef<"PlanEvaluation", 'String'>
+    readonly evaluatedVersionNum: FieldRef<"PlanEvaluation", 'Int'>
+    readonly completionRate: FieldRef<"PlanEvaluation", 'Float'>
+    readonly tasksPlanned: FieldRef<"PlanEvaluation", 'Int'>
+    readonly tasksCompleted: FieldRef<"PlanEvaluation", 'Int'>
+    readonly ratingChange: FieldRef<"PlanEvaluation", 'Int'>
+    readonly outcomeData: FieldRef<"PlanEvaluation", 'String'>
+    readonly evaluatedAt: FieldRef<"PlanEvaluation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlanEvaluation findUnique
+   */
+  export type PlanEvaluationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanEvaluation to fetch.
+     */
+    where: PlanEvaluationWhereUniqueInput
+  }
+
+  /**
+   * PlanEvaluation findUniqueOrThrow
+   */
+  export type PlanEvaluationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanEvaluation to fetch.
+     */
+    where: PlanEvaluationWhereUniqueInput
+  }
+
+  /**
+   * PlanEvaluation findFirst
+   */
+  export type PlanEvaluationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanEvaluation to fetch.
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanEvaluations to fetch.
+     */
+    orderBy?: PlanEvaluationOrderByWithRelationInput | PlanEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanEvaluations.
+     */
+    cursor?: PlanEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanEvaluations.
+     */
+    distinct?: PlanEvaluationScalarFieldEnum | PlanEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * PlanEvaluation findFirstOrThrow
+   */
+  export type PlanEvaluationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanEvaluation to fetch.
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanEvaluations to fetch.
+     */
+    orderBy?: PlanEvaluationOrderByWithRelationInput | PlanEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlanEvaluations.
+     */
+    cursor?: PlanEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanEvaluations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlanEvaluations.
+     */
+    distinct?: PlanEvaluationScalarFieldEnum | PlanEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * PlanEvaluation findMany
+   */
+  export type PlanEvaluationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter, which PlanEvaluations to fetch.
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlanEvaluations to fetch.
+     */
+    orderBy?: PlanEvaluationOrderByWithRelationInput | PlanEvaluationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlanEvaluations.
+     */
+    cursor?: PlanEvaluationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlanEvaluations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlanEvaluations.
+     */
+    skip?: number
+    distinct?: PlanEvaluationScalarFieldEnum | PlanEvaluationScalarFieldEnum[]
+  }
+
+  /**
+   * PlanEvaluation create
+   */
+  export type PlanEvaluationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlanEvaluation.
+     */
+    data: XOR<PlanEvaluationCreateInput, PlanEvaluationUncheckedCreateInput>
+  }
+
+  /**
+   * PlanEvaluation createMany
+   */
+  export type PlanEvaluationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlanEvaluations.
+     */
+    data: PlanEvaluationCreateManyInput | PlanEvaluationCreateManyInput[]
+  }
+
+  /**
+   * PlanEvaluation createManyAndReturn
+   */
+  export type PlanEvaluationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlanEvaluations.
+     */
+    data: PlanEvaluationCreateManyInput | PlanEvaluationCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanEvaluation update
+   */
+  export type PlanEvaluationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlanEvaluation.
+     */
+    data: XOR<PlanEvaluationUpdateInput, PlanEvaluationUncheckedUpdateInput>
+    /**
+     * Choose, which PlanEvaluation to update.
+     */
+    where: PlanEvaluationWhereUniqueInput
+  }
+
+  /**
+   * PlanEvaluation updateMany
+   */
+  export type PlanEvaluationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlanEvaluations.
+     */
+    data: XOR<PlanEvaluationUpdateManyMutationInput, PlanEvaluationUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanEvaluations to update
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * Limit how many PlanEvaluations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanEvaluation updateManyAndReturn
+   */
+  export type PlanEvaluationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * The data used to update PlanEvaluations.
+     */
+    data: XOR<PlanEvaluationUpdateManyMutationInput, PlanEvaluationUncheckedUpdateManyInput>
+    /**
+     * Filter which PlanEvaluations to update
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * Limit how many PlanEvaluations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlanEvaluation upsert
+   */
+  export type PlanEvaluationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlanEvaluation to update in case it exists.
+     */
+    where: PlanEvaluationWhereUniqueInput
+    /**
+     * In case the PlanEvaluation found by the `where` argument doesn't exist, create a new PlanEvaluation with this data.
+     */
+    create: XOR<PlanEvaluationCreateInput, PlanEvaluationUncheckedCreateInput>
+    /**
+     * In case the PlanEvaluation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlanEvaluationUpdateInput, PlanEvaluationUncheckedUpdateInput>
+  }
+
+  /**
+   * PlanEvaluation delete
+   */
+  export type PlanEvaluationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
+    /**
+     * Filter which PlanEvaluation to delete.
+     */
+    where: PlanEvaluationWhereUniqueInput
+  }
+
+  /**
+   * PlanEvaluation deleteMany
+   */
+  export type PlanEvaluationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlanEvaluations to delete
+     */
+    where?: PlanEvaluationWhereInput
+    /**
+     * Limit how many PlanEvaluations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlanEvaluation without action
+   */
+  export type PlanEvaluationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlanEvaluation
+     */
+    select?: PlanEvaluationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlanEvaluation
+     */
+    omit?: PlanEvaluationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlanEvaluationInclude<ExtArgs> | null
   }
 
 
@@ -8543,6 +15224,86 @@ export namespace Prisma {
   };
 
   export type ContestHistoryScalarFieldEnum = (typeof ContestHistoryScalarFieldEnum)[keyof typeof ContestHistoryScalarFieldEnum]
+
+
+  export const PlanScalarFieldEnum: {
+    id: 'id',
+    goalId: 'goalId',
+    userId: 'userId',
+    status: 'status',
+    currentVersionNum: 'currentVersionNum',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PlanScalarFieldEnum = (typeof PlanScalarFieldEnum)[keyof typeof PlanScalarFieldEnum]
+
+
+  export const PlanVersionScalarFieldEnum: {
+    id: 'id',
+    planId: 'planId',
+    versionNumber: 'versionNumber',
+    schemaVersion: 'schemaVersion',
+    summary: 'summary',
+    milestoneTitle: 'milestoneTitle',
+    bottleneckType: 'bottleneckType',
+    planData: 'planData',
+    startDate: 'startDate',
+    targetReviewDate: 'targetReviewDate',
+    createdAt: 'createdAt'
+  };
+
+  export type PlanVersionScalarFieldEnum = (typeof PlanVersionScalarFieldEnum)[keyof typeof PlanVersionScalarFieldEnum]
+
+
+  export const PlanTaskScalarFieldEnum: {
+    id: 'id',
+    planVersionId: 'planVersionId',
+    externalTaskId: 'externalTaskId',
+    type: 'type',
+    title: 'title',
+    quantity: 'quantity',
+    quantityCompleted: 'quantityCompleted',
+    platform: 'platform',
+    minDifficulty: 'minDifficulty',
+    maxDifficulty: 'maxDifficulty',
+    difficultyTier: 'difficultyTier',
+    topics: 'topics',
+    reason: 'reason',
+    evidenceReferences: 'evidenceReferences',
+    completionMetric: 'completionMetric',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type PlanTaskScalarFieldEnum = (typeof PlanTaskScalarFieldEnum)[keyof typeof PlanTaskScalarFieldEnum]
+
+
+  export const TaskEvidenceMatchScalarFieldEnum: {
+    id: 'id',
+    taskId: 'taskId',
+    submissionId: 'submissionId',
+    contestHistoryId: 'contestHistoryId',
+    matchedAt: 'matchedAt',
+    notes: 'notes'
+  };
+
+  export type TaskEvidenceMatchScalarFieldEnum = (typeof TaskEvidenceMatchScalarFieldEnum)[keyof typeof TaskEvidenceMatchScalarFieldEnum]
+
+
+  export const PlanEvaluationScalarFieldEnum: {
+    id: 'id',
+    planId: 'planId',
+    evaluatedVersionNum: 'evaluatedVersionNum',
+    completionRate: 'completionRate',
+    tasksPlanned: 'tasksPlanned',
+    tasksCompleted: 'tasksCompleted',
+    ratingChange: 'ratingChange',
+    outcomeData: 'outcomeData',
+    evaluatedAt: 'evaluatedAt'
+  };
+
+  export type PlanEvaluationScalarFieldEnum = (typeof PlanEvaluationScalarFieldEnum)[keyof typeof PlanEvaluationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8686,6 +15447,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Goal"> | Date | string
     updatedAt?: DateTimeFilter<"Goal"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plans?: PlanListRelationFilter
   }
 
   export type GoalOrderByWithRelationInput = {
@@ -8703,6 +15465,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    plans?: PlanOrderByRelationAggregateInput
   }
 
   export type GoalWhereUniqueInput = Prisma.AtLeast<{
@@ -8723,6 +15486,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Goal"> | Date | string
     updatedAt?: DateTimeFilter<"Goal"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plans?: PlanListRelationFilter
   }, "id">
 
   export type GoalOrderByWithAggregationInput = {
@@ -8955,6 +15719,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"NormalizedSubmission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    taskMatches?: TaskEvidenceMatchListRelationFilter
   }
 
   export type NormalizedSubmissionOrderByWithRelationInput = {
@@ -8975,6 +15740,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     problem?: ProblemOrderByWithRelationInput
+    taskMatches?: TaskEvidenceMatchOrderByRelationAggregateInput
   }
 
   export type NormalizedSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -8999,6 +15765,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"NormalizedSubmission"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     problem?: XOR<ProblemScalarRelationFilter, ProblemWhereInput>
+    taskMatches?: TaskEvidenceMatchListRelationFilter
   }, "id" | "userId_platform_externalSubmissionId">
 
   export type NormalizedSubmissionOrderByWithAggregationInput = {
@@ -9059,6 +15826,7 @@ export namespace Prisma {
     timestamp?: DateTimeFilter<"ContestHistory"> | Date | string
     createdAt?: DateTimeFilter<"ContestHistory"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taskMatches?: TaskEvidenceMatchListRelationFilter
   }
 
   export type ContestHistoryOrderByWithRelationInput = {
@@ -9074,6 +15842,7 @@ export namespace Prisma {
     timestamp?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
+    taskMatches?: TaskEvidenceMatchOrderByRelationAggregateInput
   }
 
   export type ContestHistoryWhereUniqueInput = Prisma.AtLeast<{
@@ -9093,6 +15862,7 @@ export namespace Prisma {
     timestamp?: DateTimeFilter<"ContestHistory"> | Date | string
     createdAt?: DateTimeFilter<"ContestHistory"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taskMatches?: TaskEvidenceMatchListRelationFilter
   }, "id" | "userId_platform_contestId">
 
   export type ContestHistoryOrderByWithAggregationInput = {
@@ -9129,6 +15899,435 @@ export namespace Prisma {
     ratingChange?: IntWithAggregatesFilter<"ContestHistory"> | number
     timestamp?: DateTimeWithAggregatesFilter<"ContestHistory"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"ContestHistory"> | Date | string
+  }
+
+  export type PlanWhereInput = {
+    AND?: PlanWhereInput | PlanWhereInput[]
+    OR?: PlanWhereInput[]
+    NOT?: PlanWhereInput | PlanWhereInput[]
+    id?: StringFilter<"Plan"> | string
+    goalId?: StringFilter<"Plan"> | string
+    userId?: StringFilter<"Plan"> | string
+    status?: StringFilter<"Plan"> | string
+    currentVersionNum?: IntFilter<"Plan"> | number
+    createdAt?: DateTimeFilter<"Plan"> | Date | string
+    updatedAt?: DateTimeFilter<"Plan"> | Date | string
+    goal?: XOR<GoalScalarRelationFilter, GoalWhereInput>
+    versions?: PlanVersionListRelationFilter
+    evaluations?: PlanEvaluationListRelationFilter
+  }
+
+  export type PlanOrderByWithRelationInput = {
+    id?: SortOrder
+    goalId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentVersionNum?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    goal?: GoalOrderByWithRelationInput
+    versions?: PlanVersionOrderByRelationAggregateInput
+    evaluations?: PlanEvaluationOrderByRelationAggregateInput
+  }
+
+  export type PlanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlanWhereInput | PlanWhereInput[]
+    OR?: PlanWhereInput[]
+    NOT?: PlanWhereInput | PlanWhereInput[]
+    goalId?: StringFilter<"Plan"> | string
+    userId?: StringFilter<"Plan"> | string
+    status?: StringFilter<"Plan"> | string
+    currentVersionNum?: IntFilter<"Plan"> | number
+    createdAt?: DateTimeFilter<"Plan"> | Date | string
+    updatedAt?: DateTimeFilter<"Plan"> | Date | string
+    goal?: XOR<GoalScalarRelationFilter, GoalWhereInput>
+    versions?: PlanVersionListRelationFilter
+    evaluations?: PlanEvaluationListRelationFilter
+  }, "id">
+
+  export type PlanOrderByWithAggregationInput = {
+    id?: SortOrder
+    goalId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentVersionNum?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PlanCountOrderByAggregateInput
+    _avg?: PlanAvgOrderByAggregateInput
+    _max?: PlanMaxOrderByAggregateInput
+    _min?: PlanMinOrderByAggregateInput
+    _sum?: PlanSumOrderByAggregateInput
+  }
+
+  export type PlanScalarWhereWithAggregatesInput = {
+    AND?: PlanScalarWhereWithAggregatesInput | PlanScalarWhereWithAggregatesInput[]
+    OR?: PlanScalarWhereWithAggregatesInput[]
+    NOT?: PlanScalarWhereWithAggregatesInput | PlanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Plan"> | string
+    goalId?: StringWithAggregatesFilter<"Plan"> | string
+    userId?: StringWithAggregatesFilter<"Plan"> | string
+    status?: StringWithAggregatesFilter<"Plan"> | string
+    currentVersionNum?: IntWithAggregatesFilter<"Plan"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
+  }
+
+  export type PlanVersionWhereInput = {
+    AND?: PlanVersionWhereInput | PlanVersionWhereInput[]
+    OR?: PlanVersionWhereInput[]
+    NOT?: PlanVersionWhereInput | PlanVersionWhereInput[]
+    id?: StringFilter<"PlanVersion"> | string
+    planId?: StringFilter<"PlanVersion"> | string
+    versionNumber?: IntFilter<"PlanVersion"> | number
+    schemaVersion?: StringFilter<"PlanVersion"> | string
+    summary?: StringFilter<"PlanVersion"> | string
+    milestoneTitle?: StringFilter<"PlanVersion"> | string
+    bottleneckType?: StringFilter<"PlanVersion"> | string
+    planData?: StringFilter<"PlanVersion"> | string
+    startDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    targetReviewDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    createdAt?: DateTimeFilter<"PlanVersion"> | Date | string
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+    tasks?: PlanTaskListRelationFilter
+  }
+
+  export type PlanVersionOrderByWithRelationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    versionNumber?: SortOrder
+    schemaVersion?: SortOrder
+    summary?: SortOrder
+    milestoneTitle?: SortOrder
+    bottleneckType?: SortOrder
+    planData?: SortOrder
+    startDate?: SortOrder
+    targetReviewDate?: SortOrder
+    createdAt?: SortOrder
+    plan?: PlanOrderByWithRelationInput
+    tasks?: PlanTaskOrderByRelationAggregateInput
+  }
+
+  export type PlanVersionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    planId_versionNumber?: PlanVersionPlanIdVersionNumberCompoundUniqueInput
+    AND?: PlanVersionWhereInput | PlanVersionWhereInput[]
+    OR?: PlanVersionWhereInput[]
+    NOT?: PlanVersionWhereInput | PlanVersionWhereInput[]
+    planId?: StringFilter<"PlanVersion"> | string
+    versionNumber?: IntFilter<"PlanVersion"> | number
+    schemaVersion?: StringFilter<"PlanVersion"> | string
+    summary?: StringFilter<"PlanVersion"> | string
+    milestoneTitle?: StringFilter<"PlanVersion"> | string
+    bottleneckType?: StringFilter<"PlanVersion"> | string
+    planData?: StringFilter<"PlanVersion"> | string
+    startDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    targetReviewDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    createdAt?: DateTimeFilter<"PlanVersion"> | Date | string
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+    tasks?: PlanTaskListRelationFilter
+  }, "id" | "planId_versionNumber">
+
+  export type PlanVersionOrderByWithAggregationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    versionNumber?: SortOrder
+    schemaVersion?: SortOrder
+    summary?: SortOrder
+    milestoneTitle?: SortOrder
+    bottleneckType?: SortOrder
+    planData?: SortOrder
+    startDate?: SortOrder
+    targetReviewDate?: SortOrder
+    createdAt?: SortOrder
+    _count?: PlanVersionCountOrderByAggregateInput
+    _avg?: PlanVersionAvgOrderByAggregateInput
+    _max?: PlanVersionMaxOrderByAggregateInput
+    _min?: PlanVersionMinOrderByAggregateInput
+    _sum?: PlanVersionSumOrderByAggregateInput
+  }
+
+  export type PlanVersionScalarWhereWithAggregatesInput = {
+    AND?: PlanVersionScalarWhereWithAggregatesInput | PlanVersionScalarWhereWithAggregatesInput[]
+    OR?: PlanVersionScalarWhereWithAggregatesInput[]
+    NOT?: PlanVersionScalarWhereWithAggregatesInput | PlanVersionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlanVersion"> | string
+    planId?: StringWithAggregatesFilter<"PlanVersion"> | string
+    versionNumber?: IntWithAggregatesFilter<"PlanVersion"> | number
+    schemaVersion?: StringWithAggregatesFilter<"PlanVersion"> | string
+    summary?: StringWithAggregatesFilter<"PlanVersion"> | string
+    milestoneTitle?: StringWithAggregatesFilter<"PlanVersion"> | string
+    bottleneckType?: StringWithAggregatesFilter<"PlanVersion"> | string
+    planData?: StringWithAggregatesFilter<"PlanVersion"> | string
+    startDate?: DateTimeWithAggregatesFilter<"PlanVersion"> | Date | string
+    targetReviewDate?: DateTimeWithAggregatesFilter<"PlanVersion"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlanVersion"> | Date | string
+  }
+
+  export type PlanTaskWhereInput = {
+    AND?: PlanTaskWhereInput | PlanTaskWhereInput[]
+    OR?: PlanTaskWhereInput[]
+    NOT?: PlanTaskWhereInput | PlanTaskWhereInput[]
+    id?: StringFilter<"PlanTask"> | string
+    planVersionId?: StringFilter<"PlanTask"> | string
+    externalTaskId?: StringFilter<"PlanTask"> | string
+    type?: StringFilter<"PlanTask"> | string
+    title?: StringFilter<"PlanTask"> | string
+    quantity?: IntFilter<"PlanTask"> | number
+    quantityCompleted?: IntFilter<"PlanTask"> | number
+    platform?: StringNullableFilter<"PlanTask"> | string | null
+    minDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    maxDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    difficultyTier?: StringNullableFilter<"PlanTask"> | string | null
+    topics?: StringFilter<"PlanTask"> | string
+    reason?: StringFilter<"PlanTask"> | string
+    evidenceReferences?: StringFilter<"PlanTask"> | string
+    completionMetric?: StringFilter<"PlanTask"> | string
+    status?: StringFilter<"PlanTask"> | string
+    createdAt?: DateTimeFilter<"PlanTask"> | Date | string
+    planVersion?: XOR<PlanVersionScalarRelationFilter, PlanVersionWhereInput>
+    matches?: TaskEvidenceMatchListRelationFilter
+  }
+
+  export type PlanTaskOrderByWithRelationInput = {
+    id?: SortOrder
+    planVersionId?: SortOrder
+    externalTaskId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    platform?: SortOrderInput | SortOrder
+    minDifficulty?: SortOrderInput | SortOrder
+    maxDifficulty?: SortOrderInput | SortOrder
+    difficultyTier?: SortOrderInput | SortOrder
+    topics?: SortOrder
+    reason?: SortOrder
+    evidenceReferences?: SortOrder
+    completionMetric?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    planVersion?: PlanVersionOrderByWithRelationInput
+    matches?: TaskEvidenceMatchOrderByRelationAggregateInput
+  }
+
+  export type PlanTaskWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlanTaskWhereInput | PlanTaskWhereInput[]
+    OR?: PlanTaskWhereInput[]
+    NOT?: PlanTaskWhereInput | PlanTaskWhereInput[]
+    planVersionId?: StringFilter<"PlanTask"> | string
+    externalTaskId?: StringFilter<"PlanTask"> | string
+    type?: StringFilter<"PlanTask"> | string
+    title?: StringFilter<"PlanTask"> | string
+    quantity?: IntFilter<"PlanTask"> | number
+    quantityCompleted?: IntFilter<"PlanTask"> | number
+    platform?: StringNullableFilter<"PlanTask"> | string | null
+    minDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    maxDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    difficultyTier?: StringNullableFilter<"PlanTask"> | string | null
+    topics?: StringFilter<"PlanTask"> | string
+    reason?: StringFilter<"PlanTask"> | string
+    evidenceReferences?: StringFilter<"PlanTask"> | string
+    completionMetric?: StringFilter<"PlanTask"> | string
+    status?: StringFilter<"PlanTask"> | string
+    createdAt?: DateTimeFilter<"PlanTask"> | Date | string
+    planVersion?: XOR<PlanVersionScalarRelationFilter, PlanVersionWhereInput>
+    matches?: TaskEvidenceMatchListRelationFilter
+  }, "id">
+
+  export type PlanTaskOrderByWithAggregationInput = {
+    id?: SortOrder
+    planVersionId?: SortOrder
+    externalTaskId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    platform?: SortOrderInput | SortOrder
+    minDifficulty?: SortOrderInput | SortOrder
+    maxDifficulty?: SortOrderInput | SortOrder
+    difficultyTier?: SortOrderInput | SortOrder
+    topics?: SortOrder
+    reason?: SortOrder
+    evidenceReferences?: SortOrder
+    completionMetric?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: PlanTaskCountOrderByAggregateInput
+    _avg?: PlanTaskAvgOrderByAggregateInput
+    _max?: PlanTaskMaxOrderByAggregateInput
+    _min?: PlanTaskMinOrderByAggregateInput
+    _sum?: PlanTaskSumOrderByAggregateInput
+  }
+
+  export type PlanTaskScalarWhereWithAggregatesInput = {
+    AND?: PlanTaskScalarWhereWithAggregatesInput | PlanTaskScalarWhereWithAggregatesInput[]
+    OR?: PlanTaskScalarWhereWithAggregatesInput[]
+    NOT?: PlanTaskScalarWhereWithAggregatesInput | PlanTaskScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlanTask"> | string
+    planVersionId?: StringWithAggregatesFilter<"PlanTask"> | string
+    externalTaskId?: StringWithAggregatesFilter<"PlanTask"> | string
+    type?: StringWithAggregatesFilter<"PlanTask"> | string
+    title?: StringWithAggregatesFilter<"PlanTask"> | string
+    quantity?: IntWithAggregatesFilter<"PlanTask"> | number
+    quantityCompleted?: IntWithAggregatesFilter<"PlanTask"> | number
+    platform?: StringNullableWithAggregatesFilter<"PlanTask"> | string | null
+    minDifficulty?: IntNullableWithAggregatesFilter<"PlanTask"> | number | null
+    maxDifficulty?: IntNullableWithAggregatesFilter<"PlanTask"> | number | null
+    difficultyTier?: StringNullableWithAggregatesFilter<"PlanTask"> | string | null
+    topics?: StringWithAggregatesFilter<"PlanTask"> | string
+    reason?: StringWithAggregatesFilter<"PlanTask"> | string
+    evidenceReferences?: StringWithAggregatesFilter<"PlanTask"> | string
+    completionMetric?: StringWithAggregatesFilter<"PlanTask"> | string
+    status?: StringWithAggregatesFilter<"PlanTask"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlanTask"> | Date | string
+  }
+
+  export type TaskEvidenceMatchWhereInput = {
+    AND?: TaskEvidenceMatchWhereInput | TaskEvidenceMatchWhereInput[]
+    OR?: TaskEvidenceMatchWhereInput[]
+    NOT?: TaskEvidenceMatchWhereInput | TaskEvidenceMatchWhereInput[]
+    id?: StringFilter<"TaskEvidenceMatch"> | string
+    taskId?: StringFilter<"TaskEvidenceMatch"> | string
+    submissionId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    contestHistoryId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    matchedAt?: DateTimeFilter<"TaskEvidenceMatch"> | Date | string
+    notes?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    task?: XOR<PlanTaskScalarRelationFilter, PlanTaskWhereInput>
+    submission?: XOR<NormalizedSubmissionNullableScalarRelationFilter, NormalizedSubmissionWhereInput> | null
+    contestHistory?: XOR<ContestHistoryNullableScalarRelationFilter, ContestHistoryWhereInput> | null
+  }
+
+  export type TaskEvidenceMatchOrderByWithRelationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    contestHistoryId?: SortOrderInput | SortOrder
+    matchedAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    task?: PlanTaskOrderByWithRelationInput
+    submission?: NormalizedSubmissionOrderByWithRelationInput
+    contestHistory?: ContestHistoryOrderByWithRelationInput
+  }
+
+  export type TaskEvidenceMatchWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    taskId_submissionId?: TaskEvidenceMatchTaskIdSubmissionIdCompoundUniqueInput
+    taskId_contestHistoryId?: TaskEvidenceMatchTaskIdContestHistoryIdCompoundUniqueInput
+    AND?: TaskEvidenceMatchWhereInput | TaskEvidenceMatchWhereInput[]
+    OR?: TaskEvidenceMatchWhereInput[]
+    NOT?: TaskEvidenceMatchWhereInput | TaskEvidenceMatchWhereInput[]
+    taskId?: StringFilter<"TaskEvidenceMatch"> | string
+    submissionId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    contestHistoryId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    matchedAt?: DateTimeFilter<"TaskEvidenceMatch"> | Date | string
+    notes?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    task?: XOR<PlanTaskScalarRelationFilter, PlanTaskWhereInput>
+    submission?: XOR<NormalizedSubmissionNullableScalarRelationFilter, NormalizedSubmissionWhereInput> | null
+    contestHistory?: XOR<ContestHistoryNullableScalarRelationFilter, ContestHistoryWhereInput> | null
+  }, "id" | "taskId_submissionId" | "taskId_contestHistoryId">
+
+  export type TaskEvidenceMatchOrderByWithAggregationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    submissionId?: SortOrderInput | SortOrder
+    contestHistoryId?: SortOrderInput | SortOrder
+    matchedAt?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    _count?: TaskEvidenceMatchCountOrderByAggregateInput
+    _max?: TaskEvidenceMatchMaxOrderByAggregateInput
+    _min?: TaskEvidenceMatchMinOrderByAggregateInput
+  }
+
+  export type TaskEvidenceMatchScalarWhereWithAggregatesInput = {
+    AND?: TaskEvidenceMatchScalarWhereWithAggregatesInput | TaskEvidenceMatchScalarWhereWithAggregatesInput[]
+    OR?: TaskEvidenceMatchScalarWhereWithAggregatesInput[]
+    NOT?: TaskEvidenceMatchScalarWhereWithAggregatesInput | TaskEvidenceMatchScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TaskEvidenceMatch"> | string
+    taskId?: StringWithAggregatesFilter<"TaskEvidenceMatch"> | string
+    submissionId?: StringNullableWithAggregatesFilter<"TaskEvidenceMatch"> | string | null
+    contestHistoryId?: StringNullableWithAggregatesFilter<"TaskEvidenceMatch"> | string | null
+    matchedAt?: DateTimeWithAggregatesFilter<"TaskEvidenceMatch"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"TaskEvidenceMatch"> | string | null
+  }
+
+  export type PlanEvaluationWhereInput = {
+    AND?: PlanEvaluationWhereInput | PlanEvaluationWhereInput[]
+    OR?: PlanEvaluationWhereInput[]
+    NOT?: PlanEvaluationWhereInput | PlanEvaluationWhereInput[]
+    id?: StringFilter<"PlanEvaluation"> | string
+    planId?: StringFilter<"PlanEvaluation"> | string
+    evaluatedVersionNum?: IntFilter<"PlanEvaluation"> | number
+    completionRate?: FloatFilter<"PlanEvaluation"> | number
+    tasksPlanned?: IntFilter<"PlanEvaluation"> | number
+    tasksCompleted?: IntFilter<"PlanEvaluation"> | number
+    ratingChange?: IntNullableFilter<"PlanEvaluation"> | number | null
+    outcomeData?: StringFilter<"PlanEvaluation"> | string
+    evaluatedAt?: DateTimeFilter<"PlanEvaluation"> | Date | string
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+  }
+
+  export type PlanEvaluationOrderByWithRelationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrderInput | SortOrder
+    outcomeData?: SortOrder
+    evaluatedAt?: SortOrder
+    plan?: PlanOrderByWithRelationInput
+  }
+
+  export type PlanEvaluationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlanEvaluationWhereInput | PlanEvaluationWhereInput[]
+    OR?: PlanEvaluationWhereInput[]
+    NOT?: PlanEvaluationWhereInput | PlanEvaluationWhereInput[]
+    planId?: StringFilter<"PlanEvaluation"> | string
+    evaluatedVersionNum?: IntFilter<"PlanEvaluation"> | number
+    completionRate?: FloatFilter<"PlanEvaluation"> | number
+    tasksPlanned?: IntFilter<"PlanEvaluation"> | number
+    tasksCompleted?: IntFilter<"PlanEvaluation"> | number
+    ratingChange?: IntNullableFilter<"PlanEvaluation"> | number | null
+    outcomeData?: StringFilter<"PlanEvaluation"> | string
+    evaluatedAt?: DateTimeFilter<"PlanEvaluation"> | Date | string
+    plan?: XOR<PlanScalarRelationFilter, PlanWhereInput>
+  }, "id">
+
+  export type PlanEvaluationOrderByWithAggregationInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrderInput | SortOrder
+    outcomeData?: SortOrder
+    evaluatedAt?: SortOrder
+    _count?: PlanEvaluationCountOrderByAggregateInput
+    _avg?: PlanEvaluationAvgOrderByAggregateInput
+    _max?: PlanEvaluationMaxOrderByAggregateInput
+    _min?: PlanEvaluationMinOrderByAggregateInput
+    _sum?: PlanEvaluationSumOrderByAggregateInput
+  }
+
+  export type PlanEvaluationScalarWhereWithAggregatesInput = {
+    AND?: PlanEvaluationScalarWhereWithAggregatesInput | PlanEvaluationScalarWhereWithAggregatesInput[]
+    OR?: PlanEvaluationScalarWhereWithAggregatesInput[]
+    NOT?: PlanEvaluationScalarWhereWithAggregatesInput | PlanEvaluationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlanEvaluation"> | string
+    planId?: StringWithAggregatesFilter<"PlanEvaluation"> | string
+    evaluatedVersionNum?: IntWithAggregatesFilter<"PlanEvaluation"> | number
+    completionRate?: FloatWithAggregatesFilter<"PlanEvaluation"> | number
+    tasksPlanned?: IntWithAggregatesFilter<"PlanEvaluation"> | number
+    tasksCompleted?: IntWithAggregatesFilter<"PlanEvaluation"> | number
+    ratingChange?: IntNullableWithAggregatesFilter<"PlanEvaluation"> | number | null
+    outcomeData?: StringWithAggregatesFilter<"PlanEvaluation"> | string
+    evaluatedAt?: DateTimeWithAggregatesFilter<"PlanEvaluation"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -9217,6 +16416,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutGoalsInput
+    plans?: PlanCreateNestedManyWithoutGoalInput
   }
 
   export type GoalUncheckedCreateInput = {
@@ -9233,6 +16433,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    plans?: PlanUncheckedCreateNestedManyWithoutGoalInput
   }
 
   export type GoalUpdateInput = {
@@ -9249,6 +16450,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutGoalsNestedInput
+    plans?: PlanUpdateManyWithoutGoalNestedInput
   }
 
   export type GoalUncheckedUpdateInput = {
@@ -9265,6 +16467,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plans?: PlanUncheckedUpdateManyWithoutGoalNestedInput
   }
 
   export type GoalCreateManyInput = {
@@ -9522,6 +16725,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutSubmissionsInput
     problem: ProblemCreateNestedOneWithoutSubmissionsInput
+    taskMatches?: TaskEvidenceMatchCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionUncheckedCreateInput = {
@@ -9540,6 +16744,7 @@ export namespace Prisma {
     contestId?: string | null
     rawData?: string | null
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionUpdateInput = {
@@ -9558,6 +16763,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
     problem?: ProblemUpdateOneRequiredWithoutSubmissionsNestedInput
+    taskMatches?: TaskEvidenceMatchUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionUncheckedUpdateInput = {
@@ -9576,6 +16782,7 @@ export namespace Prisma {
     contestId?: NullableStringFieldUpdateOperationsInput | string | null
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionCreateManyInput = {
@@ -9642,6 +16849,7 @@ export namespace Prisma {
     timestamp: Date | string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutContestsInput
+    taskMatches?: TaskEvidenceMatchCreateNestedManyWithoutContestHistoryInput
   }
 
   export type ContestHistoryUncheckedCreateInput = {
@@ -9656,6 +16864,7 @@ export namespace Prisma {
     ratingChange: number
     timestamp: Date | string
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutContestHistoryInput
   }
 
   export type ContestHistoryUpdateInput = {
@@ -9670,6 +16879,7 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutContestsNestedInput
+    taskMatches?: TaskEvidenceMatchUpdateManyWithoutContestHistoryNestedInput
   }
 
   export type ContestHistoryUncheckedUpdateInput = {
@@ -9684,6 +16894,7 @@ export namespace Prisma {
     ratingChange?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedUpdateManyWithoutContestHistoryNestedInput
   }
 
   export type ContestHistoryCreateManyInput = {
@@ -9725,6 +16936,470 @@ export namespace Prisma {
     ratingChange?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanCreateInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    goal: GoalCreateNestedOneWithoutPlansInput
+    versions?: PlanVersionCreateNestedManyWithoutPlanInput
+    evaluations?: PlanEvaluationCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUncheckedCreateInput = {
+    id?: string
+    goalId: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    versions?: PlanVersionUncheckedCreateNestedManyWithoutPlanInput
+    evaluations?: PlanEvaluationUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    goal?: GoalUpdateOneRequiredWithoutPlansNestedInput
+    versions?: PlanVersionUpdateManyWithoutPlanNestedInput
+    evaluations?: PlanEvaluationUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    goalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: PlanVersionUncheckedUpdateManyWithoutPlanNestedInput
+    evaluations?: PlanEvaluationUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanCreateManyInput = {
+    id?: string
+    goalId: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    goalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanVersionCreateInput = {
+    id?: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+    plan: PlanCreateNestedOneWithoutVersionsInput
+    tasks?: PlanTaskCreateNestedManyWithoutPlanVersionInput
+  }
+
+  export type PlanVersionUncheckedCreateInput = {
+    id?: string
+    planId: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+    tasks?: PlanTaskUncheckedCreateNestedManyWithoutPlanVersionInput
+  }
+
+  export type PlanVersionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PlanUpdateOneRequiredWithoutVersionsNestedInput
+    tasks?: PlanTaskUpdateManyWithoutPlanVersionNestedInput
+  }
+
+  export type PlanVersionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: PlanTaskUncheckedUpdateManyWithoutPlanVersionNestedInput
+  }
+
+  export type PlanVersionCreateManyInput = {
+    id?: string
+    planId: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PlanVersionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanVersionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanTaskCreateInput = {
+    id?: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+    planVersion: PlanVersionCreateNestedOneWithoutTasksInput
+    matches?: TaskEvidenceMatchCreateNestedManyWithoutTaskInput
+  }
+
+  export type PlanTaskUncheckedCreateInput = {
+    id?: string
+    planVersionId: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+    matches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type PlanTaskUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    planVersion?: PlanVersionUpdateOneRequiredWithoutTasksNestedInput
+    matches?: TaskEvidenceMatchUpdateManyWithoutTaskNestedInput
+  }
+
+  export type PlanTaskUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planVersionId?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    matches?: TaskEvidenceMatchUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type PlanTaskCreateManyInput = {
+    id?: string
+    planVersionId: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PlanTaskUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanTaskUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planVersionId?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskEvidenceMatchCreateInput = {
+    id?: string
+    matchedAt?: Date | string
+    notes?: string | null
+    task: PlanTaskCreateNestedOneWithoutMatchesInput
+    submission?: NormalizedSubmissionCreateNestedOneWithoutTaskMatchesInput
+    contestHistory?: ContestHistoryCreateNestedOneWithoutTaskMatchesInput
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateInput = {
+    id?: string
+    taskId: string
+    submissionId?: string | null
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    task?: PlanTaskUpdateOneRequiredWithoutMatchesNestedInput
+    submission?: NormalizedSubmissionUpdateOneWithoutTaskMatchesNestedInput
+    contestHistory?: ContestHistoryUpdateOneWithoutTaskMatchesNestedInput
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchCreateManyInput = {
+    id?: string
+    taskId: string
+    submissionId?: string | null
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlanEvaluationCreateInput = {
+    id?: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+    plan: PlanCreateNestedOneWithoutEvaluationsInput
+  }
+
+  export type PlanEvaluationUncheckedCreateInput = {
+    id?: string
+    planId: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+  }
+
+  export type PlanEvaluationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PlanUpdateOneRequiredWithoutEvaluationsNestedInput
+  }
+
+  export type PlanEvaluationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanEvaluationCreateManyInput = {
+    id?: string
+    planId: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+  }
+
+  export type PlanEvaluationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanEvaluationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9908,6 +17583,16 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type PlanListRelationFilter = {
+    every?: PlanWhereInput
+    some?: PlanWhereInput
+    none?: PlanWhereInput
+  }
+
+  export type PlanOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GoalCountOrderByAggregateInput = {
@@ -10163,6 +17848,16 @@ export namespace Prisma {
     isNot?: ProblemWhereInput
   }
 
+  export type TaskEvidenceMatchListRelationFilter = {
+    every?: TaskEvidenceMatchWhereInput
+    some?: TaskEvidenceMatchWhereInput
+    none?: TaskEvidenceMatchWhereInput
+  }
+
+  export type TaskEvidenceMatchOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type NormalizedSubmissionUserIdPlatformExternalSubmissionIdCompoundUniqueInput = {
     userId: string
     platform: string
@@ -10318,6 +18013,322 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type GoalScalarRelationFilter = {
+    is?: GoalWhereInput
+    isNot?: GoalWhereInput
+  }
+
+  export type PlanVersionListRelationFilter = {
+    every?: PlanVersionWhereInput
+    some?: PlanVersionWhereInput
+    none?: PlanVersionWhereInput
+  }
+
+  export type PlanEvaluationListRelationFilter = {
+    every?: PlanEvaluationWhereInput
+    some?: PlanEvaluationWhereInput
+    none?: PlanEvaluationWhereInput
+  }
+
+  export type PlanVersionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlanEvaluationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlanCountOrderByAggregateInput = {
+    id?: SortOrder
+    goalId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentVersionNum?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlanAvgOrderByAggregateInput = {
+    currentVersionNum?: SortOrder
+  }
+
+  export type PlanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    goalId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentVersionNum?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlanMinOrderByAggregateInput = {
+    id?: SortOrder
+    goalId?: SortOrder
+    userId?: SortOrder
+    status?: SortOrder
+    currentVersionNum?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PlanSumOrderByAggregateInput = {
+    currentVersionNum?: SortOrder
+  }
+
+  export type PlanScalarRelationFilter = {
+    is?: PlanWhereInput
+    isNot?: PlanWhereInput
+  }
+
+  export type PlanTaskListRelationFilter = {
+    every?: PlanTaskWhereInput
+    some?: PlanTaskWhereInput
+    none?: PlanTaskWhereInput
+  }
+
+  export type PlanTaskOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlanVersionPlanIdVersionNumberCompoundUniqueInput = {
+    planId: string
+    versionNumber: number
+  }
+
+  export type PlanVersionCountOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    versionNumber?: SortOrder
+    schemaVersion?: SortOrder
+    summary?: SortOrder
+    milestoneTitle?: SortOrder
+    bottleneckType?: SortOrder
+    planData?: SortOrder
+    startDate?: SortOrder
+    targetReviewDate?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanVersionAvgOrderByAggregateInput = {
+    versionNumber?: SortOrder
+  }
+
+  export type PlanVersionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    versionNumber?: SortOrder
+    schemaVersion?: SortOrder
+    summary?: SortOrder
+    milestoneTitle?: SortOrder
+    bottleneckType?: SortOrder
+    planData?: SortOrder
+    startDate?: SortOrder
+    targetReviewDate?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanVersionMinOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    versionNumber?: SortOrder
+    schemaVersion?: SortOrder
+    summary?: SortOrder
+    milestoneTitle?: SortOrder
+    bottleneckType?: SortOrder
+    planData?: SortOrder
+    startDate?: SortOrder
+    targetReviewDate?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanVersionSumOrderByAggregateInput = {
+    versionNumber?: SortOrder
+  }
+
+  export type PlanVersionScalarRelationFilter = {
+    is?: PlanVersionWhereInput
+    isNot?: PlanVersionWhereInput
+  }
+
+  export type PlanTaskCountOrderByAggregateInput = {
+    id?: SortOrder
+    planVersionId?: SortOrder
+    externalTaskId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    platform?: SortOrder
+    minDifficulty?: SortOrder
+    maxDifficulty?: SortOrder
+    difficultyTier?: SortOrder
+    topics?: SortOrder
+    reason?: SortOrder
+    evidenceReferences?: SortOrder
+    completionMetric?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanTaskAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    minDifficulty?: SortOrder
+    maxDifficulty?: SortOrder
+  }
+
+  export type PlanTaskMaxOrderByAggregateInput = {
+    id?: SortOrder
+    planVersionId?: SortOrder
+    externalTaskId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    platform?: SortOrder
+    minDifficulty?: SortOrder
+    maxDifficulty?: SortOrder
+    difficultyTier?: SortOrder
+    topics?: SortOrder
+    reason?: SortOrder
+    evidenceReferences?: SortOrder
+    completionMetric?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanTaskMinOrderByAggregateInput = {
+    id?: SortOrder
+    planVersionId?: SortOrder
+    externalTaskId?: SortOrder
+    type?: SortOrder
+    title?: SortOrder
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    platform?: SortOrder
+    minDifficulty?: SortOrder
+    maxDifficulty?: SortOrder
+    difficultyTier?: SortOrder
+    topics?: SortOrder
+    reason?: SortOrder
+    evidenceReferences?: SortOrder
+    completionMetric?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PlanTaskSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    quantityCompleted?: SortOrder
+    minDifficulty?: SortOrder
+    maxDifficulty?: SortOrder
+  }
+
+  export type PlanTaskScalarRelationFilter = {
+    is?: PlanTaskWhereInput
+    isNot?: PlanTaskWhereInput
+  }
+
+  export type NormalizedSubmissionNullableScalarRelationFilter = {
+    is?: NormalizedSubmissionWhereInput | null
+    isNot?: NormalizedSubmissionWhereInput | null
+  }
+
+  export type ContestHistoryNullableScalarRelationFilter = {
+    is?: ContestHistoryWhereInput | null
+    isNot?: ContestHistoryWhereInput | null
+  }
+
+  export type TaskEvidenceMatchTaskIdSubmissionIdCompoundUniqueInput = {
+    taskId: string
+    submissionId: string
+  }
+
+  export type TaskEvidenceMatchTaskIdContestHistoryIdCompoundUniqueInput = {
+    taskId: string
+    contestHistoryId: string
+  }
+
+  export type TaskEvidenceMatchCountOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    submissionId?: SortOrder
+    contestHistoryId?: SortOrder
+    matchedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type TaskEvidenceMatchMaxOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    submissionId?: SortOrder
+    contestHistoryId?: SortOrder
+    matchedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type TaskEvidenceMatchMinOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    submissionId?: SortOrder
+    contestHistoryId?: SortOrder
+    matchedAt?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type PlanEvaluationCountOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrder
+    outcomeData?: SortOrder
+    evaluatedAt?: SortOrder
+  }
+
+  export type PlanEvaluationAvgOrderByAggregateInput = {
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrder
+  }
+
+  export type PlanEvaluationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrder
+    outcomeData?: SortOrder
+    evaluatedAt?: SortOrder
+  }
+
+  export type PlanEvaluationMinOrderByAggregateInput = {
+    id?: SortOrder
+    planId?: SortOrder
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrder
+    outcomeData?: SortOrder
+    evaluatedAt?: SortOrder
+  }
+
+  export type PlanEvaluationSumOrderByAggregateInput = {
+    evaluatedVersionNum?: SortOrder
+    completionRate?: SortOrder
+    tasksPlanned?: SortOrder
+    tasksCompleted?: SortOrder
+    ratingChange?: SortOrder
   }
 
   export type GoalCreateNestedManyWithoutUserInput = {
@@ -10506,6 +18517,20 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PlanCreateNestedManyWithoutGoalInput = {
+    create?: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput> | PlanCreateWithoutGoalInput[] | PlanUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: PlanCreateOrConnectWithoutGoalInput | PlanCreateOrConnectWithoutGoalInput[]
+    createMany?: PlanCreateManyGoalInputEnvelope
+    connect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+  }
+
+  export type PlanUncheckedCreateNestedManyWithoutGoalInput = {
+    create?: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput> | PlanCreateWithoutGoalInput[] | PlanUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: PlanCreateOrConnectWithoutGoalInput | PlanCreateOrConnectWithoutGoalInput[]
+    createMany?: PlanCreateManyGoalInputEnvelope
+    connect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -10528,6 +18553,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutGoalsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGoalsInput, UserUpdateWithoutGoalsInput>, UserUncheckedUpdateWithoutGoalsInput>
+  }
+
+  export type PlanUpdateManyWithoutGoalNestedInput = {
+    create?: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput> | PlanCreateWithoutGoalInput[] | PlanUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: PlanCreateOrConnectWithoutGoalInput | PlanCreateOrConnectWithoutGoalInput[]
+    upsert?: PlanUpsertWithWhereUniqueWithoutGoalInput | PlanUpsertWithWhereUniqueWithoutGoalInput[]
+    createMany?: PlanCreateManyGoalInputEnvelope
+    set?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    disconnect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    delete?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    connect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    update?: PlanUpdateWithWhereUniqueWithoutGoalInput | PlanUpdateWithWhereUniqueWithoutGoalInput[]
+    updateMany?: PlanUpdateManyWithWhereWithoutGoalInput | PlanUpdateManyWithWhereWithoutGoalInput[]
+    deleteMany?: PlanScalarWhereInput | PlanScalarWhereInput[]
+  }
+
+  export type PlanUncheckedUpdateManyWithoutGoalNestedInput = {
+    create?: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput> | PlanCreateWithoutGoalInput[] | PlanUncheckedCreateWithoutGoalInput[]
+    connectOrCreate?: PlanCreateOrConnectWithoutGoalInput | PlanCreateOrConnectWithoutGoalInput[]
+    upsert?: PlanUpsertWithWhereUniqueWithoutGoalInput | PlanUpsertWithWhereUniqueWithoutGoalInput[]
+    createMany?: PlanCreateManyGoalInputEnvelope
+    set?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    disconnect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    delete?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    connect?: PlanWhereUniqueInput | PlanWhereUniqueInput[]
+    update?: PlanUpdateWithWhereUniqueWithoutGoalInput | PlanUpdateWithWhereUniqueWithoutGoalInput[]
+    updateMany?: PlanUpdateManyWithWhereWithoutGoalInput | PlanUpdateManyWithWhereWithoutGoalInput[]
+    deleteMany?: PlanScalarWhereInput | PlanScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutConnectionsInput = {
@@ -10610,6 +18663,20 @@ export namespace Prisma {
     connect?: ProblemWhereUniqueInput
   }
 
+  export type TaskEvidenceMatchCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput> | TaskEvidenceMatchCreateWithoutSubmissionInput[] | TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput | TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput[]
+    createMany?: TaskEvidenceMatchCreateManySubmissionInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateNestedManyWithoutSubmissionInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput> | TaskEvidenceMatchCreateWithoutSubmissionInput[] | TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput | TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput[]
+    createMany?: TaskEvidenceMatchCreateManySubmissionInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -10630,10 +18697,52 @@ export namespace Prisma {
     update?: XOR<XOR<ProblemUpdateToOneWithWhereWithoutSubmissionsInput, ProblemUpdateWithoutSubmissionsInput>, ProblemUncheckedUpdateWithoutSubmissionsInput>
   }
 
+  export type TaskEvidenceMatchUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput> | TaskEvidenceMatchCreateWithoutSubmissionInput[] | TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput | TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutSubmissionInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: TaskEvidenceMatchCreateManySubmissionInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutSubmissionInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutSubmissionInput | TaskEvidenceMatchUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput> | TaskEvidenceMatchCreateWithoutSubmissionInput[] | TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput | TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutSubmissionInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutSubmissionInput[]
+    createMany?: TaskEvidenceMatchCreateManySubmissionInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutSubmissionInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutSubmissionInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutSubmissionInput | TaskEvidenceMatchUpdateManyWithWhereWithoutSubmissionInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutContestsInput = {
     create?: XOR<UserCreateWithoutContestsInput, UserUncheckedCreateWithoutContestsInput>
     connectOrCreate?: UserCreateOrConnectWithoutContestsInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type TaskEvidenceMatchCreateNestedManyWithoutContestHistoryInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput> | TaskEvidenceMatchCreateWithoutContestHistoryInput[] | TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput | TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput[]
+    createMany?: TaskEvidenceMatchCreateManyContestHistoryInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateNestedManyWithoutContestHistoryInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput> | TaskEvidenceMatchCreateWithoutContestHistoryInput[] | TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput | TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput[]
+    createMany?: TaskEvidenceMatchCreateManyContestHistoryInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10650,6 +18759,304 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutContestsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutContestsInput, UserUpdateWithoutContestsInput>, UserUncheckedUpdateWithoutContestsInput>
+  }
+
+  export type TaskEvidenceMatchUpdateManyWithoutContestHistoryNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput> | TaskEvidenceMatchCreateWithoutContestHistoryInput[] | TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput | TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutContestHistoryInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutContestHistoryInput[]
+    createMany?: TaskEvidenceMatchCreateManyContestHistoryInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutContestHistoryInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutContestHistoryInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutContestHistoryInput | TaskEvidenceMatchUpdateManyWithWhereWithoutContestHistoryInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutContestHistoryNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput> | TaskEvidenceMatchCreateWithoutContestHistoryInput[] | TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput | TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutContestHistoryInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutContestHistoryInput[]
+    createMany?: TaskEvidenceMatchCreateManyContestHistoryInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutContestHistoryInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutContestHistoryInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutContestHistoryInput | TaskEvidenceMatchUpdateManyWithWhereWithoutContestHistoryInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
+  export type GoalCreateNestedOneWithoutPlansInput = {
+    create?: XOR<GoalCreateWithoutPlansInput, GoalUncheckedCreateWithoutPlansInput>
+    connectOrCreate?: GoalCreateOrConnectWithoutPlansInput
+    connect?: GoalWhereUniqueInput
+  }
+
+  export type PlanVersionCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput> | PlanVersionCreateWithoutPlanInput[] | PlanVersionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutPlanInput | PlanVersionCreateOrConnectWithoutPlanInput[]
+    createMany?: PlanVersionCreateManyPlanInputEnvelope
+    connect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+  }
+
+  export type PlanEvaluationCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput> | PlanEvaluationCreateWithoutPlanInput[] | PlanEvaluationUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanEvaluationCreateOrConnectWithoutPlanInput | PlanEvaluationCreateOrConnectWithoutPlanInput[]
+    createMany?: PlanEvaluationCreateManyPlanInputEnvelope
+    connect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+  }
+
+  export type PlanVersionUncheckedCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput> | PlanVersionCreateWithoutPlanInput[] | PlanVersionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutPlanInput | PlanVersionCreateOrConnectWithoutPlanInput[]
+    createMany?: PlanVersionCreateManyPlanInputEnvelope
+    connect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+  }
+
+  export type PlanEvaluationUncheckedCreateNestedManyWithoutPlanInput = {
+    create?: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput> | PlanEvaluationCreateWithoutPlanInput[] | PlanEvaluationUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanEvaluationCreateOrConnectWithoutPlanInput | PlanEvaluationCreateOrConnectWithoutPlanInput[]
+    createMany?: PlanEvaluationCreateManyPlanInputEnvelope
+    connect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+  }
+
+  export type GoalUpdateOneRequiredWithoutPlansNestedInput = {
+    create?: XOR<GoalCreateWithoutPlansInput, GoalUncheckedCreateWithoutPlansInput>
+    connectOrCreate?: GoalCreateOrConnectWithoutPlansInput
+    upsert?: GoalUpsertWithoutPlansInput
+    connect?: GoalWhereUniqueInput
+    update?: XOR<XOR<GoalUpdateToOneWithWhereWithoutPlansInput, GoalUpdateWithoutPlansInput>, GoalUncheckedUpdateWithoutPlansInput>
+  }
+
+  export type PlanVersionUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput> | PlanVersionCreateWithoutPlanInput[] | PlanVersionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutPlanInput | PlanVersionCreateOrConnectWithoutPlanInput[]
+    upsert?: PlanVersionUpsertWithWhereUniqueWithoutPlanInput | PlanVersionUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PlanVersionCreateManyPlanInputEnvelope
+    set?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    disconnect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    delete?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    connect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    update?: PlanVersionUpdateWithWhereUniqueWithoutPlanInput | PlanVersionUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PlanVersionUpdateManyWithWhereWithoutPlanInput | PlanVersionUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PlanVersionScalarWhereInput | PlanVersionScalarWhereInput[]
+  }
+
+  export type PlanEvaluationUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput> | PlanEvaluationCreateWithoutPlanInput[] | PlanEvaluationUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanEvaluationCreateOrConnectWithoutPlanInput | PlanEvaluationCreateOrConnectWithoutPlanInput[]
+    upsert?: PlanEvaluationUpsertWithWhereUniqueWithoutPlanInput | PlanEvaluationUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PlanEvaluationCreateManyPlanInputEnvelope
+    set?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    disconnect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    delete?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    connect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    update?: PlanEvaluationUpdateWithWhereUniqueWithoutPlanInput | PlanEvaluationUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PlanEvaluationUpdateManyWithWhereWithoutPlanInput | PlanEvaluationUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PlanEvaluationScalarWhereInput | PlanEvaluationScalarWhereInput[]
+  }
+
+  export type PlanVersionUncheckedUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput> | PlanVersionCreateWithoutPlanInput[] | PlanVersionUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutPlanInput | PlanVersionCreateOrConnectWithoutPlanInput[]
+    upsert?: PlanVersionUpsertWithWhereUniqueWithoutPlanInput | PlanVersionUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PlanVersionCreateManyPlanInputEnvelope
+    set?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    disconnect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    delete?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    connect?: PlanVersionWhereUniqueInput | PlanVersionWhereUniqueInput[]
+    update?: PlanVersionUpdateWithWhereUniqueWithoutPlanInput | PlanVersionUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PlanVersionUpdateManyWithWhereWithoutPlanInput | PlanVersionUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PlanVersionScalarWhereInput | PlanVersionScalarWhereInput[]
+  }
+
+  export type PlanEvaluationUncheckedUpdateManyWithoutPlanNestedInput = {
+    create?: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput> | PlanEvaluationCreateWithoutPlanInput[] | PlanEvaluationUncheckedCreateWithoutPlanInput[]
+    connectOrCreate?: PlanEvaluationCreateOrConnectWithoutPlanInput | PlanEvaluationCreateOrConnectWithoutPlanInput[]
+    upsert?: PlanEvaluationUpsertWithWhereUniqueWithoutPlanInput | PlanEvaluationUpsertWithWhereUniqueWithoutPlanInput[]
+    createMany?: PlanEvaluationCreateManyPlanInputEnvelope
+    set?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    disconnect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    delete?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    connect?: PlanEvaluationWhereUniqueInput | PlanEvaluationWhereUniqueInput[]
+    update?: PlanEvaluationUpdateWithWhereUniqueWithoutPlanInput | PlanEvaluationUpdateWithWhereUniqueWithoutPlanInput[]
+    updateMany?: PlanEvaluationUpdateManyWithWhereWithoutPlanInput | PlanEvaluationUpdateManyWithWhereWithoutPlanInput[]
+    deleteMany?: PlanEvaluationScalarWhereInput | PlanEvaluationScalarWhereInput[]
+  }
+
+  export type PlanCreateNestedOneWithoutVersionsInput = {
+    create?: XOR<PlanCreateWithoutVersionsInput, PlanUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutVersionsInput
+    connect?: PlanWhereUniqueInput
+  }
+
+  export type PlanTaskCreateNestedManyWithoutPlanVersionInput = {
+    create?: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput> | PlanTaskCreateWithoutPlanVersionInput[] | PlanTaskUncheckedCreateWithoutPlanVersionInput[]
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutPlanVersionInput | PlanTaskCreateOrConnectWithoutPlanVersionInput[]
+    createMany?: PlanTaskCreateManyPlanVersionInputEnvelope
+    connect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+  }
+
+  export type PlanTaskUncheckedCreateNestedManyWithoutPlanVersionInput = {
+    create?: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput> | PlanTaskCreateWithoutPlanVersionInput[] | PlanTaskUncheckedCreateWithoutPlanVersionInput[]
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutPlanVersionInput | PlanTaskCreateOrConnectWithoutPlanVersionInput[]
+    createMany?: PlanTaskCreateManyPlanVersionInputEnvelope
+    connect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+  }
+
+  export type PlanUpdateOneRequiredWithoutVersionsNestedInput = {
+    create?: XOR<PlanCreateWithoutVersionsInput, PlanUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutVersionsInput
+    upsert?: PlanUpsertWithoutVersionsInput
+    connect?: PlanWhereUniqueInput
+    update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutVersionsInput, PlanUpdateWithoutVersionsInput>, PlanUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type PlanTaskUpdateManyWithoutPlanVersionNestedInput = {
+    create?: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput> | PlanTaskCreateWithoutPlanVersionInput[] | PlanTaskUncheckedCreateWithoutPlanVersionInput[]
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutPlanVersionInput | PlanTaskCreateOrConnectWithoutPlanVersionInput[]
+    upsert?: PlanTaskUpsertWithWhereUniqueWithoutPlanVersionInput | PlanTaskUpsertWithWhereUniqueWithoutPlanVersionInput[]
+    createMany?: PlanTaskCreateManyPlanVersionInputEnvelope
+    set?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    disconnect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    delete?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    connect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    update?: PlanTaskUpdateWithWhereUniqueWithoutPlanVersionInput | PlanTaskUpdateWithWhereUniqueWithoutPlanVersionInput[]
+    updateMany?: PlanTaskUpdateManyWithWhereWithoutPlanVersionInput | PlanTaskUpdateManyWithWhereWithoutPlanVersionInput[]
+    deleteMany?: PlanTaskScalarWhereInput | PlanTaskScalarWhereInput[]
+  }
+
+  export type PlanTaskUncheckedUpdateManyWithoutPlanVersionNestedInput = {
+    create?: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput> | PlanTaskCreateWithoutPlanVersionInput[] | PlanTaskUncheckedCreateWithoutPlanVersionInput[]
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutPlanVersionInput | PlanTaskCreateOrConnectWithoutPlanVersionInput[]
+    upsert?: PlanTaskUpsertWithWhereUniqueWithoutPlanVersionInput | PlanTaskUpsertWithWhereUniqueWithoutPlanVersionInput[]
+    createMany?: PlanTaskCreateManyPlanVersionInputEnvelope
+    set?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    disconnect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    delete?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    connect?: PlanTaskWhereUniqueInput | PlanTaskWhereUniqueInput[]
+    update?: PlanTaskUpdateWithWhereUniqueWithoutPlanVersionInput | PlanTaskUpdateWithWhereUniqueWithoutPlanVersionInput[]
+    updateMany?: PlanTaskUpdateManyWithWhereWithoutPlanVersionInput | PlanTaskUpdateManyWithWhereWithoutPlanVersionInput[]
+    deleteMany?: PlanTaskScalarWhereInput | PlanTaskScalarWhereInput[]
+  }
+
+  export type PlanVersionCreateNestedOneWithoutTasksInput = {
+    create?: XOR<PlanVersionCreateWithoutTasksInput, PlanVersionUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutTasksInput
+    connect?: PlanVersionWhereUniqueInput
+  }
+
+  export type TaskEvidenceMatchCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput> | TaskEvidenceMatchCreateWithoutTaskInput[] | TaskEvidenceMatchUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutTaskInput | TaskEvidenceMatchCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskEvidenceMatchCreateManyTaskInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput> | TaskEvidenceMatchCreateWithoutTaskInput[] | TaskEvidenceMatchUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutTaskInput | TaskEvidenceMatchCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskEvidenceMatchCreateManyTaskInputEnvelope
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+  }
+
+  export type PlanVersionUpdateOneRequiredWithoutTasksNestedInput = {
+    create?: XOR<PlanVersionCreateWithoutTasksInput, PlanVersionUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: PlanVersionCreateOrConnectWithoutTasksInput
+    upsert?: PlanVersionUpsertWithoutTasksInput
+    connect?: PlanVersionWhereUniqueInput
+    update?: XOR<XOR<PlanVersionUpdateToOneWithWhereWithoutTasksInput, PlanVersionUpdateWithoutTasksInput>, PlanVersionUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type TaskEvidenceMatchUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput> | TaskEvidenceMatchCreateWithoutTaskInput[] | TaskEvidenceMatchUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutTaskInput | TaskEvidenceMatchCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutTaskInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskEvidenceMatchCreateManyTaskInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutTaskInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutTaskInput | TaskEvidenceMatchUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput> | TaskEvidenceMatchCreateWithoutTaskInput[] | TaskEvidenceMatchUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskEvidenceMatchCreateOrConnectWithoutTaskInput | TaskEvidenceMatchCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskEvidenceMatchUpsertWithWhereUniqueWithoutTaskInput | TaskEvidenceMatchUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskEvidenceMatchCreateManyTaskInputEnvelope
+    set?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    disconnect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    delete?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    connect?: TaskEvidenceMatchWhereUniqueInput | TaskEvidenceMatchWhereUniqueInput[]
+    update?: TaskEvidenceMatchUpdateWithWhereUniqueWithoutTaskInput | TaskEvidenceMatchUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskEvidenceMatchUpdateManyWithWhereWithoutTaskInput | TaskEvidenceMatchUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+  }
+
+  export type PlanTaskCreateNestedOneWithoutMatchesInput = {
+    create?: XOR<PlanTaskCreateWithoutMatchesInput, PlanTaskUncheckedCreateWithoutMatchesInput>
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutMatchesInput
+    connect?: PlanTaskWhereUniqueInput
+  }
+
+  export type NormalizedSubmissionCreateNestedOneWithoutTaskMatchesInput = {
+    create?: XOR<NormalizedSubmissionCreateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedCreateWithoutTaskMatchesInput>
+    connectOrCreate?: NormalizedSubmissionCreateOrConnectWithoutTaskMatchesInput
+    connect?: NormalizedSubmissionWhereUniqueInput
+  }
+
+  export type ContestHistoryCreateNestedOneWithoutTaskMatchesInput = {
+    create?: XOR<ContestHistoryCreateWithoutTaskMatchesInput, ContestHistoryUncheckedCreateWithoutTaskMatchesInput>
+    connectOrCreate?: ContestHistoryCreateOrConnectWithoutTaskMatchesInput
+    connect?: ContestHistoryWhereUniqueInput
+  }
+
+  export type PlanTaskUpdateOneRequiredWithoutMatchesNestedInput = {
+    create?: XOR<PlanTaskCreateWithoutMatchesInput, PlanTaskUncheckedCreateWithoutMatchesInput>
+    connectOrCreate?: PlanTaskCreateOrConnectWithoutMatchesInput
+    upsert?: PlanTaskUpsertWithoutMatchesInput
+    connect?: PlanTaskWhereUniqueInput
+    update?: XOR<XOR<PlanTaskUpdateToOneWithWhereWithoutMatchesInput, PlanTaskUpdateWithoutMatchesInput>, PlanTaskUncheckedUpdateWithoutMatchesInput>
+  }
+
+  export type NormalizedSubmissionUpdateOneWithoutTaskMatchesNestedInput = {
+    create?: XOR<NormalizedSubmissionCreateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedCreateWithoutTaskMatchesInput>
+    connectOrCreate?: NormalizedSubmissionCreateOrConnectWithoutTaskMatchesInput
+    upsert?: NormalizedSubmissionUpsertWithoutTaskMatchesInput
+    disconnect?: NormalizedSubmissionWhereInput | boolean
+    delete?: NormalizedSubmissionWhereInput | boolean
+    connect?: NormalizedSubmissionWhereUniqueInput
+    update?: XOR<XOR<NormalizedSubmissionUpdateToOneWithWhereWithoutTaskMatchesInput, NormalizedSubmissionUpdateWithoutTaskMatchesInput>, NormalizedSubmissionUncheckedUpdateWithoutTaskMatchesInput>
+  }
+
+  export type ContestHistoryUpdateOneWithoutTaskMatchesNestedInput = {
+    create?: XOR<ContestHistoryCreateWithoutTaskMatchesInput, ContestHistoryUncheckedCreateWithoutTaskMatchesInput>
+    connectOrCreate?: ContestHistoryCreateOrConnectWithoutTaskMatchesInput
+    upsert?: ContestHistoryUpsertWithoutTaskMatchesInput
+    disconnect?: ContestHistoryWhereInput | boolean
+    delete?: ContestHistoryWhereInput | boolean
+    connect?: ContestHistoryWhereUniqueInput
+    update?: XOR<XOR<ContestHistoryUpdateToOneWithWhereWithoutTaskMatchesInput, ContestHistoryUpdateWithoutTaskMatchesInput>, ContestHistoryUncheckedUpdateWithoutTaskMatchesInput>
+  }
+
+  export type PlanCreateNestedOneWithoutEvaluationsInput = {
+    create?: XOR<PlanCreateWithoutEvaluationsInput, PlanUncheckedCreateWithoutEvaluationsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutEvaluationsInput
+    connect?: PlanWhereUniqueInput
+  }
+
+  export type PlanUpdateOneRequiredWithoutEvaluationsNestedInput = {
+    create?: XOR<PlanCreateWithoutEvaluationsInput, PlanUncheckedCreateWithoutEvaluationsInput>
+    connectOrCreate?: PlanCreateOrConnectWithoutEvaluationsInput
+    upsert?: PlanUpsertWithoutEvaluationsInput
+    connect?: PlanWhereUniqueInput
+    update?: XOR<XOR<PlanUpdateToOneWithWhereWithoutEvaluationsInput, PlanUpdateWithoutEvaluationsInput>, PlanUncheckedUpdateWithoutEvaluationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10898,6 +19305,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    plans?: PlanCreateNestedManyWithoutGoalInput
   }
 
   export type GoalUncheckedCreateWithoutUserInput = {
@@ -10913,6 +19321,7 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    plans?: PlanUncheckedCreateNestedManyWithoutGoalInput
   }
 
   export type GoalCreateOrConnectWithoutUserInput = {
@@ -10972,6 +19381,7 @@ export namespace Prisma {
     rawData?: string | null
     createdAt?: Date | string
     problem: ProblemCreateNestedOneWithoutSubmissionsInput
+    taskMatches?: TaskEvidenceMatchCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionUncheckedCreateWithoutUserInput = {
@@ -10989,6 +19399,7 @@ export namespace Prisma {
     contestId?: string | null
     rawData?: string | null
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionCreateOrConnectWithoutUserInput = {
@@ -11011,6 +19422,7 @@ export namespace Prisma {
     ratingChange: number
     timestamp: Date | string
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchCreateNestedManyWithoutContestHistoryInput
   }
 
   export type ContestHistoryUncheckedCreateWithoutUserInput = {
@@ -11024,6 +19436,7 @@ export namespace Prisma {
     ratingChange: number
     timestamp: Date | string
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutContestHistoryInput
   }
 
   export type ContestHistoryCreateOrConnectWithoutUserInput = {
@@ -11199,6 +19612,37 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutGoalsInput, UserUncheckedCreateWithoutGoalsInput>
   }
 
+  export type PlanCreateWithoutGoalInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    versions?: PlanVersionCreateNestedManyWithoutPlanInput
+    evaluations?: PlanEvaluationCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUncheckedCreateWithoutGoalInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    versions?: PlanVersionUncheckedCreateNestedManyWithoutPlanInput
+    evaluations?: PlanEvaluationUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanCreateOrConnectWithoutGoalInput = {
+    where: PlanWhereUniqueInput
+    create: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput>
+  }
+
+  export type PlanCreateManyGoalInputEnvelope = {
+    data: PlanCreateManyGoalInput | PlanCreateManyGoalInput[]
+  }
+
   export type UserUpsertWithoutGoalsInput = {
     update: XOR<UserUpdateWithoutGoalsInput, UserUncheckedUpdateWithoutGoalsInput>
     create: XOR<UserCreateWithoutGoalsInput, UserUncheckedCreateWithoutGoalsInput>
@@ -11230,6 +19674,35 @@ export namespace Prisma {
     connections?: PlatformConnectionUncheckedUpdateManyWithoutUserNestedInput
     submissions?: NormalizedSubmissionUncheckedUpdateManyWithoutUserNestedInput
     contests?: ContestHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PlanUpsertWithWhereUniqueWithoutGoalInput = {
+    where: PlanWhereUniqueInput
+    update: XOR<PlanUpdateWithoutGoalInput, PlanUncheckedUpdateWithoutGoalInput>
+    create: XOR<PlanCreateWithoutGoalInput, PlanUncheckedCreateWithoutGoalInput>
+  }
+
+  export type PlanUpdateWithWhereUniqueWithoutGoalInput = {
+    where: PlanWhereUniqueInput
+    data: XOR<PlanUpdateWithoutGoalInput, PlanUncheckedUpdateWithoutGoalInput>
+  }
+
+  export type PlanUpdateManyWithWhereWithoutGoalInput = {
+    where: PlanScalarWhereInput
+    data: XOR<PlanUpdateManyMutationInput, PlanUncheckedUpdateManyWithoutGoalInput>
+  }
+
+  export type PlanScalarWhereInput = {
+    AND?: PlanScalarWhereInput | PlanScalarWhereInput[]
+    OR?: PlanScalarWhereInput[]
+    NOT?: PlanScalarWhereInput | PlanScalarWhereInput[]
+    id?: StringFilter<"Plan"> | string
+    goalId?: StringFilter<"Plan"> | string
+    userId?: StringFilter<"Plan"> | string
+    status?: StringFilter<"Plan"> | string
+    currentVersionNum?: IntFilter<"Plan"> | number
+    createdAt?: DateTimeFilter<"Plan"> | Date | string
+    updatedAt?: DateTimeFilter<"Plan"> | Date | string
   }
 
   export type UserCreateWithoutConnectionsInput = {
@@ -11307,6 +19780,7 @@ export namespace Prisma {
     rawData?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutSubmissionsInput
+    taskMatches?: TaskEvidenceMatchCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionUncheckedCreateWithoutProblemInput = {
@@ -11324,6 +19798,7 @@ export namespace Prisma {
     contestId?: string | null
     rawData?: string | null
     createdAt?: Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutSubmissionInput
   }
 
   export type NormalizedSubmissionCreateOrConnectWithoutProblemInput = {
@@ -11411,6 +19886,31 @@ export namespace Prisma {
     create: XOR<ProblemCreateWithoutSubmissionsInput, ProblemUncheckedCreateWithoutSubmissionsInput>
   }
 
+  export type TaskEvidenceMatchCreateWithoutSubmissionInput = {
+    id?: string
+    matchedAt?: Date | string
+    notes?: string | null
+    task: PlanTaskCreateNestedOneWithoutMatchesInput
+    contestHistory?: ContestHistoryCreateNestedOneWithoutTaskMatchesInput
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput = {
+    id?: string
+    taskId: string
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchCreateOrConnectWithoutSubmissionInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    create: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type TaskEvidenceMatchCreateManySubmissionInputEnvelope = {
+    data: TaskEvidenceMatchCreateManySubmissionInput | TaskEvidenceMatchCreateManySubmissionInput[]
+  }
+
   export type UserUpsertWithoutSubmissionsInput = {
     update: XOR<UserUpdateWithoutSubmissionsInput, UserUncheckedUpdateWithoutSubmissionsInput>
     create: XOR<UserCreateWithoutSubmissionsInput, UserUncheckedCreateWithoutSubmissionsInput>
@@ -11483,6 +19983,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TaskEvidenceMatchUpsertWithWhereUniqueWithoutSubmissionInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    update: XOR<TaskEvidenceMatchUpdateWithoutSubmissionInput, TaskEvidenceMatchUncheckedUpdateWithoutSubmissionInput>
+    create: XOR<TaskEvidenceMatchCreateWithoutSubmissionInput, TaskEvidenceMatchUncheckedCreateWithoutSubmissionInput>
+  }
+
+  export type TaskEvidenceMatchUpdateWithWhereUniqueWithoutSubmissionInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    data: XOR<TaskEvidenceMatchUpdateWithoutSubmissionInput, TaskEvidenceMatchUncheckedUpdateWithoutSubmissionInput>
+  }
+
+  export type TaskEvidenceMatchUpdateManyWithWhereWithoutSubmissionInput = {
+    where: TaskEvidenceMatchScalarWhereInput
+    data: XOR<TaskEvidenceMatchUpdateManyMutationInput, TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionInput>
+  }
+
+  export type TaskEvidenceMatchScalarWhereInput = {
+    AND?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+    OR?: TaskEvidenceMatchScalarWhereInput[]
+    NOT?: TaskEvidenceMatchScalarWhereInput | TaskEvidenceMatchScalarWhereInput[]
+    id?: StringFilter<"TaskEvidenceMatch"> | string
+    taskId?: StringFilter<"TaskEvidenceMatch"> | string
+    submissionId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    contestHistoryId?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+    matchedAt?: DateTimeFilter<"TaskEvidenceMatch"> | Date | string
+    notes?: StringNullableFilter<"TaskEvidenceMatch"> | string | null
+  }
+
   export type UserCreateWithoutContestsInput = {
     id?: string
     email: string
@@ -11508,6 +20036,31 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutContestsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutContestsInput, UserUncheckedCreateWithoutContestsInput>
+  }
+
+  export type TaskEvidenceMatchCreateWithoutContestHistoryInput = {
+    id?: string
+    matchedAt?: Date | string
+    notes?: string | null
+    task: PlanTaskCreateNestedOneWithoutMatchesInput
+    submission?: NormalizedSubmissionCreateNestedOneWithoutTaskMatchesInput
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput = {
+    id?: string
+    taskId: string
+    submissionId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchCreateOrConnectWithoutContestHistoryInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    create: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput>
+  }
+
+  export type TaskEvidenceMatchCreateManyContestHistoryInputEnvelope = {
+    data: TaskEvidenceMatchCreateManyContestHistoryInput | TaskEvidenceMatchCreateManyContestHistoryInput[]
   }
 
   export type UserUpsertWithoutContestsInput = {
@@ -11541,6 +20094,811 @@ export namespace Prisma {
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     connections?: PlatformConnectionUncheckedUpdateManyWithoutUserNestedInput
     submissions?: NormalizedSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TaskEvidenceMatchUpsertWithWhereUniqueWithoutContestHistoryInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    update: XOR<TaskEvidenceMatchUpdateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedUpdateWithoutContestHistoryInput>
+    create: XOR<TaskEvidenceMatchCreateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedCreateWithoutContestHistoryInput>
+  }
+
+  export type TaskEvidenceMatchUpdateWithWhereUniqueWithoutContestHistoryInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    data: XOR<TaskEvidenceMatchUpdateWithoutContestHistoryInput, TaskEvidenceMatchUncheckedUpdateWithoutContestHistoryInput>
+  }
+
+  export type TaskEvidenceMatchUpdateManyWithWhereWithoutContestHistoryInput = {
+    where: TaskEvidenceMatchScalarWhereInput
+    data: XOR<TaskEvidenceMatchUpdateManyMutationInput, TaskEvidenceMatchUncheckedUpdateManyWithoutContestHistoryInput>
+  }
+
+  export type GoalCreateWithoutPlansInput = {
+    id?: string
+    title: string
+    category: string
+    targetMetric: string
+    targetValue: number
+    initialValue: number
+    startDate?: Date | string
+    deadline: Date | string
+    availableHoursPerWeek?: number | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutGoalsInput
+  }
+
+  export type GoalUncheckedCreateWithoutPlansInput = {
+    id?: string
+    userId: string
+    title: string
+    category: string
+    targetMetric: string
+    targetValue: number
+    initialValue: number
+    startDate?: Date | string
+    deadline: Date | string
+    availableHoursPerWeek?: number | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GoalCreateOrConnectWithoutPlansInput = {
+    where: GoalWhereUniqueInput
+    create: XOR<GoalCreateWithoutPlansInput, GoalUncheckedCreateWithoutPlansInput>
+  }
+
+  export type PlanVersionCreateWithoutPlanInput = {
+    id?: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+    tasks?: PlanTaskCreateNestedManyWithoutPlanVersionInput
+  }
+
+  export type PlanVersionUncheckedCreateWithoutPlanInput = {
+    id?: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+    tasks?: PlanTaskUncheckedCreateNestedManyWithoutPlanVersionInput
+  }
+
+  export type PlanVersionCreateOrConnectWithoutPlanInput = {
+    where: PlanVersionWhereUniqueInput
+    create: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PlanVersionCreateManyPlanInputEnvelope = {
+    data: PlanVersionCreateManyPlanInput | PlanVersionCreateManyPlanInput[]
+  }
+
+  export type PlanEvaluationCreateWithoutPlanInput = {
+    id?: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+  }
+
+  export type PlanEvaluationUncheckedCreateWithoutPlanInput = {
+    id?: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+  }
+
+  export type PlanEvaluationCreateOrConnectWithoutPlanInput = {
+    where: PlanEvaluationWhereUniqueInput
+    create: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PlanEvaluationCreateManyPlanInputEnvelope = {
+    data: PlanEvaluationCreateManyPlanInput | PlanEvaluationCreateManyPlanInput[]
+  }
+
+  export type GoalUpsertWithoutPlansInput = {
+    update: XOR<GoalUpdateWithoutPlansInput, GoalUncheckedUpdateWithoutPlansInput>
+    create: XOR<GoalCreateWithoutPlansInput, GoalUncheckedCreateWithoutPlansInput>
+    where?: GoalWhereInput
+  }
+
+  export type GoalUpdateToOneWithWhereWithoutPlansInput = {
+    where?: GoalWhereInput
+    data: XOR<GoalUpdateWithoutPlansInput, GoalUncheckedUpdateWithoutPlansInput>
+  }
+
+  export type GoalUpdateWithoutPlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    targetMetric?: StringFieldUpdateOperationsInput | string
+    targetValue?: FloatFieldUpdateOperationsInput | number
+    initialValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    availableHoursPerWeek?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutGoalsNestedInput
+  }
+
+  export type GoalUncheckedUpdateWithoutPlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    targetMetric?: StringFieldUpdateOperationsInput | string
+    targetValue?: FloatFieldUpdateOperationsInput | number
+    initialValue?: FloatFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    deadline?: DateTimeFieldUpdateOperationsInput | Date | string
+    availableHoursPerWeek?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanVersionUpsertWithWhereUniqueWithoutPlanInput = {
+    where: PlanVersionWhereUniqueInput
+    update: XOR<PlanVersionUpdateWithoutPlanInput, PlanVersionUncheckedUpdateWithoutPlanInput>
+    create: XOR<PlanVersionCreateWithoutPlanInput, PlanVersionUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PlanVersionUpdateWithWhereUniqueWithoutPlanInput = {
+    where: PlanVersionWhereUniqueInput
+    data: XOR<PlanVersionUpdateWithoutPlanInput, PlanVersionUncheckedUpdateWithoutPlanInput>
+  }
+
+  export type PlanVersionUpdateManyWithWhereWithoutPlanInput = {
+    where: PlanVersionScalarWhereInput
+    data: XOR<PlanVersionUpdateManyMutationInput, PlanVersionUncheckedUpdateManyWithoutPlanInput>
+  }
+
+  export type PlanVersionScalarWhereInput = {
+    AND?: PlanVersionScalarWhereInput | PlanVersionScalarWhereInput[]
+    OR?: PlanVersionScalarWhereInput[]
+    NOT?: PlanVersionScalarWhereInput | PlanVersionScalarWhereInput[]
+    id?: StringFilter<"PlanVersion"> | string
+    planId?: StringFilter<"PlanVersion"> | string
+    versionNumber?: IntFilter<"PlanVersion"> | number
+    schemaVersion?: StringFilter<"PlanVersion"> | string
+    summary?: StringFilter<"PlanVersion"> | string
+    milestoneTitle?: StringFilter<"PlanVersion"> | string
+    bottleneckType?: StringFilter<"PlanVersion"> | string
+    planData?: StringFilter<"PlanVersion"> | string
+    startDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    targetReviewDate?: DateTimeFilter<"PlanVersion"> | Date | string
+    createdAt?: DateTimeFilter<"PlanVersion"> | Date | string
+  }
+
+  export type PlanEvaluationUpsertWithWhereUniqueWithoutPlanInput = {
+    where: PlanEvaluationWhereUniqueInput
+    update: XOR<PlanEvaluationUpdateWithoutPlanInput, PlanEvaluationUncheckedUpdateWithoutPlanInput>
+    create: XOR<PlanEvaluationCreateWithoutPlanInput, PlanEvaluationUncheckedCreateWithoutPlanInput>
+  }
+
+  export type PlanEvaluationUpdateWithWhereUniqueWithoutPlanInput = {
+    where: PlanEvaluationWhereUniqueInput
+    data: XOR<PlanEvaluationUpdateWithoutPlanInput, PlanEvaluationUncheckedUpdateWithoutPlanInput>
+  }
+
+  export type PlanEvaluationUpdateManyWithWhereWithoutPlanInput = {
+    where: PlanEvaluationScalarWhereInput
+    data: XOR<PlanEvaluationUpdateManyMutationInput, PlanEvaluationUncheckedUpdateManyWithoutPlanInput>
+  }
+
+  export type PlanEvaluationScalarWhereInput = {
+    AND?: PlanEvaluationScalarWhereInput | PlanEvaluationScalarWhereInput[]
+    OR?: PlanEvaluationScalarWhereInput[]
+    NOT?: PlanEvaluationScalarWhereInput | PlanEvaluationScalarWhereInput[]
+    id?: StringFilter<"PlanEvaluation"> | string
+    planId?: StringFilter<"PlanEvaluation"> | string
+    evaluatedVersionNum?: IntFilter<"PlanEvaluation"> | number
+    completionRate?: FloatFilter<"PlanEvaluation"> | number
+    tasksPlanned?: IntFilter<"PlanEvaluation"> | number
+    tasksCompleted?: IntFilter<"PlanEvaluation"> | number
+    ratingChange?: IntNullableFilter<"PlanEvaluation"> | number | null
+    outcomeData?: StringFilter<"PlanEvaluation"> | string
+    evaluatedAt?: DateTimeFilter<"PlanEvaluation"> | Date | string
+  }
+
+  export type PlanCreateWithoutVersionsInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    goal: GoalCreateNestedOneWithoutPlansInput
+    evaluations?: PlanEvaluationCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUncheckedCreateWithoutVersionsInput = {
+    id?: string
+    goalId: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    evaluations?: PlanEvaluationUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanCreateOrConnectWithoutVersionsInput = {
+    where: PlanWhereUniqueInput
+    create: XOR<PlanCreateWithoutVersionsInput, PlanUncheckedCreateWithoutVersionsInput>
+  }
+
+  export type PlanTaskCreateWithoutPlanVersionInput = {
+    id?: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+    matches?: TaskEvidenceMatchCreateNestedManyWithoutTaskInput
+  }
+
+  export type PlanTaskUncheckedCreateWithoutPlanVersionInput = {
+    id?: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+    matches?: TaskEvidenceMatchUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type PlanTaskCreateOrConnectWithoutPlanVersionInput = {
+    where: PlanTaskWhereUniqueInput
+    create: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput>
+  }
+
+  export type PlanTaskCreateManyPlanVersionInputEnvelope = {
+    data: PlanTaskCreateManyPlanVersionInput | PlanTaskCreateManyPlanVersionInput[]
+  }
+
+  export type PlanUpsertWithoutVersionsInput = {
+    update: XOR<PlanUpdateWithoutVersionsInput, PlanUncheckedUpdateWithoutVersionsInput>
+    create: XOR<PlanCreateWithoutVersionsInput, PlanUncheckedCreateWithoutVersionsInput>
+    where?: PlanWhereInput
+  }
+
+  export type PlanUpdateToOneWithWhereWithoutVersionsInput = {
+    where?: PlanWhereInput
+    data: XOR<PlanUpdateWithoutVersionsInput, PlanUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type PlanUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    goal?: GoalUpdateOneRequiredWithoutPlansNestedInput
+    evaluations?: PlanEvaluationUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    goalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    evaluations?: PlanEvaluationUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanTaskUpsertWithWhereUniqueWithoutPlanVersionInput = {
+    where: PlanTaskWhereUniqueInput
+    update: XOR<PlanTaskUpdateWithoutPlanVersionInput, PlanTaskUncheckedUpdateWithoutPlanVersionInput>
+    create: XOR<PlanTaskCreateWithoutPlanVersionInput, PlanTaskUncheckedCreateWithoutPlanVersionInput>
+  }
+
+  export type PlanTaskUpdateWithWhereUniqueWithoutPlanVersionInput = {
+    where: PlanTaskWhereUniqueInput
+    data: XOR<PlanTaskUpdateWithoutPlanVersionInput, PlanTaskUncheckedUpdateWithoutPlanVersionInput>
+  }
+
+  export type PlanTaskUpdateManyWithWhereWithoutPlanVersionInput = {
+    where: PlanTaskScalarWhereInput
+    data: XOR<PlanTaskUpdateManyMutationInput, PlanTaskUncheckedUpdateManyWithoutPlanVersionInput>
+  }
+
+  export type PlanTaskScalarWhereInput = {
+    AND?: PlanTaskScalarWhereInput | PlanTaskScalarWhereInput[]
+    OR?: PlanTaskScalarWhereInput[]
+    NOT?: PlanTaskScalarWhereInput | PlanTaskScalarWhereInput[]
+    id?: StringFilter<"PlanTask"> | string
+    planVersionId?: StringFilter<"PlanTask"> | string
+    externalTaskId?: StringFilter<"PlanTask"> | string
+    type?: StringFilter<"PlanTask"> | string
+    title?: StringFilter<"PlanTask"> | string
+    quantity?: IntFilter<"PlanTask"> | number
+    quantityCompleted?: IntFilter<"PlanTask"> | number
+    platform?: StringNullableFilter<"PlanTask"> | string | null
+    minDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    maxDifficulty?: IntNullableFilter<"PlanTask"> | number | null
+    difficultyTier?: StringNullableFilter<"PlanTask"> | string | null
+    topics?: StringFilter<"PlanTask"> | string
+    reason?: StringFilter<"PlanTask"> | string
+    evidenceReferences?: StringFilter<"PlanTask"> | string
+    completionMetric?: StringFilter<"PlanTask"> | string
+    status?: StringFilter<"PlanTask"> | string
+    createdAt?: DateTimeFilter<"PlanTask"> | Date | string
+  }
+
+  export type PlanVersionCreateWithoutTasksInput = {
+    id?: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+    plan: PlanCreateNestedOneWithoutVersionsInput
+  }
+
+  export type PlanVersionUncheckedCreateWithoutTasksInput = {
+    id?: string
+    planId: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PlanVersionCreateOrConnectWithoutTasksInput = {
+    where: PlanVersionWhereUniqueInput
+    create: XOR<PlanVersionCreateWithoutTasksInput, PlanVersionUncheckedCreateWithoutTasksInput>
+  }
+
+  export type TaskEvidenceMatchCreateWithoutTaskInput = {
+    id?: string
+    matchedAt?: Date | string
+    notes?: string | null
+    submission?: NormalizedSubmissionCreateNestedOneWithoutTaskMatchesInput
+    contestHistory?: ContestHistoryCreateNestedOneWithoutTaskMatchesInput
+  }
+
+  export type TaskEvidenceMatchUncheckedCreateWithoutTaskInput = {
+    id?: string
+    submissionId?: string | null
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchCreateOrConnectWithoutTaskInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    create: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskEvidenceMatchCreateManyTaskInputEnvelope = {
+    data: TaskEvidenceMatchCreateManyTaskInput | TaskEvidenceMatchCreateManyTaskInput[]
+  }
+
+  export type PlanVersionUpsertWithoutTasksInput = {
+    update: XOR<PlanVersionUpdateWithoutTasksInput, PlanVersionUncheckedUpdateWithoutTasksInput>
+    create: XOR<PlanVersionCreateWithoutTasksInput, PlanVersionUncheckedCreateWithoutTasksInput>
+    where?: PlanVersionWhereInput
+  }
+
+  export type PlanVersionUpdateToOneWithWhereWithoutTasksInput = {
+    where?: PlanVersionWhereInput
+    data: XOR<PlanVersionUpdateWithoutTasksInput, PlanVersionUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type PlanVersionUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: PlanUpdateOneRequiredWithoutVersionsNestedInput
+  }
+
+  export type PlanVersionUncheckedUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planId?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskEvidenceMatchUpsertWithWhereUniqueWithoutTaskInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    update: XOR<TaskEvidenceMatchUpdateWithoutTaskInput, TaskEvidenceMatchUncheckedUpdateWithoutTaskInput>
+    create: XOR<TaskEvidenceMatchCreateWithoutTaskInput, TaskEvidenceMatchUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskEvidenceMatchUpdateWithWhereUniqueWithoutTaskInput = {
+    where: TaskEvidenceMatchWhereUniqueInput
+    data: XOR<TaskEvidenceMatchUpdateWithoutTaskInput, TaskEvidenceMatchUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskEvidenceMatchUpdateManyWithWhereWithoutTaskInput = {
+    where: TaskEvidenceMatchScalarWhereInput
+    data: XOR<TaskEvidenceMatchUpdateManyMutationInput, TaskEvidenceMatchUncheckedUpdateManyWithoutTaskInput>
+  }
+
+  export type PlanTaskCreateWithoutMatchesInput = {
+    id?: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+    planVersion: PlanVersionCreateNestedOneWithoutTasksInput
+  }
+
+  export type PlanTaskUncheckedCreateWithoutMatchesInput = {
+    id?: string
+    planVersionId: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PlanTaskCreateOrConnectWithoutMatchesInput = {
+    where: PlanTaskWhereUniqueInput
+    create: XOR<PlanTaskCreateWithoutMatchesInput, PlanTaskUncheckedCreateWithoutMatchesInput>
+  }
+
+  export type NormalizedSubmissionCreateWithoutTaskMatchesInput = {
+    id?: string
+    platform: string
+    externalSubmissionId: string
+    problemTitle: string
+    verdict: string
+    accepted: boolean
+    language?: string | null
+    difficulty: string
+    topics: string
+    timestamp: Date | string
+    contestId?: string | null
+    rawData?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutSubmissionsInput
+    problem: ProblemCreateNestedOneWithoutSubmissionsInput
+  }
+
+  export type NormalizedSubmissionUncheckedCreateWithoutTaskMatchesInput = {
+    id?: string
+    userId: string
+    platform: string
+    externalSubmissionId: string
+    problemId: string
+    problemTitle: string
+    verdict: string
+    accepted: boolean
+    language?: string | null
+    difficulty: string
+    topics: string
+    timestamp: Date | string
+    contestId?: string | null
+    rawData?: string | null
+    createdAt?: Date | string
+  }
+
+  export type NormalizedSubmissionCreateOrConnectWithoutTaskMatchesInput = {
+    where: NormalizedSubmissionWhereUniqueInput
+    create: XOR<NormalizedSubmissionCreateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedCreateWithoutTaskMatchesInput>
+  }
+
+  export type ContestHistoryCreateWithoutTaskMatchesInput = {
+    id?: string
+    platform: string
+    contestId: string
+    contestName: string
+    rank: number
+    oldRating: number
+    newRating: number
+    ratingChange: number
+    timestamp: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutContestsInput
+  }
+
+  export type ContestHistoryUncheckedCreateWithoutTaskMatchesInput = {
+    id?: string
+    userId: string
+    platform: string
+    contestId: string
+    contestName: string
+    rank: number
+    oldRating: number
+    newRating: number
+    ratingChange: number
+    timestamp: Date | string
+    createdAt?: Date | string
+  }
+
+  export type ContestHistoryCreateOrConnectWithoutTaskMatchesInput = {
+    where: ContestHistoryWhereUniqueInput
+    create: XOR<ContestHistoryCreateWithoutTaskMatchesInput, ContestHistoryUncheckedCreateWithoutTaskMatchesInput>
+  }
+
+  export type PlanTaskUpsertWithoutMatchesInput = {
+    update: XOR<PlanTaskUpdateWithoutMatchesInput, PlanTaskUncheckedUpdateWithoutMatchesInput>
+    create: XOR<PlanTaskCreateWithoutMatchesInput, PlanTaskUncheckedCreateWithoutMatchesInput>
+    where?: PlanTaskWhereInput
+  }
+
+  export type PlanTaskUpdateToOneWithWhereWithoutMatchesInput = {
+    where?: PlanTaskWhereInput
+    data: XOR<PlanTaskUpdateWithoutMatchesInput, PlanTaskUncheckedUpdateWithoutMatchesInput>
+  }
+
+  export type PlanTaskUpdateWithoutMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    planVersion?: PlanVersionUpdateOneRequiredWithoutTasksNestedInput
+  }
+
+  export type PlanTaskUncheckedUpdateWithoutMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    planVersionId?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NormalizedSubmissionUpsertWithoutTaskMatchesInput = {
+    update: XOR<NormalizedSubmissionUpdateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedUpdateWithoutTaskMatchesInput>
+    create: XOR<NormalizedSubmissionCreateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedCreateWithoutTaskMatchesInput>
+    where?: NormalizedSubmissionWhereInput
+  }
+
+  export type NormalizedSubmissionUpdateToOneWithWhereWithoutTaskMatchesInput = {
+    where?: NormalizedSubmissionWhereInput
+    data: XOR<NormalizedSubmissionUpdateWithoutTaskMatchesInput, NormalizedSubmissionUncheckedUpdateWithoutTaskMatchesInput>
+  }
+
+  export type NormalizedSubmissionUpdateWithoutTaskMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    externalSubmissionId?: StringFieldUpdateOperationsInput | string
+    problemTitle?: StringFieldUpdateOperationsInput | string
+    verdict?: StringFieldUpdateOperationsInput | string
+    accepted?: BoolFieldUpdateOperationsInput | boolean
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    difficulty?: StringFieldUpdateOperationsInput | string
+    topics?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    contestId?: NullableStringFieldUpdateOperationsInput | string | null
+    rawData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
+    problem?: ProblemUpdateOneRequiredWithoutSubmissionsNestedInput
+  }
+
+  export type NormalizedSubmissionUncheckedUpdateWithoutTaskMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    externalSubmissionId?: StringFieldUpdateOperationsInput | string
+    problemId?: StringFieldUpdateOperationsInput | string
+    problemTitle?: StringFieldUpdateOperationsInput | string
+    verdict?: StringFieldUpdateOperationsInput | string
+    accepted?: BoolFieldUpdateOperationsInput | boolean
+    language?: NullableStringFieldUpdateOperationsInput | string | null
+    difficulty?: StringFieldUpdateOperationsInput | string
+    topics?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    contestId?: NullableStringFieldUpdateOperationsInput | string | null
+    rawData?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContestHistoryUpsertWithoutTaskMatchesInput = {
+    update: XOR<ContestHistoryUpdateWithoutTaskMatchesInput, ContestHistoryUncheckedUpdateWithoutTaskMatchesInput>
+    create: XOR<ContestHistoryCreateWithoutTaskMatchesInput, ContestHistoryUncheckedCreateWithoutTaskMatchesInput>
+    where?: ContestHistoryWhereInput
+  }
+
+  export type ContestHistoryUpdateToOneWithWhereWithoutTaskMatchesInput = {
+    where?: ContestHistoryWhereInput
+    data: XOR<ContestHistoryUpdateWithoutTaskMatchesInput, ContestHistoryUncheckedUpdateWithoutTaskMatchesInput>
+  }
+
+  export type ContestHistoryUpdateWithoutTaskMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    contestId?: StringFieldUpdateOperationsInput | string
+    contestName?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
+    oldRating?: IntFieldUpdateOperationsInput | number
+    newRating?: IntFieldUpdateOperationsInput | number
+    ratingChange?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutContestsNestedInput
+  }
+
+  export type ContestHistoryUncheckedUpdateWithoutTaskMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    contestId?: StringFieldUpdateOperationsInput | string
+    contestName?: StringFieldUpdateOperationsInput | string
+    rank?: IntFieldUpdateOperationsInput | number
+    oldRating?: IntFieldUpdateOperationsInput | number
+    newRating?: IntFieldUpdateOperationsInput | number
+    ratingChange?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanCreateWithoutEvaluationsInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    goal: GoalCreateNestedOneWithoutPlansInput
+    versions?: PlanVersionCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanUncheckedCreateWithoutEvaluationsInput = {
+    id?: string
+    goalId: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    versions?: PlanVersionUncheckedCreateNestedManyWithoutPlanInput
+  }
+
+  export type PlanCreateOrConnectWithoutEvaluationsInput = {
+    where: PlanWhereUniqueInput
+    create: XOR<PlanCreateWithoutEvaluationsInput, PlanUncheckedCreateWithoutEvaluationsInput>
+  }
+
+  export type PlanUpsertWithoutEvaluationsInput = {
+    update: XOR<PlanUpdateWithoutEvaluationsInput, PlanUncheckedUpdateWithoutEvaluationsInput>
+    create: XOR<PlanCreateWithoutEvaluationsInput, PlanUncheckedCreateWithoutEvaluationsInput>
+    where?: PlanWhereInput
+  }
+
+  export type PlanUpdateToOneWithWhereWithoutEvaluationsInput = {
+    where?: PlanWhereInput
+    data: XOR<PlanUpdateWithoutEvaluationsInput, PlanUncheckedUpdateWithoutEvaluationsInput>
+  }
+
+  export type PlanUpdateWithoutEvaluationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    goal?: GoalUpdateOneRequiredWithoutPlansNestedInput
+    versions?: PlanVersionUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateWithoutEvaluationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    goalId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: PlanVersionUncheckedUpdateManyWithoutPlanNestedInput
   }
 
   export type GoalCreateManyUserInput = {
@@ -11613,6 +20971,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plans?: PlanUpdateManyWithoutGoalNestedInput
   }
 
   export type GoalUncheckedUpdateWithoutUserInput = {
@@ -11628,6 +20987,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plans?: PlanUncheckedUpdateManyWithoutGoalNestedInput
   }
 
   export type GoalUncheckedUpdateManyWithoutUserInput = {
@@ -11696,6 +21056,7 @@ export namespace Prisma {
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     problem?: ProblemUpdateOneRequiredWithoutSubmissionsNestedInput
+    taskMatches?: TaskEvidenceMatchUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionUncheckedUpdateWithoutUserInput = {
@@ -11713,6 +21074,7 @@ export namespace Prisma {
     contestId?: NullableStringFieldUpdateOperationsInput | string | null
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionUncheckedUpdateManyWithoutUserInput = {
@@ -11743,6 +21105,7 @@ export namespace Prisma {
     ratingChange?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUpdateManyWithoutContestHistoryNestedInput
   }
 
   export type ContestHistoryUncheckedUpdateWithoutUserInput = {
@@ -11756,6 +21119,7 @@ export namespace Prisma {
     ratingChange?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedUpdateManyWithoutContestHistoryNestedInput
   }
 
   export type ContestHistoryUncheckedUpdateManyWithoutUserInput = {
@@ -11769,6 +21133,46 @@ export namespace Prisma {
     ratingChange?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanCreateManyGoalInput = {
+    id?: string
+    userId: string
+    status?: string
+    currentVersionNum?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PlanUpdateWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: PlanVersionUpdateManyWithoutPlanNestedInput
+    evaluations?: PlanEvaluationUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: PlanVersionUncheckedUpdateManyWithoutPlanNestedInput
+    evaluations?: PlanEvaluationUncheckedUpdateManyWithoutPlanNestedInput
+  }
+
+  export type PlanUncheckedUpdateManyWithoutGoalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentVersionNum?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NormalizedSubmissionCreateManyProblemInput = {
@@ -11803,6 +21207,7 @@ export namespace Prisma {
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutSubmissionsNestedInput
+    taskMatches?: TaskEvidenceMatchUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionUncheckedUpdateWithoutProblemInput = {
@@ -11820,6 +21225,7 @@ export namespace Prisma {
     contestId?: NullableStringFieldUpdateOperationsInput | string | null
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskMatches?: TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionNestedInput
   }
 
   export type NormalizedSubmissionUncheckedUpdateManyWithoutProblemInput = {
@@ -11837,6 +21243,278 @@ export namespace Prisma {
     contestId?: NullableStringFieldUpdateOperationsInput | string | null
     rawData?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskEvidenceMatchCreateManySubmissionInput = {
+    id?: string
+    taskId: string
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    task?: PlanTaskUpdateOneRequiredWithoutMatchesNestedInput
+    contestHistory?: ContestHistoryUpdateOneWithoutTaskMatchesNestedInput
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutSubmissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchCreateManyContestHistoryInput = {
+    id?: string
+    taskId: string
+    submissionId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchUpdateWithoutContestHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    task?: PlanTaskUpdateOneRequiredWithoutMatchesNestedInput
+    submission?: NormalizedSubmissionUpdateOneWithoutTaskMatchesNestedInput
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateWithoutContestHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutContestHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlanVersionCreateManyPlanInput = {
+    id?: string
+    versionNumber: number
+    schemaVersion?: string
+    summary: string
+    milestoneTitle: string
+    bottleneckType: string
+    planData: string
+    startDate: Date | string
+    targetReviewDate: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PlanEvaluationCreateManyPlanInput = {
+    id?: string
+    evaluatedVersionNum: number
+    completionRate: number
+    tasksPlanned: number
+    tasksCompleted: number
+    ratingChange?: number | null
+    outcomeData: string
+    evaluatedAt?: Date | string
+  }
+
+  export type PlanVersionUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: PlanTaskUpdateManyWithoutPlanVersionNestedInput
+  }
+
+  export type PlanVersionUncheckedUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: PlanTaskUncheckedUpdateManyWithoutPlanVersionNestedInput
+  }
+
+  export type PlanVersionUncheckedUpdateManyWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    versionNumber?: IntFieldUpdateOperationsInput | number
+    schemaVersion?: StringFieldUpdateOperationsInput | string
+    summary?: StringFieldUpdateOperationsInput | string
+    milestoneTitle?: StringFieldUpdateOperationsInput | string
+    bottleneckType?: StringFieldUpdateOperationsInput | string
+    planData?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    targetReviewDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanEvaluationUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanEvaluationUncheckedUpdateWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanEvaluationUncheckedUpdateManyWithoutPlanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    evaluatedVersionNum?: IntFieldUpdateOperationsInput | number
+    completionRate?: FloatFieldUpdateOperationsInput | number
+    tasksPlanned?: IntFieldUpdateOperationsInput | number
+    tasksCompleted?: IntFieldUpdateOperationsInput | number
+    ratingChange?: NullableIntFieldUpdateOperationsInput | number | null
+    outcomeData?: StringFieldUpdateOperationsInput | string
+    evaluatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlanTaskCreateManyPlanVersionInput = {
+    id?: string
+    externalTaskId: string
+    type: string
+    title: string
+    quantity?: number
+    quantityCompleted?: number
+    platform?: string | null
+    minDifficulty?: number | null
+    maxDifficulty?: number | null
+    difficultyTier?: string | null
+    topics: string
+    reason: string
+    evidenceReferences: string
+    completionMetric: string
+    status?: string
+    createdAt?: Date | string
+  }
+
+  export type PlanTaskUpdateWithoutPlanVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    matches?: TaskEvidenceMatchUpdateManyWithoutTaskNestedInput
+  }
+
+  export type PlanTaskUncheckedUpdateWithoutPlanVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    matches?: TaskEvidenceMatchUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type PlanTaskUncheckedUpdateManyWithoutPlanVersionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    externalTaskId?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    quantityCompleted?: IntFieldUpdateOperationsInput | number
+    platform?: NullableStringFieldUpdateOperationsInput | string | null
+    minDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    maxDifficulty?: NullableIntFieldUpdateOperationsInput | number | null
+    difficultyTier?: NullableStringFieldUpdateOperationsInput | string | null
+    topics?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    evidenceReferences?: StringFieldUpdateOperationsInput | string
+    completionMetric?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskEvidenceMatchCreateManyTaskInput = {
+    id?: string
+    submissionId?: string | null
+    contestHistoryId?: string | null
+    matchedAt?: Date | string
+    notes?: string | null
+  }
+
+  export type TaskEvidenceMatchUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    submission?: NormalizedSubmissionUpdateOneWithoutTaskMatchesNestedInput
+    contestHistory?: ContestHistoryUpdateOneWithoutTaskMatchesNestedInput
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskEvidenceMatchUncheckedUpdateManyWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    submissionId?: NullableStringFieldUpdateOperationsInput | string | null
+    contestHistoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    matchedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

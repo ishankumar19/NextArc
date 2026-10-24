@@ -151,6 +151,14 @@ export class GoalService {
   }
 
   /**
+   * Resolves the primary active goal for a user.
+   */
+  static async getActiveGoal(userId: string): Promise<GoalProgressView | null> {
+    const goals = await this.getUserGoals(userId);
+    return goals.find((g) => g.status === "active") ?? goals[0] ?? null;
+  }
+
+  /**
    * Fetches single goal by ID with computed gap and progress.
    */
   static async getGoalById(

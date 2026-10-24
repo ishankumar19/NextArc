@@ -45,3 +45,6 @@ export async function getActiveUserId(req?: Request): Promise<string> {
 
   return created.id;
 }
+
+export const getCurrentUserId = getActiveUserId;
+

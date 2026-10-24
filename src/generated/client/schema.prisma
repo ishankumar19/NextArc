@@ -43,6 +43,7 @@ model Goal {
   status    String   @default("active") // "active" | "completed" | "abandoned"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  plans     Plan[]
 
   @@index([userId, status])
   @@map("goals")
@@ -110,7 +111,8 @@ model NormalizedSubmission {
   contestId String?
   rawData   String? // Diagnostic snapshot
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime            @default(now())
+  taskMatches TaskEvidenceMatch[]
 
   // Defensive uniqueness constraint scoped per user as specified in Amendment 5:
   @@unique([userId, platform, externalSubmissionId])
@@ -120,9 +122,9 @@ model NormalizedSubmission {
 }
 
 model ContestHistory {
-  id           String   @id @default(cuid())
+  id           String              @id @default(cuid())
   userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   platform     String // "codeforces"
   contestId    String
   contestName  String
@@ -131,9 +133,102 @@ model ContestHistory {
   newRating    Int
   ratingChange Int
   timestamp    DateTime
-  createdAt    DateTime @default(now())
+  createdAt    DateTime            @default(now())
+  taskMatches  TaskEvidenceMatch[]
 
   @@unique([userId, platform, contestId])
   @@index([userId, timestamp])
   @@map("contest_history")
+}
+
+model Plan {
+  id                String           @id @default(cuid())
+  goalId            String
+  goal              Goal             @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  userId            String
+  status            String           @default("active") // "active" | "superseded" | "completed" | "abandoned"
+  currentVersionNum Int              @default(1)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  versions          PlanVersion[]
+  evaluations       PlanEvaluation[]
+
+  @@index([goalId, status])
+  @@map("plans")
+}
+
+model PlanVersion {
+  id               String     @id @default(cuid())
+  planId           String
+  plan             Plan       @relation(fields: [planId], references: [id], onDelete: Cascade)
+  versionNumber    Int
+  schemaVersion    String     @default("1.0.0")
+  summary          String
+  milestoneTitle   String
+  bottleneckType   String
+  planData         String // Full AdaptivePlanV1 JSON string
+  startDate        DateTime
+  targetReviewDate DateTime
+  createdAt        DateTime   @default(now())
+  tasks            PlanTask[]
+
+  @@unique([planId, versionNumber])
+  @@map("plan_versions")
+}
+
+model PlanTask {
+  id                 String              @id @default(cuid())
+  planVersionId      String
+  planVersion        PlanVersion         @relation(fields: [planVersionId], references: [id], onDelete: Cascade)
+  externalTaskId     String // ID from AdaptivePlanV1 e.g. "task-1"
+  type               String // "practice" | "contest" | "upsolve" | "review"
+  title              String
+  quantity           Int                 @default(1)
+  quantityCompleted  Int                 @default(0)
+  platform           String? // "codeforces" | "leetcode" | "cross_platform"
+  minDifficulty      Int?
+  maxDifficulty      Int?
+  difficultyTier     String? // "Easy" | "Medium" | "Hard"
+  topics             String // JSON array of canonical topics
+  reason             String
+  evidenceReferences String // JSON array of citations
+  completionMetric   String
+  status             String              @default("pending") // "pending" | "in_progress" | "completed"
+  createdAt          DateTime            @default(now())
+  matches            TaskEvidenceMatch[]
+
+  @@index([planVersionId, status])
+  @@map("plan_tasks")
+}
+
+model TaskEvidenceMatch {
+  id               String                @id @default(cuid())
+  taskId           String
+  task             PlanTask              @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  submissionId     String?
+  submission       NormalizedSubmission? @relation(fields: [submissionId], references: [id], onDelete: SetNull)
+  contestHistoryId String?
+  contestHistory   ContestHistory?       @relation(fields: [contestHistoryId], references: [id], onDelete: SetNull)
+  matchedAt        DateTime              @default(now())
+  notes            String?
+
+  @@unique([taskId, submissionId])
+  @@unique([taskId, contestHistoryId])
+  @@map("task_evidence_matches")
+}
+
+model PlanEvaluation {
+  id                  String   @id @default(cuid())
+  planId              String
+  plan                Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  evaluatedVersionNum Int
+  completionRate      Float
+  tasksPlanned        Int
+  tasksCompleted      Int
+  ratingChange        Int?
+  outcomeData         String // Full PlanOutcome JSON string
+  evaluatedAt         DateTime @default(now())
+
+  @@index([planId])
+  @@map("plan_evaluations")
 }
