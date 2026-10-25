@@ -345,14 +345,16 @@ export class PlannerService {
         const data = await response.json();
         rawOutput = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
       } else if (process.env.OPENAI_API_KEY) {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        const baseUrl = process.env.OPENAI_BASE_URL || "https://api.openai.com/v1";
+        const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
+        const response = await fetch(`${baseUrl}/chat/completions`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
-            model: "gpt-4o-mini",
+            model,
             response_format: { type: "json_object" },
             messages: [
               { role: "system", content: systemPrompt },

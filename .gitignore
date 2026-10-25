@@ -26,9 +26,11 @@ yarn-error.log*
 .env*.local
 .env
 
-# Prisma / SQLite
+# Prisma / SQLite / Staging
 prisma/*.db
 prisma/*.db-journal
+src/generated/client-pg/
+pgdata*
 
 # TypeScript
 *.tsbuildinfo
