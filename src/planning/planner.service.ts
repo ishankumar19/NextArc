@@ -15,13 +15,83 @@ export interface GeneratePlanParams {
 export class DeterministicPlanner {
   /**
    * Deterministically generates a compliant AdaptivePlanV1 from signals and context.
-   * Also performs deterministic adaptation when a previousPlan and previousOutcome are present.
+   * Handles adaptation scenarios A through H:
+   * A - Plan worked -> progress difficulty
+   * B - Plan completed but metric did not improve -> maintain difficulty, consolidate
+   * C - Plan not completed -> maintain strategy, consolidate workload
+   * D - Insufficient evidence -> collect more evidence, do not aggressively adapt
+   * E - Conflicting evidence (practice AC high, rating dropped) -> focus on contest execution
+   * F - Zero activity -> maintain plan, do not invent new technical weakness
+   * G - Deadline approaching -> strictly respect available weekly hours budget
+   * H - Goal already achieved -> maintenance milestone
    */
   static generatePlan(params: GeneratePlanParams): AdaptivePlanV1 {
     const { context, signals, previousPlan, previousOutcome } = params;
     const now = new Date();
     const versionNumber = (previousPlan?.versionNumber ?? 0) + 1;
     const availableHours = context.goal.availableHoursPerWeek ?? 10;
+    const generatedAt = context.goal.startDate ? new Date(context.goal.startDate).toISOString() : now.toISOString();
+
+    // SCENARIO H: Goal already achieved
+    const isGoalAchieved = context.goal.gap <= 0 || (context.goal.currentValue >= context.goal.targetValue);
+    if (isGoalAchieved) {
+      const maintenanceTask: PlanTask = {
+        id: `task-${versionNumber}-maintenance`,
+        type: "practice",
+        title: "Maintain core rating consistency with 3 problems in your target tier",
+        quantity: 3,
+        platform: "codeforces",
+        difficulty: { min: Math.max(800, context.goal.targetValue - 100), max: context.goal.targetValue },
+        topics: ["greedy", "binary-search"],
+        reason: `Target metric of ${context.goal.targetValue} has already been achieved. Plan focus is on skill maintenance.`,
+        evidenceReferences: [signals[0]?.id ?? "sig-goal-achieved"],
+        completionMetric: "cf_target_maintenance_solves",
+      };
+
+      const achievedPlan: AdaptivePlanV1 = {
+        schemaVersion: "1.0.0",
+        generatedAt,
+        goalId: context.goal.id,
+        versionNumber,
+        assessment: {
+          summary: `Goal '${context.goal.title}' is achieved (Current: ${context.goal.currentValue} vs Target: ${context.goal.targetValue}). Practice shifted to skill maintenance.`,
+          confidence: "high",
+        },
+        primaryBottleneck: {
+          type: "goal_achieved",
+          description: `User has achieved the target ${context.goal.targetMetric} of ${context.goal.targetValue}.`,
+          evidence: [
+            {
+              signalId: signals[0]?.id ?? "sig-goal-achieved",
+              description: `Current metric value is ${context.goal.currentValue}, meeting or exceeding target ${context.goal.targetValue}.`,
+              metric: context.goal.targetMetric,
+              value: context.goal.currentValue,
+            },
+          ],
+        },
+        nextMilestone: {
+          description: "Skill Maintenance & Next Tier Preparation",
+          successCriteria: [
+            {
+              criterion: "Complete maintenance problem set",
+              metric: "maintenance_solves",
+              targetValue: 3,
+            },
+          ],
+        },
+        weeklyTargets: [
+          {
+            area: "Maintenance",
+            targetDescription: "Light consistency practice to maintain current rating level.",
+            expectedEffortHours: Math.min(availableHours, 3),
+          },
+        ],
+        tasks: [maintenanceTask],
+        reviewPolicy: { reviewAfterDays: 14, reviewAfterEvents: 1 },
+      };
+
+      return achievedPlan;
+    }
 
     // 1. Identify primary bottleneck from signals
     const dropoffSignal = signals.find((s) => s.type === "difficulty_dropoff");
@@ -51,17 +121,17 @@ export class DeterministicPlanner {
         value: underexposedTopicSignal.value,
       });
     } else {
-      bottleneckType = "stagnation";
+      bottleneckType = "difficulty_stagnation";
       bottleneckDesc = "Practice volume is heavily concentrated on problems below stretch difficulty.";
       evidenceRefs.push({
-        signalId: "sig-default",
+        signalId: signals[0]?.id ?? "sig-default",
         description: "Practice distribution lacks targeted exposure in current target range.",
         metric: "goal_gap",
         value: context.goal.gap,
       });
     }
 
-    // 2. Determine target difficulty and topics (incorporating adaptation if available)
+    // 2. Base difficulty and topics
     let minDiff = 1300;
     let maxDiff = 1400;
     let practiceTopic = "greedy";
@@ -72,28 +142,64 @@ export class DeterministicPlanner {
       maxDiff = minDiff + 100;
     }
 
-    // ADAPTATION LOGIC:
-    // If previous plan had high completion and positive rating change, step up difficulty!
-    if (previousOutcome && previousOutcome.completionRate >= 80) {
-      minDiff += 50;
-      maxDiff += 50;
-      practiceTopic = "binary-search"; // Rotate to next unmastered topic
-    } else if (previousOutcome && previousOutcome.completionRate < 50) {
-      // Reduce difficulty or volume if previous plan was too hard
-      minDiff = Math.max(800, minDiff - 50);
-      maxDiff = Math.max(900, maxDiff - 50);
+    // ADAPTATION LOGIC (Scenarios A, B, C, D, E, F)
+    let assessmentSummary = `Initial baseline plan addressing key bottleneck in ${bottleneckType}.`;
+
+    if (previousOutcome) {
+      const hadZeroActivity = previousOutcome.evidenceCollected.totalProblemsSolvedInPeriod === 0 && previousOutcome.evidenceCollected.contestsParticipated === 0;
+      const isInsufficient = previousOutcome.insufficientEvidence || hadZeroActivity;
+
+      if (hadZeroActivity) {
+        // SCENARIO F: Zero activity
+        assessmentSummary = `Zero activity recorded in previous plan window. Retaining baseline plan without creating unverified technical assumptions.`;
+      } else if (isInsufficient) {
+        // SCENARIO D: Insufficient evidence
+        assessmentSummary = `Insufficient evidence collected (${previousOutcome.evidenceCollected.totalProblemsSolvedInPeriod} solves, ${previousOutcome.evidenceCollected.contestsParticipated} contests). Retaining targets to collect adequate evidence.`;
+      } else if (previousOutcome.completionRate >= 80 && previousOutcome.metricChanges.ratingDelta >= 0) {
+        // SCENARIO A: Plan worked -> Step up difficulty!
+        minDiff += 50;
+        maxDiff += 50;
+        practiceTopic = "binary-search";
+        assessmentSummary = `Plan v${previousPlan?.versionNumber ?? 1} completed successfully with positive rating delta (+${previousOutcome.metricChanges.ratingDelta}). Advancing difficulty to ${minDiff}-${maxDiff}.`;
+      } else if (previousOutcome.completionRate >= 80 && previousOutcome.metricChanges.ratingDelta < 0) {
+        // SCENARIO B & E: High task completion but metric worsened -> Conflicting evidence! Do NOT increase difficulty!
+        assessmentSummary = `Conflicting evidence: Practice tasks completed (${previousOutcome.completionRate}%), but rating decreased (${previousOutcome.metricChanges.ratingDelta}). Maintaining difficulty at ${minDiff}-${maxDiff} with focus on contest time management.`;
+      } else if (previousOutcome.completionRate < 50) {
+        // SCENARIO C: Plan not completed -> Consolidate workload, maintain strategy
+        assessmentSummary = `Plan completion was low (${previousOutcome.completionRate}%). Maintaining focus on ${practiceTopic} and consolidating target workload.`;
+      } else {
+        assessmentSummary = `Moderate completion observed (${previousOutcome.completionRate}%). Continuing targeted reinforcement on ${practiceTopic}.`;
+      }
     }
 
-    // 3. Scale workload to available weekly hours
-    const problemBudget = Math.max(3, Math.min(15, Math.floor((availableHours - 2) * 1.2)));
+    // 3. Strict Workload Budgeting (Section 9)
+    // Heuristics: ~48 mins (0.8 hrs) per problem, 2.0 hrs per contest.
+    // Must strictly respect availableHoursPerWeek.
+    let contestAllowed = (context.goal.category === "competitive_programming" || context.goal.targetMetric.includes("rating")) && availableHours >= 4;
+    let availableForProblems = contestAllowed ? Math.max(1, availableHours - 2) : availableHours;
+    let totalProblemBudget = Math.max(2, Math.floor(availableForProblems / 0.8));
 
-    // 4. Construct Tasks with "Why This?" reasons & evidence citations
+    // Cap problem budget for low hours:
+    if (availableHours <= 2) {
+      contestAllowed = false;
+      totalProblemBudget = 2; // 2 * 0.8 = 1.6 hrs <= 2 hrs
+    } else if (availableHours <= 5) {
+      totalProblemBudget = Math.min(3, totalProblemBudget); // 3 * 0.8 + 2 = 4.4 hrs <= 5 hrs
+    } else if (availableHours <= 10) {
+      totalProblemBudget = Math.min(8, totalProblemBudget); // 8 * 0.8 + 2 = 8.4 hrs <= 10 hrs
+    } else {
+      totalProblemBudget = Math.min(16, totalProblemBudget); // 16 * 0.8 + 2 = 14.8 hrs <= 20 hrs
+    }
+
+    const primaryTaskQty = totalProblemBudget === 2 ? 1 : Math.max(1, Math.ceil(totalProblemBudget * 0.6));
+    const secondaryTaskQty = totalProblemBudget === 2 ? 1 : Math.max(1, totalProblemBudget - primaryTaskQty);
+
     const tasks: PlanTask[] = [
       {
         id: `task-${versionNumber}-1`,
         type: "practice",
-        title: `Solve ${Math.min(5, problemBudget)} Codeforces problems rated ${minDiff}–${maxDiff} in ${practiceTopic}`,
-        quantity: Math.min(5, problemBudget),
+        title: `Solve ${primaryTaskQty} Codeforces problems rated ${minDiff}–${maxDiff} in ${practiceTopic}`,
+        quantity: primaryTaskQty,
         platform: "codeforces",
         difficulty: { min: minDiff, max: maxDiff },
         topics: [practiceTopic],
@@ -106,8 +212,8 @@ export class DeterministicPlanner {
       {
         id: `task-${versionNumber}-2`,
         type: "practice",
-        title: `Solve ${Math.max(2, Math.floor(problemBudget / 2))} problems focusing on Two Pointers / Binary Search`,
-        quantity: Math.max(2, Math.floor(problemBudget / 2)),
+        title: `Solve ${secondaryTaskQty} problems focusing on Two Pointers / Binary Search`,
+        quantity: secondaryTaskQty,
         platform: "codeforces",
         difficulty: { min: minDiff, max: maxDiff },
         topics: ["two-pointers", "binary-search"],
@@ -117,7 +223,7 @@ export class DeterministicPlanner {
       },
     ];
 
-    if (context.goal.category === "competitive_programming" || context.goal.targetMetric.includes("rating")) {
+    if (contestAllowed) {
       tasks.push({
         id: `task-${versionNumber}-3`,
         type: "contest",
@@ -134,13 +240,11 @@ export class DeterministicPlanner {
 
     const plan: AdaptivePlanV1 = {
       schemaVersion: "1.0.0",
-      generatedAt: now.toISOString(),
+      generatedAt,
       goalId: context.goal.id,
       versionNumber,
       assessment: {
-        summary: previousOutcome
-          ? `Adapted plan v${versionNumber}: ${previousOutcome.adaptationGuidance}`
-          : `Initial baseline plan addressing key bottleneck in ${bottleneckType}.`,
+        summary: assessmentSummary,
         confidence: evidenceRefs.length > 0 ? "high" : "medium",
       },
       primaryBottleneck: {
@@ -152,9 +256,9 @@ export class DeterministicPlanner {
         description: `Achieve consistent >=60% solve rate on ${minDiff}-rated problems.`,
         successCriteria: [
           {
-            criterion: `Solve at least ${Math.min(5, problemBudget)} problems rated ${minDiff}-${maxDiff}`,
+            criterion: `Solve at least ${primaryTaskQty} problems rated ${minDiff}-${maxDiff}`,
             metric: `cf_${minDiff}_solves`,
-            targetValue: Math.min(5, problemBudget),
+            targetValue: primaryTaskQty,
           },
         ],
       },
@@ -172,7 +276,18 @@ export class DeterministicPlanner {
       },
     };
 
-    const validation = PlanValidator.validate(plan);
+    const validSignalIds = signals.map((s) => s.id);
+    const signalConfidenceMap: Record<string, "high" | "medium" | "low"> = {};
+    for (const s of signals) {
+      signalConfidenceMap[s.id] = s.confidence.level;
+    }
+
+    const validation = PlanValidator.validate(plan, {
+      availableHoursPerWeek: availableHours,
+      validSignalIds,
+      signalConfidenceMap,
+    });
+
     if (!validation.success) {
       throw new Error(`Generated plan failed validation: ${validation.errors?.join(", ")}`);
     }
@@ -190,19 +305,16 @@ export class PlannerService {
     const apiKey = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      // Deterministic reasoning engine
       return DeterministicPlanner.generatePlan(params);
     }
 
     try {
-      // Attempt LLM structured generation
       const systemPrompt = buildPlannerSystemPrompt();
       const userMessage = buildPlannerUserMessage(params);
 
       let rawOutput = "";
 
       if (process.env.GEMINI_API_KEY) {
-        // Google Gemini API call
         const response = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
           {
@@ -227,7 +339,6 @@ export class PlannerService {
         const data = await response.json();
         rawOutput = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
       } else if (process.env.OPENAI_API_KEY) {
-        // OpenAI API call
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -253,14 +364,31 @@ export class PlannerService {
         rawOutput = data.choices?.[0]?.message?.content ?? "";
       }
 
-      const parsed = JSON.parse(rawOutput);
-      const validation = PlanValidator.validate(parsed);
+      // Sanitize potential markdown-wrapped JSON (e.g. ```json ... ```)
+      let cleanJson = rawOutput.trim();
+      if (cleanJson.startsWith("```")) {
+        cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
+      }
+
+      const parsed = JSON.parse(cleanJson);
+
+      const validSignalIds = params.signals.map((s) => s.id);
+      const signalConfidenceMap: Record<string, "high" | "medium" | "low"> = {};
+      for (const s of params.signals) {
+        signalConfidenceMap[s.id] = s.confidence.level;
+      }
+
+      const validation = PlanValidator.validate(parsed, {
+        availableHoursPerWeek: params.context.goal.availableHoursPerWeek ?? 10,
+        validSignalIds,
+        signalConfidenceMap,
+      });
 
       if (validation.success && validation.data) {
         return validation.data;
       }
 
-      console.warn("LLM output failed validation, falling back to DeterministicPlanner:", validation.errors);
+      console.warn("LLM output failed validation, safely falling back to DeterministicPlanner:", validation.errors);
       return DeterministicPlanner.generatePlan(params);
     } catch (err) {
       console.warn("LLM API call failed, safely falling back to DeterministicPlanner:", err);

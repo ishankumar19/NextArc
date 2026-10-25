@@ -87,16 +87,31 @@ export class PlanEvaluator {
 
     const insufficientEvidence = uniqueSolvedProblemIds.size < 3 && contestsParticipated === 0;
 
+    // Determine outcome improvement separately from task completion
+    let outcomeImprovement: "improved" | "stable" | "regressed" | "inconclusive" = "inconclusive";
+    if (insufficientEvidence) {
+      outcomeImprovement = "inconclusive";
+    } else if (ratingDelta > 0) {
+      outcomeImprovement = "improved";
+    } else if (ratingDelta === 0) {
+      outcomeImprovement = "stable";
+    } else {
+      outcomeImprovement = "regressed";
+    }
+
     // Determine deterministic adaptation guidance
-    let summary = `Completed ${tasksCompleted} of ${tasksPlanned} planned tasks (${completionRate}%).`;
+    let summary = `Completed ${tasksCompleted} of ${tasksPlanned} planned tasks (${completionRate}%). Outcome status: ${outcomeImprovement} (rating delta: ${ratingDelta >= 0 ? `+${ratingDelta}` : ratingDelta}).`;
     let adaptationGuidance = "";
 
     if (insufficientEvidence) {
       adaptationGuidance =
         "Insufficient practice evidence collected during this plan window. Recommend keeping targets or slightly reducing volume to establish consistency.";
-    } else if (completionRate >= 80 && ratingDelta >= 0) {
+    } else if (completionRate >= 80 && outcomeImprovement === "improved") {
       adaptationGuidance =
-        "High task completion with positive or stable rating movement. Recommend advancing problem difficulty brackets and shifting focus to remaining bottlenecks.";
+        "High task completion with positive rating movement. Recommend advancing problem difficulty brackets and shifting focus to remaining bottlenecks.";
+    } else if (completionRate >= 80 && outcomeImprovement === "regressed") {
+      adaptationGuidance =
+        "High task completion observed, but contest rating decreased. Task completion alone does not guarantee rating gain. Do NOT increase difficulty; focus on contest time management and upsolving.";
     } else if (completionRate < 50) {
       adaptationGuidance =
         "Low task completion observed. Workload may be too heavy relative to available practice hours. Recommend consolidating targets.";
@@ -113,6 +128,7 @@ export class PlanEvaluator {
       tasksPlanned,
       tasksCompleted,
       insufficientEvidence,
+      outcomeImprovement,
       evidenceCollected: {
         totalSubmissionsInPeriod: submissionsInPeriod.length,
         totalProblemsSolvedInPeriod: uniqueSolvedProblemIds.size,

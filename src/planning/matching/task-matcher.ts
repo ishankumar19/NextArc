@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 export interface MatchResults {
   taskId: string;
+  externalTaskId: string;
   previousCompleted: number;
   newCompleted: number;
   targetQuantity: number;
@@ -24,7 +25,12 @@ export class TaskEvidenceMatcher {
           include: {
             tasks: {
               include: {
-                matches: true,
+                matches: {
+                  include: {
+                    submission: true,
+                    contestHistory: true,
+                  },
+                },
               },
             },
           },
@@ -38,14 +44,15 @@ export class TaskEvidenceMatcher {
 
     const currentVersion = activePlan.versions[0];
     const startDate = currentVersion.startDate;
+    const targetReviewDate = currentVersion.targetReviewDate;
     const userId = activePlan.userId;
     const results: MatchResults[] = [];
 
-    // Fetch user submissions and contests created since the plan started
+    // Fetch user submissions and contests strictly within the plan active window
     const submissions = await prisma.normalizedSubmission.findMany({
       where: {
         userId,
-        timestamp: { gte: startDate },
+        timestamp: { gte: startDate, lte: targetReviewDate },
         accepted: true,
       },
       include: {
@@ -57,7 +64,7 @@ export class TaskEvidenceMatcher {
     const contests = await prisma.contestHistory.findMany({
       where: {
         userId,
-        timestamp: { gte: startDate },
+        timestamp: { gte: startDate, lte: targetReviewDate },
       },
       orderBy: { timestamp: "asc" },
     });
@@ -70,6 +77,14 @@ export class TaskEvidenceMatcher {
         task.matches.map((m) => m.contestHistoryId).filter(Boolean) as string[]
       );
 
+      // Unique problem tracking: multiple solves of the same problem do not double-count
+      const existingMatchedProblemIds = new Set<string>();
+      for (const m of task.matches) {
+        if (m.submission?.problemId) {
+          existingMatchedProblemIds.add(m.submission.problemId);
+        }
+      }
+
       let newlyMatchedCount = 0;
 
       if (task.type === "practice" || task.type === "review" || task.type === "upsolve") {
@@ -77,6 +92,9 @@ export class TaskEvidenceMatcher {
 
         for (const sub of submissions) {
           if (existingMatchSubIds.has(sub.id)) continue;
+
+          // Deduplicate multiple solves of the same problem
+          if (existingMatchedProblemIds.has(sub.problemId)) continue;
 
           // Platform filter
           if (task.platform && task.platform !== "cross_platform" && sub.platform !== task.platform) {
@@ -123,6 +141,7 @@ export class TaskEvidenceMatcher {
           });
 
           existingMatchSubIds.add(sub.id);
+          existingMatchedProblemIds.add(sub.problemId);
           newlyMatchedCount++;
         }
       } else if (task.type === "contest") {
@@ -130,6 +149,12 @@ export class TaskEvidenceMatcher {
           if (existingMatchContestIds.has(contest.id)) continue;
 
           if (task.platform && task.platform !== "cross_platform" && contest.platform !== task.platform) {
+            continue;
+          }
+
+          // Rated contest check
+          const isRated = contest.ratingChange !== 0 || contest.oldRating > 0 || contest.newRating > 0;
+          if (!isRated && !task.title.toLowerCase().includes("unrated")) {
             continue;
           }
 
@@ -156,7 +181,7 @@ export class TaskEvidenceMatcher {
       }
 
       const totalMatches =
-        task.type === "contest" ? existingMatchContestIds.size : existingMatchSubIds.size;
+        task.type === "contest" ? existingMatchContestIds.size : existingMatchedProblemIds.size;
       const quantityCompleted = Math.min(totalMatches, task.quantity);
       const newStatus =
         quantityCompleted >= task.quantity
@@ -176,6 +201,7 @@ export class TaskEvidenceMatcher {
 
       results.push({
         taskId: task.id,
+        externalTaskId: task.externalTaskId,
         previousCompleted: task.quantityCompleted,
         newCompleted: quantityCompleted,
         targetQuantity: task.quantity,

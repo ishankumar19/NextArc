@@ -1,3 +1,5 @@
+export type OutcomeImprovementStatus = "improved" | "stable" | "regressed" | "inconclusive";
+
 export interface PlanOutcome {
   planId: string;
   versionNumber: number;
@@ -6,6 +8,7 @@ export interface PlanOutcome {
   tasksPlanned: number;
   tasksCompleted: number;
   insufficientEvidence: boolean;
+  outcomeImprovement: OutcomeImprovementStatus;
   evidenceCollected: {
     totalSubmissionsInPeriod: number;
     totalProblemsSolvedInPeriod: number;
