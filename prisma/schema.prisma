@@ -12,15 +12,17 @@ generator client {
 }
 
 model User {
-  id          String                 @id @default(cuid())
-  email       String                 @unique
-  name        String?
-  createdAt   DateTime               @default(now())
-  updatedAt   DateTime               @updatedAt
-  goals       Goal[]
-  connections PlatformConnection[]
-  submissions NormalizedSubmission[]
-  contests    ContestHistory[]
+  id           String                 @id @default(cuid())
+  email        String                 @unique
+  name         String?
+  passwordHash String?
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  sessions     Session[]
+  goals        Goal[]
+  connections  PlatformConnection[]
+  submissions  NormalizedSubmission[]
+  contests     ContestHistory[]
 
   @@map("users")
 }
@@ -232,3 +234,16 @@ model PlanEvaluation {
   @@index([planId])
   @@map("plan_evaluations")
 }
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+  @@map("sessions")
+}
+

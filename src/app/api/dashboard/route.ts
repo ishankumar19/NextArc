@@ -5,7 +5,7 @@ import { EvidenceService } from "@/goals/evidence.service";
 import { ActivityFeedService } from "@/analytics/activity-feed.service";
 import { AnalyticsService } from "@/analytics/analytics.service";
 import prisma from "@/lib/prisma";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, handleApiError } from "@/lib/api-response";
 
 export async function GET(req: NextRequest) {
   try {
@@ -51,6 +51,6 @@ export async function GET(req: NextRequest) {
       })),
     });
   } catch (err: any) {
-    return apiError(err?.message || "Failed to load dashboard data", 500);
+    return handleApiError(err);
   }
 }

@@ -122,6 +122,7 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -266,6 +267,14 @@ exports.Prisma.PlanEvaluationScalarFieldEnum = {
   evaluatedAt: 'evaluatedAt'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -288,7 +297,8 @@ exports.Prisma.ModelName = {
   PlanVersion: 'PlanVersion',
   PlanTask: 'PlanTask',
   TaskEvidenceMatch: 'TaskEvidenceMatch',
-  PlanEvaluation: 'PlanEvaluation'
+  PlanEvaluation: 'PlanEvaluation',
+  Session: 'Session'
 };
 
 /**

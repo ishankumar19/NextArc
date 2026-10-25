@@ -2,12 +2,12 @@ import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getPlatformAdapter, isPlatformSupported } from "@/platforms/platform.registry";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 import { PlatformType } from "@/core/types";
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const body = await req.json();
     const { platform, username } = body;
 
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Upsert PlatformConnection
+    // Upsert PlatformConnection for authenticated user
     const connection = await prisma.platformConnection.upsert({
       where: {
         userId_platform: {
@@ -55,6 +55,6 @@ export async function POST(req: NextRequest) {
 
     return apiSuccess(connection, 201);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to connect platform", 400);
+    return handleApiError(err);
   }
 }

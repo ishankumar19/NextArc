@@ -1,50 +1,115 @@
 import prisma from "@/lib/prisma";
+import { SESSION_COOKIE_NAME, validateSession, SessionWithUser } from "@/lib/session";
+import { AuthenticationError } from "@/lib/errors";
 
 /**
- * Resolves the active user ID for Phase 1.
- * Supports explicit 'x-user-id' header or 'userId' query parameter for multi-tenant isolation,
- * falling back to the active user in the database or creating a clean default user.
+ * Extracts a session token from either Authorization header or Cookie header.
  */
-export async function getActiveUserId(req?: Request): Promise<string> {
-  if (req) {
-    const headerUserId = req.headers.get("x-user-id");
-    if (headerUserId && headerUserId.trim()) {
-      return headerUserId.trim();
-    }
-
-    try {
-      const url = new URL(req.url);
-      const queryUserId = url.searchParams.get("userId");
-      if (queryUserId && queryUserId.trim()) {
-        return queryUserId.trim();
-      }
-    } catch {}
+export function extractSessionToken(req: Request): string | null {
+  // 1. Bearer token
+  const authHeader = req.headers.get("authorization");
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    const token = authHeader.substring(7).trim();
+    if (token) return token;
   }
 
-  // Fallback to active demo/default user in local environment
+  // 2. Cookie: auth_session=<token>
+  const cookieHeader = req.headers.get("cookie");
+  if (cookieHeader) {
+    const cookies = cookieHeader.split(";").map((c) => c.trim());
+    for (const cookie of cookies) {
+      const [name, ...valParts] = cookie.split("=");
+      if (name.trim() === SESSION_COOKIE_NAME) {
+        const val = valParts.join("=").trim();
+        if (val) return decodeURIComponent(val);
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Resolves the authenticated session from the incoming request.
+ * Clients CANNOT spoof identity via `x-user-id` or `?userId=`.
+ * Dev demo user fallback is strictly fail-closed: only allowed when
+ * NODE_ENV !== "production" AND ALLOW_DEV_DEMO_USER === "true".
+ */
+export async function resolveSession(req?: Request): Promise<SessionWithUser | null> {
+  if (req) {
+    const token = extractSessionToken(req);
+    if (token) {
+      const session = await validateSession(token);
+      if (session) {
+        return session;
+      }
+    }
+  }
+
+  // Strict fail-closed check for dev demo mode
+  const isProduction = process.env.NODE_ENV === "production";
+  const allowDevDemo = process.env.ALLOW_DEV_DEMO_USER === "true";
+
+  if (!isProduction && allowDevDemo) {
+    const demoUser = await getOrCreateDevDemoUser();
+    return {
+      id: "dev_demo_session",
+      sessionToken: "dev_demo_token",
+      userId: demoUser.id,
+      expires: new Date(Date.now() + 86400000),
+      user: {
+        id: demoUser.id,
+        email: demoUser.email,
+        name: demoUser.name,
+      },
+    };
+  }
+
+  return null;
+}
+
+/**
+ * Requires an authenticated user session. Throws AuthenticationError if absent or invalid.
+ */
+export async function requireAuth(req: Request): Promise<SessionWithUser> {
+  const session = await resolveSession(req);
+  if (!session) {
+    throw new AuthenticationError("Authentication required. Please provide a valid session.");
+  }
+  return session;
+}
+
+/**
+ * Derives the verified active userId from the session.
+ */
+export async function getActiveUserId(req?: Request): Promise<string> {
+  const session = await resolveSession(req);
+  if (!session) {
+    throw new AuthenticationError("Authentication required. Please sign in.");
+  }
+  return session.userId;
+}
+
+export const getCurrentUserId = getActiveUserId;
+
+/**
+ * Internal helper to resolve or create the development demo user.
+ * Only callable when ALLOW_DEV_DEMO_USER === "true" and NODE_ENV !== "production".
+ */
+async function getOrCreateDevDemoUser() {
   const user = await prisma.user.findFirst({
     where: { email: "demo@progress.dev" },
   });
 
   if (user) {
-    return user.id;
+    return user;
   }
 
-  const anyUser = await prisma.user.findFirst();
-  if (anyUser) {
-    return anyUser.id;
-  }
-
-  const created = await prisma.user.create({
+  return prisma.user.create({
     data: {
       id: "user_demo_1",
       email: "demo@progress.dev",
       name: "Demo Engineer",
     },
   });
-
-  return created.id;
 }
-
-export const getCurrentUserId = getActiveUserId;
-

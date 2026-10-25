@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 
 export async function GET(
   req: NextRequest,
@@ -9,7 +9,7 @@ export async function GET(
 ) {
   try {
     const { id } = await context.params;
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const goal = await GoalService.getGoalById(id, userId);
 
     if (!goal) {
@@ -18,7 +18,7 @@ export async function GET(
 
     return apiSuccess(goal);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to retrieve goal", 500);
+    return handleApiError(err);
   }
 }
 
@@ -28,10 +28,10 @@ export async function DELETE(
 ) {
   try {
     const { id } = await context.params;
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     await GoalService.deleteGoal(id, userId);
     return apiSuccess({ deleted: true });
   } catch (err: any) {
-    return apiError(err?.message || "Failed to delete goal", 400);
+    return handleApiError(err);
   }
 }

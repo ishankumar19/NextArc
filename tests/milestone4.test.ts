@@ -12,16 +12,18 @@ import { GET as getActivityAnalytics } from "../src/app/api/analytics/activity/r
 import { GET as getDifficultyAnalytics } from "../src/app/api/analytics/difficulty/route";
 import { GET as getTopicAnalytics } from "../src/app/api/analytics/topics/route";
 import { GET as getProgressContext } from "../src/app/api/goals/[id]/progress-context/route";
+import { createSession } from "../src/lib/session";
 import { addDays } from "date-fns";
 
 const prisma = new PrismaClient();
 
 describe("Milestone 4: API Routes & UI Aggregation", () => {
   let createdGoalId: string;
+  let sessionToken: string;
 
   beforeAll(async () => {
     // Ensure demo user exists
-    await prisma.user.upsert({
+    const user = await prisma.user.upsert({
       where: { email: "demo@progress.dev" },
       update: {},
       create: {
@@ -30,15 +32,24 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
         name: "Demo Engineer",
       },
     });
+
+    const session = await createSession(user.id);
+    sessionToken = session.sessionToken;
   });
 
   afterAll(async () => {
     await prisma.$disconnect();
   });
 
+  function makeAuthRequest(url: string, init?: any): NextRequest {
+    const req = new NextRequest(url, init);
+    req.headers.set("Authorization", `Bearer ${sessionToken}`);
+    return req;
+  }
+
   describe("Goals API", () => {
     it("POST /api/goals should validate required fields", async () => {
-      const req = new NextRequest("http://localhost:3000/api/goals", {
+      const req = makeAuthRequest("http://localhost:3000/api/goals", {
         method: "POST",
         body: JSON.stringify({
           title: "Incomplete Goal",
@@ -56,7 +67,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
     it("POST /api/goals should create goal and calculate initial gap", async () => {
       const deadline = addDays(new Date(), 45).toISOString();
-      const req = new NextRequest("http://localhost:3000/api/goals", {
+      const req = makeAuthRequest("http://localhost:3000/api/goals", {
         method: "POST",
         body: JSON.stringify({
           title: "Reach 1600 on Codeforces",
@@ -82,7 +93,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/goals should return goals with honest gap and remaining days", async () => {
-      const req = new NextRequest("http://localhost:3000/api/goals");
+      const req = makeAuthRequest("http://localhost:3000/api/goals");
       const res = await getGoals(req);
       expect(res.status).toBe(200);
 
@@ -98,7 +109,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/goals/:id should return single goal details", async () => {
-      const req = new NextRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
+      const req = makeAuthRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
       const res = await getGoalById(req, { params: Promise.resolve({ id: createdGoalId }) });
       expect(res.status).toBe(200);
 
@@ -111,7 +122,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Platforms API", () => {
     it("POST /api/platforms/connect should validate unsupported platforms", async () => {
-      const req = new NextRequest("http://localhost:3000/api/platforms/connect", {
+      const req = makeAuthRequest("http://localhost:3000/api/platforms/connect", {
         method: "POST",
         body: JSON.stringify({
           platform: "unsupported_platform",
@@ -128,7 +139,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/platforms should list connections with quality reports", async () => {
-      const req = new NextRequest("http://localhost:3000/api/platforms");
+      const req = makeAuthRequest("http://localhost:3000/api/platforms");
       const res = await getPlatforms(req);
       expect(res.status).toBe(200);
 
@@ -146,7 +157,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Dashboard & Activity Feed API", () => {
     it("GET /api/dashboard should return aggregated goal-first payload", async () => {
-      const req = new NextRequest("http://localhost:3000/api/dashboard");
+      const req = makeAuthRequest("http://localhost:3000/api/dashboard");
       const res = await getDashboard(req);
       expect(res.status).toBe(200);
 
@@ -158,7 +169,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/activity should return sorted chronological activity items", async () => {
-      const req = new NextRequest("http://localhost:3000/api/activity?limit=20");
+      const req = makeAuthRequest("http://localhost:3000/api/activity?limit=20");
       const res = await getActivity(req);
       expect(res.status).toBe(200);
 
@@ -176,7 +187,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Analytics Endpoints", () => {
     it("GET /api/analytics/activity should return 7d/30d and streak facts", async () => {
-      const req = new NextRequest("http://localhost:3000/api/analytics/activity");
+      const req = makeAuthRequest("http://localhost:3000/api/analytics/activity");
       const res = await getActivityAnalytics(req);
       expect(res.status).toBe(200);
 
@@ -188,7 +199,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/analytics/difficulty should return distinct CF and LC coordinates", async () => {
-      const req = new NextRequest("http://localhost:3000/api/analytics/difficulty");
+      const req = makeAuthRequest("http://localhost:3000/api/analytics/difficulty");
       const res = await getDifficultyAnalytics(req);
       expect(res.status).toBe(200);
 
@@ -201,7 +212,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
     });
 
     it("GET /api/analytics/topics should return canonical topic facts", async () => {
-      const req = new NextRequest("http://localhost:3000/api/analytics/topics");
+      const req = makeAuthRequest("http://localhost:3000/api/analytics/topics");
       const res = await getTopicAnalytics(req);
       expect(res.status).toBe(200);
 
@@ -214,7 +225,7 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("ProgressContext v1 Endpoint", () => {
     it("GET /api/goals/:id/progress-context should return complete versioned ProgressContext", async () => {
-      const req = new NextRequest(`http://localhost:3000/api/goals/${createdGoalId}/progress-context`);
+      const req = makeAuthRequest(`http://localhost:3000/api/goals/${createdGoalId}/progress-context`);
       const res = await getProgressContext(req, {
         params: Promise.resolve({ id: createdGoalId }),
       });
@@ -233,11 +244,11 @@ describe("Milestone 4: API Routes & UI Aggregation", () => {
 
   describe("Cleanup Verification", () => {
     it("DELETE /api/goals/:id should delete goal", async () => {
-      const req = new NextRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
+      const req = makeAuthRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
       const res = await deleteGoal(req, { params: Promise.resolve({ id: createdGoalId }) });
       expect(res.status).toBe(200);
 
-      const checkReq = new NextRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
+      const checkReq = makeAuthRequest(`http://localhost:3000/api/goals/${createdGoalId}`);
       const checkRes = await getGoalById(checkReq, { params: Promise.resolve({ id: createdGoalId }) });
       expect(checkRes.status).toBe(404);
     });

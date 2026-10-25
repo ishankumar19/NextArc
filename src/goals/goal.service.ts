@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { CreateGoalDTO, GoalProgressView, UpdateGoalDTO } from "./goal.types";
 import { differenceInCalendarDays } from "date-fns";
+import { GoalNotFoundError } from "@/core/errors";
 
 export class GoalService {
   /**
@@ -201,6 +202,11 @@ export class GoalService {
    * Updates an existing goal.
    */
   static async updateGoal(goalId: string, userId: string, dto: UpdateGoalDTO) {
+    const existing = await prisma.goal.findUnique({ where: { id: goalId } });
+    if (!existing || existing.userId !== userId) {
+      throw new GoalNotFoundError(goalId);
+    }
+
     return prisma.goal.update({
       where: { id: goalId },
       data: {
@@ -219,6 +225,11 @@ export class GoalService {
    * Deletes a goal.
    */
   static async deleteGoal(goalId: string, userId: string) {
+    const existing = await prisma.goal.findUnique({ where: { id: goalId } });
+    if (!existing || existing.userId !== userId) {
+      throw new GoalNotFoundError(goalId);
+    }
+
     return prisma.goal.delete({
       where: { id: goalId },
     });

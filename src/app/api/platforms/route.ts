@@ -3,7 +3,7 @@ import { getActiveUserId } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { getPlatformQualityReport } from "@/platforms/capabilities";
 import { PlatformType } from "@/core/types";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, handleApiError } from "@/lib/api-response";
 
 export async function GET(req: NextRequest) {
   try {
@@ -37,6 +37,6 @@ export async function GET(req: NextRequest) {
 
     return apiSuccess(enriched);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to retrieve platforms", 500);
+    return handleApiError(err);
   }
 }

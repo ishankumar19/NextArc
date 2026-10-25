@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { ProgressContextService } from "@/goals/progress-context.service";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, handleApiError } from "@/lib/api-response";
 
 export async function GET(
   req: NextRequest,
@@ -9,13 +9,13 @@ export async function GET(
 ) {
   try {
     const { id } = await context.params;
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const progressContext = await ProgressContextService.getUserProgressContext(
       userId,
       id
     );
     return apiSuccess(progressContext);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to generate progress context", 404);
+    return handleApiError(err);
   }
 }

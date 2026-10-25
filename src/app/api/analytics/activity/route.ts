@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { ActivityAnalytics } from "@/analytics/activity.analytics";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, handleApiError } from "@/lib/api-response";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,6 +9,6 @@ export async function GET(req: NextRequest) {
     const stats = await ActivityAnalytics.computeUserActivity(userId);
     return apiSuccess(stats);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to load activity analytics", 500);
+    return handleApiError(err);
   }
 }

@@ -3,7 +3,7 @@ import { getActiveUserId } from "@/lib/auth";
 import { SyncService } from "@/sync/sync.service";
 import { PlatformType } from "@/core/types";
 import { isPlatformSupported } from "@/platforms/platform.registry";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 
 export async function POST(
   req: NextRequest,
@@ -11,7 +11,7 @@ export async function POST(
 ) {
   try {
     const { platform } = await context.params;
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
 
     if (!isPlatformSupported(platform)) {
       return apiError(`Unsupported platform '${platform}'`, 400, "INVALID_PLATFORM");
@@ -25,6 +25,6 @@ export async function POST(
 
     return apiSuccess(result);
   } catch (err: any) {
-    return apiError(err?.message || "Sync execution error", 500);
+    return handleApiError(err);
   }
 }

@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
-import { apiSuccess, apiError } from "@/lib/api-response";
+import { apiSuccess, handleApiError, apiError } from "@/lib/api-response";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,13 +9,13 @@ export async function GET(req: NextRequest) {
     const goals = await GoalService.getUserGoals(userId);
     return apiSuccess(goals);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to retrieve goals", 500);
+    return handleApiError(err);
   }
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = await getActiveUserId();
+    const userId = await getActiveUserId(req);
     const body = await req.json();
 
     const {
@@ -52,6 +52,6 @@ export async function POST(req: NextRequest) {
 
     return apiSuccess(created, 201);
   } catch (err: any) {
-    return apiError(err?.message || "Failed to create goal", 400);
+    return handleApiError(err);
   }
 }

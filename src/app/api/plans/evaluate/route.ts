@@ -1,33 +1,36 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { getCurrentUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
 import { PlanEvaluator } from "@/planning/evaluation/plan-evaluator";
+import { assertGoalOwnership } from "@/lib/authorization";
+import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = await getCurrentUserId();
+    const userId = await getCurrentUserId(req);
     const body = await req.json().catch(() => ({}));
     let goalId = body.goalId;
 
     if (!goalId) {
       const activeGoal = await GoalService.getActiveGoal(userId);
       if (!activeGoal) {
-        return NextResponse.json({ success: false, error: "No active goal found" }, { status: 400 });
+        return apiError("No active goal found.", 400, "NO_ACTIVE_GOAL");
       }
       goalId = activeGoal.id;
+    } else {
+      await assertGoalOwnership(goalId, userId);
     }
 
     const outcome = await PlanEvaluator.evaluateGoalPlan(goalId);
 
     if (!outcome) {
-      return NextResponse.json({ success: false, error: "No active plan to evaluate" }, { status: 404 });
+      return apiError("No active plan to evaluate.", 404, "NOT_FOUND");
     }
 
-    return NextResponse.json({
-      success: true,
+    return apiSuccess({
       outcome,
     });
   } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    return handleApiError(err);
   }
 }

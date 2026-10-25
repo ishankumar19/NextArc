@@ -104,19 +104,25 @@ export class DeterministicPlanner {
 
     if (dropoffSignal) {
       bottleneckType = "difficulty_dropoff";
-      bottleneckDesc = dropoffSignal.evidence.description;
+      const desc = typeof dropoffSignal.evidence === "string" 
+        ? dropoffSignal.evidence 
+        : (dropoffSignal.evidence?.description || "Performance drop-off at boundary difficulty bracket.");
+      bottleneckDesc = desc;
       evidenceRefs.push({
         signalId: dropoffSignal.id,
-        description: dropoffSignal.evidence.description,
+        description: desc,
         metric: dropoffSignal.metric,
         value: dropoffSignal.value,
       });
     } else if (underexposedTopicSignal) {
       bottleneckType = "underexposed_topic";
-      bottleneckDesc = underexposedTopicSignal.evidence.description;
+      const desc = typeof underexposedTopicSignal.evidence === "string" 
+        ? underexposedTopicSignal.evidence 
+        : (underexposedTopicSignal.evidence?.description || "Underexposed topic requires practice volume.");
+      bottleneckDesc = desc;
       evidenceRefs.push({
         signalId: underexposedTopicSignal.id,
-        description: underexposedTopicSignal.evidence.description,
+        description: desc,
         metric: underexposedTopicSignal.metric,
         value: underexposedTopicSignal.value,
       });
@@ -137,7 +143,7 @@ export class DeterministicPlanner {
     let practiceTopic = "greedy";
 
     if (context.goal.targetMetric === "codeforces_rating") {
-      const currentRating = context.currentState.codeforcesRating || context.goal.currentValue || 1200;
+      const currentRating = context.currentState?.codeforcesRating || context.goal.currentValue || 1200;
       minDiff = Math.max(800, Math.floor(currentRating / 100) * 100);
       maxDiff = minDiff + 100;
     }
