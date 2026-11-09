@@ -1,4 +1,5 @@
-import { getActiveUserId } from "@/lib/auth";
+import { resolveSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { AnalyticsService } from "@/analytics/analytics.service";
 import { GoalService } from "@/goals/goal.service";
 import Link from "next/link";
@@ -14,7 +15,11 @@ import { CF_BINS } from "@/analytics/difficulty.analytics";
 export const dynamic = "force-dynamic";
 
 export default async function ProgressPage() {
-  const userId = await getActiveUserId();
+  const session = await resolveSession();
+  if (!session) {
+    redirect("/login");
+  }
+  const userId = session.userId;
 
   const [goals, analytics] = await Promise.all([
     GoalService.getUserGoals(userId),

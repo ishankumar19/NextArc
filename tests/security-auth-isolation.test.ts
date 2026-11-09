@@ -25,8 +25,12 @@ describe("Security, Authentication & Multi-Tenant Isolation Suite", () => {
   let aliceSessionToken: string;
   let bobSessionToken: string;
   let aliceGoalId: string;
+  let originalAllowDevDemo: string | undefined;
 
   beforeAll(async () => {
+    originalAllowDevDemo = process.env.ALLOW_DEV_DEMO_USER;
+    process.env.ALLOW_DEV_DEMO_USER = "false";
+
     // Clean up test users
     await prisma.session.deleteMany({
       where: {
@@ -120,6 +124,7 @@ describe("Security, Authentication & Multi-Tenant Isolation Suite", () => {
       },
     });
     await prisma.$disconnect();
+    process.env.ALLOW_DEV_DEMO_USER = originalAllowDevDemo;
   });
 
   describe("1. Unauthenticated Access Protection (Fail-Closed)", () => {

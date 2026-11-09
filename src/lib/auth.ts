@@ -30,19 +30,30 @@ export function extractSessionToken(req: Request): string | null {
 }
 
 /**
- * Resolves the authenticated session from the incoming request.
+ * Resolves the authenticated session from the incoming request or Server Component cookies.
  * Clients CANNOT spoof identity via `x-user-id` or `?userId=`.
  * Dev demo user fallback is strictly fail-closed: only allowed when
  * NODE_ENV !== "production" AND ALLOW_DEV_DEMO_USER === "true".
  */
 export async function resolveSession(req?: Request): Promise<SessionWithUser | null> {
+  let token: string | null = null;
+
   if (req) {
-    const token = extractSessionToken(req);
-    if (token) {
-      const session = await validateSession(token);
-      if (session) {
-        return session;
-      }
+    token = extractSessionToken(req);
+  } else {
+    try {
+      const { cookies } = await import("next/headers");
+      const cookieStore = await cookies();
+      token = cookieStore.get(SESSION_COOKIE_NAME)?.value || null;
+    } catch {
+      // outside Next.js request context (e.g. tests or standalone scripts)
+    }
+  }
+
+  if (token) {
+    const session = await validateSession(token);
+    if (session) {
+      return session;
     }
   }
 

@@ -1,4 +1,5 @@
-import { getActiveUserId } from "@/lib/auth";
+import { resolveSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { getPlatformQualityReport } from "@/platforms/capabilities";
 import { PlatformType } from "@/core/types";
@@ -10,7 +11,11 @@ import { ArrowLeft, Layers, ShieldCheck } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export default async function PlatformsPage() {
-  const userId = await getActiveUserId();
+  const session = await resolveSession();
+  if (!session) {
+    redirect("/login");
+  }
+  const userId = session.userId;
 
   const connections = await prisma.platformConnection.findMany({
     where: { userId },

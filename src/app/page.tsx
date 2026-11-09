@@ -1,4 +1,5 @@
-import { getActiveUserId } from "@/lib/auth";
+import { resolveSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { GoalService } from "@/goals/goal.service";
 import { EvidenceService } from "@/goals/evidence.service";
 import { ActivityFeedService } from "@/analytics/activity-feed.service";
@@ -17,7 +18,11 @@ import { Target, ArrowRight, BarChart3, Layers, Compass } from "lucide-react";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const userId = await getActiveUserId();
+  const session = await resolveSession();
+  if (!session) {
+    redirect("/login");
+  }
+  const userId = session.userId;
 
   const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
     GoalService.getUserGoals(userId),
