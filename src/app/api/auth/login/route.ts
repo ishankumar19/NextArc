@@ -3,13 +3,24 @@ import prisma from "@/lib/prisma";
 import { verifyPassword } from "@/lib/password";
 import { createSession, SESSION_COOKIE_NAME, SESSION_TTL_DAYS } from "@/lib/session";
 import { apiError } from "@/lib/api-response";
+import { applyRateLimit, AUTH_RATE_LIMIT } from "@/lib/rate-limit";
+import { logRequest, logError } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
+  const limited = applyRateLimit(req, AUTH_RATE_LIMIT);
+  if (limited) return limited;
+
+  const start = Date.now();
+  let userId: string | null = null;
+  let statusCode = 200;
+
   try {
     const body = await req.json();
     const { email, password } = body;
 
     if (!email || !password) {
+      statusCode = 400;
+      logRequest("POST", "/api/auth/login", null, Date.now() - start, statusCode);
       return apiError("Email and password are required.", 400, "MISSING_CREDENTIALS");
     }
 
@@ -20,15 +31,20 @@ export async function POST(req: NextRequest) {
     });
 
     if (!user || !user.passwordHash) {
+      statusCode = 401;
+      logRequest("POST", "/api/auth/login", null, Date.now() - start, statusCode);
       return apiError("Invalid email or password.", 401, "INVALID_CREDENTIALS");
     }
 
     const valid = verifyPassword(String(password), user.passwordHash);
     if (!valid) {
+      statusCode = 401;
+      logRequest("POST", "/api/auth/login", null, Date.now() - start, statusCode);
       return apiError("Invalid email or password.", 401, "INVALID_CREDENTIALS");
     }
 
     const session = await createSession(user.id);
+    userId = user.id;
 
     const response = NextResponse.json(
       {
@@ -55,8 +71,12 @@ export async function POST(req: NextRequest) {
       path: "/",
     });
 
+    logRequest("POST", "/api/auth/login", userId, Date.now() - start, statusCode);
     return response;
   } catch (error: any) {
+    statusCode = 500;
+    logError("auth/login", error);
+    logRequest("POST", "/api/auth/login", userId, Date.now() - start, statusCode);
     return apiError(error.message || "Failed to sign in.", 500);
   }
 }

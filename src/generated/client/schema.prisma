@@ -244,5 +244,6 @@ model Session {
   createdAt    DateTime @default(now())
 
   @@index([userId])
+  @@index([expires])
   @@map("sessions")
 }

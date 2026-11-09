@@ -3,17 +3,30 @@ import prisma from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
 import { createSession, SESSION_COOKIE_NAME, SESSION_TTL_DAYS } from "@/lib/session";
 import { apiError } from "@/lib/api-response";
+import { applyRateLimit, AUTH_RATE_LIMIT } from "@/lib/rate-limit";
+import { logRequest, logError } from "@/lib/logger";
 
 export async function POST(req: NextRequest) {
+  const limited = applyRateLimit(req, AUTH_RATE_LIMIT);
+  if (limited) return limited;
+
+  const start = Date.now();
+  let userId: string | null = null;
+  let statusCode = 201;
+
   try {
     const body = await req.json();
     const { email, password, name } = body;
 
     if (!email || typeof email !== "string" || !email.includes("@")) {
+      statusCode = 400;
+      logRequest("POST", "/api/auth/register", null, Date.now() - start, statusCode);
       return apiError("A valid email address is required.", 400, "INVALID_EMAIL");
     }
 
     if (!password || typeof password !== "string" || password.length < 8) {
+      statusCode = 400;
+      logRequest("POST", "/api/auth/register", null, Date.now() - start, statusCode);
       return apiError("Password must be at least 8 characters long.", 400, "INVALID_PASSWORD");
     }
 
@@ -24,6 +37,8 @@ export async function POST(req: NextRequest) {
     });
 
     if (existingUser) {
+      statusCode = 409;
+      logRequest("POST", "/api/auth/register", null, Date.now() - start, statusCode);
       return apiError("An account with this email already exists.", 409, "USER_EXISTS");
     }
 
@@ -44,6 +59,7 @@ export async function POST(req: NextRequest) {
     });
 
     const session = await createSession(user.id);
+    userId = user.id;
 
     const response = NextResponse.json(
       {
@@ -66,8 +82,12 @@ export async function POST(req: NextRequest) {
       path: "/",
     });
 
+    logRequest("POST", "/api/auth/register", userId, Date.now() - start, statusCode);
     return response;
   } catch (error: any) {
+    statusCode = 500;
+    logError("auth/register", error);
+    logRequest("POST", "/api/auth/register", userId, Date.now() - start, statusCode);
     return apiError(error.message || "Failed to register account.", 500);
   }
 }

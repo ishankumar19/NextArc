@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { createSession, SESSION_COOKIE_NAME, SESSION_TTL_DAYS } from "@/lib/session";
 import { apiError } from "@/lib/api-response";
+import { applyRateLimit, AUTH_RATE_LIMIT } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
+  const limited = applyRateLimit(req, AUTH_RATE_LIMIT);
+  if (limited) return limited;
+
   // Demo login is allowed when not in production, or when ALLOW_DEV_DEMO_USER is true
   const isProduction = process.env.NODE_ENV === "production";
   const allowDevDemo = process.env.ALLOW_DEV_DEMO_USER === "true";

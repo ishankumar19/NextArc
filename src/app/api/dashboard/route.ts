@@ -6,10 +6,22 @@ import { ActivityFeedService } from "@/analytics/activity-feed.service";
 import { AnalyticsService } from "@/analytics/analytics.service";
 import prisma from "@/lib/prisma";
 import { apiSuccess, handleApiError } from "@/lib/api-response";
+import { applyRateLimit, READ_RATE_LIMIT } from "@/lib/rate-limit";
+import { appCache, cacheKey } from "@/lib/cache";
 
 export async function GET(req: NextRequest) {
+  const limited = applyRateLimit(req, READ_RATE_LIMIT);
+  if (limited) return limited;
+
   try {
     const userId = await getActiveUserId(req);
+    const key = cacheKey.dashboard(userId);
+
+    // Return cached response if available
+    const cached = appCache.get<object>(key);
+    if (cached) {
+      return apiSuccess(cached);
+    }
 
     const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
       GoalService.getUserGoals(userId),
@@ -28,7 +40,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    return apiSuccess({
+    const payload = {
       primaryGoal,
       allGoals: goals,
       evidence,
@@ -49,7 +61,12 @@ export async function GET(req: NextRequest) {
         status: c.status,
         lastSyncedAt: c.lastSyncedAt,
       })),
-    });
+    };
+
+    // Cache for 60 seconds
+    appCache.set(key, payload, 60_000);
+
+    return apiSuccess(payload);
   } catch (err: any) {
     return handleApiError(err);
   }

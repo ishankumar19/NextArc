@@ -77,6 +77,11 @@ export async function validateSession(
     return null;
   }
 
+  // Probabilistic background cleanup (~1% of requests)
+  if (Math.random() < 0.01) {
+    cleanupExpiredSessions().catch(() => {});
+  }
+
   return session as SessionWithUser;
 }
 
