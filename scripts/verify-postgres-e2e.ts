@@ -16,11 +16,11 @@
  * 12. Interactive transaction atomicity and forced ROLLBACK verification
  */
 
-import { PrismaClient } from "../src/generated/client-pg";
+import { PrismaClient } from "../src/generated/client";
 import { hashPassword, verifyPassword } from "../src/lib/password";
 import { addDays } from "date-fns";
 
-const pgUrl = process.env.POSTGRES_DATABASE_URL || "postgresql://postgres:postgres@127.0.0.1:5433/postgres?sslmode=disable";
+const pgUrl = process.env.DATABASE_URL || process.env.POSTGRES_DATABASE_URL;
 const prisma = new PrismaClient({
   datasources: {
     db: { url: pgUrl },
