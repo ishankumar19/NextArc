@@ -7,7 +7,7 @@ import { AnalyticsService } from "@/analytics/analytics.service";
 import prisma from "@/lib/prisma";
 import { apiSuccess, handleApiError } from "@/lib/api-response";
 import { applyRateLimit, READ_RATE_LIMIT } from "@/lib/rate-limit";
-import { appCache, cacheKey } from "@/lib/cache";
+import { appCache, cacheKey, singleFlight } from "@/lib/cache";
 
 export async function GET(req: NextRequest) {
   const limited = applyRateLimit(req, READ_RATE_LIMIT);
@@ -23,48 +23,56 @@ export async function GET(req: NextRequest) {
       return apiSuccess(cached);
     }
 
-    const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
-      GoalService.getUserGoals(userId),
-      prisma.platformConnection.findMany({ where: { userId } }),
-      ActivityFeedService.getUnifiedActivity(userId, 10),
-      AnalyticsService.getUserAnalytics(userId),
-    ]);
+    // Single-flight stampede protection: collapse concurrent cache-miss queries
+    const payload = await singleFlight(key, async () => {
+      // Double-check cache inside single-flight mutex
+      const doubleCheck = appCache.get<object>(key);
+      if (doubleCheck) return doubleCheck;
 
-    const primaryGoal = goals[0] || null;
+      const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
+        GoalService.getUserGoals(userId),
+        prisma.platformConnection.findMany({ where: { userId } }),
+        ActivityFeedService.getUnifiedActivity(userId, 10),
+        AnalyticsService.getUserAnalytics(userId),
+      ]);
 
-    let evidence = null;
-    if (primaryGoal) {
-      evidence = await EvidenceService.computeSupportingEvidence(
-        userId,
-        primaryGoal.id
-      );
-    }
+      const primaryGoal = goals[0] || null;
 
-    const payload = {
-      primaryGoal,
-      allGoals: goals,
-      evidence,
-      recentActivity: activityFeed,
-      practiceSummary: {
-        totalSolved: fullAnalytics.activity.totalProblemsSolved,
-        activeDays7d: fullAnalytics.activity.last7Days.activeDays,
-        currentStreak: fullAnalytics.activity.currentStreak,
-        difficulty: fullAnalytics.difficulty,
-        topTopics: Object.values(fullAnalytics.topics)
-          .filter((t) => t.attempted > 0)
-          .sort((a, b) => b.solved - a.solved)
-          .slice(0, 5),
-      },
-      platforms: connections.map((c) => ({
-        platform: c.platform,
-        username: c.username,
-        status: c.status,
-        lastSyncedAt: c.lastSyncedAt,
-      })),
-    };
+      let evidence = null;
+      if (primaryGoal) {
+        evidence = await EvidenceService.computeSupportingEvidence(
+          userId,
+          primaryGoal.id
+        );
+      }
 
-    // Cache for 60 seconds
-    appCache.set(key, payload, 60_000);
+      const computed = {
+        primaryGoal,
+        allGoals: goals,
+        evidence,
+        recentActivity: activityFeed,
+        practiceSummary: {
+          totalSolved: fullAnalytics.activity.totalProblemsSolved,
+          activeDays7d: fullAnalytics.activity.last7Days.activeDays,
+          currentStreak: fullAnalytics.activity.currentStreak,
+          difficulty: fullAnalytics.difficulty,
+          topTopics: Object.values(fullAnalytics.topics)
+            .filter((t) => t.attempted > 0)
+            .sort((a, b) => b.solved - a.solved)
+            .slice(0, 5),
+        },
+        platforms: connections.map((c) => ({
+          platform: c.platform,
+          username: c.username,
+          status: c.status,
+          lastSyncedAt: c.lastSyncedAt,
+        })),
+      };
+
+      // Cache for 60 seconds across distributed nodes
+      appCache.set(key, computed, 60_000);
+      return computed;
+    });
 
     return apiSuccess(payload);
   } catch (err: any) {

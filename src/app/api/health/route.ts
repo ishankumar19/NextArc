@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import prisma, { getDatabaseConnectionBudget } from "@/lib/prisma";
 import { appCache } from "@/lib/cache";
 import { getRateLimitMetrics } from "@/lib/rate-limit";
+import { codeforcesCircuit, leetcodeCircuit, redisCircuit } from "@/lib/circuit-breaker";
+import { getRedisClient } from "@/lib/redis";
 
 export const dynamic = "force-dynamic";
 
@@ -23,10 +25,26 @@ export async function GET(req: NextRequest) {
     await prisma.$queryRaw`SELECT 1`;
     const latencyMs = Date.now() - start;
 
+    // Ping Redis
+    let redisStatus = "not_configured";
+    try {
+      const redis = getRedisClient();
+      redisStatus = (await redis.ping()) === "PONG" ? "connected" : "degraded";
+    } catch {
+      redisStatus = "error";
+    }
+
     return NextResponse.json({
       status: "ok",
       db: "connected",
       latencyMs,
+      redis: redisStatus,
+      circuits: {
+        codeforces: codeforcesCircuit.getMetrics(),
+        leetcode: leetcodeCircuit.getMetrics(),
+        redis: redisCircuit.getMetrics(),
+      },
+      connectionBudget: getDatabaseConnectionBudget(),
       cache: appCache.getMetrics(),
       rateLimiter: getRateLimitMetrics(),
       timestamp: new Date().toISOString(),

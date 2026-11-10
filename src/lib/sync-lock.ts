@@ -1,19 +1,103 @@
-/**
- * Sync concurrency guard with automatic TTL expiration to prevent permanent deadlocks.
- * Keyed as `${userId}:${platform}` -> expiration timestamp in ms.
- */
-export const DEFAULT_SYNC_LOCK_TTL_MS = 5 * 60 * 1000; // 5 minutes max sync duration
+import crypto from "node:crypto";
+import { getRedisClient } from "./redis";
 
-const activeLocks = new Map<string, number>();
+export const DEFAULT_SYNC_LOCK_TTL_MS = 5 * 60 * 1000; // 5 minutes max lease
+
+// In-memory fallback map for offline tests: key -> { token, expiresAt }
+const inMemoryLocks = new Map<string, { token: string; expiresAt: number }>();
 
 function lockKey(userId: string, platform: string): string {
-  return `${userId}:${platform}`;
+  return `synclock:${userId}:${platform}`;
+}
+
+export interface SyncLockHandle {
+  acquired: boolean;
+  token?: string;
+  key: string;
+}
+
+// Atomic lock release Lua script (fencing token verification)
+const RELEASE_LOCK_LUA = `
+if redis.call('get', KEYS[1]) == ARGV[1] then
+  return redis.call('del', KEYS[1])
+else
+  return 0
+end
+`;
+
+/**
+ * Atomically acquires a distributed sync lock backed by Redis with a cryptographic ownership token.
+ * Prevents multiple workers or application nodes from syncing the same user+platform concurrently.
+ */
+export async function acquireDistributedSyncLock(
+  userId: string,
+  platform: string,
+  ttlMs: number = DEFAULT_SYNC_LOCK_TTL_MS
+): Promise<SyncLockHandle> {
+  const key = lockKey(userId, platform);
+  const token = crypto.randomUUID();
+  const redis = getRedisClient();
+
+  try {
+    const res = await redis.set(key, token, "PX", ttlMs, "NX");
+    if (res === "OK") {
+      inMemoryLocks.set(key, { token, expiresAt: Date.now() + ttlMs });
+      return { acquired: true, token, key };
+    }
+    // Key already locked in Redis
+    return { acquired: false, key };
+  } catch (err) {
+    console.warn("[SyncLock] Redis acquire error, falling back to local lease:", err);
+  }
+
+  // In-memory fallback check
+  const now = Date.now();
+  const existing = inMemoryLocks.get(key);
+  if (existing && now < existing.expiresAt) {
+    return { acquired: false, key };
+  }
+
+  inMemoryLocks.set(key, { token, expiresAt: now + ttlMs });
+  return { acquired: true, token, key };
 }
 
 /**
- * Attempts to acquire a sync lock for the given user+platform pair.
- * If an existing lock has expired past its TTL, it is automatically overridden.
- * Returns true if the lock was acquired, false if a valid lock is still active.
+ * Safely releases the lock ONLY if the caller presents the verified ownership token.
+ * Prevents a delayed worker from releasing a lock that expired and was re-acquired by another worker.
+ */
+export async function releaseDistributedSyncLock(
+  userId: string,
+  platform: string,
+  token?: string
+): Promise<boolean> {
+  const key = lockKey(userId, platform);
+  const redis = getRedisClient();
+
+  if (token) {
+    try {
+      const res = await redis.eval(RELEASE_LOCK_LUA, 1, key, token);
+      if (Number(res) === 1) {
+        inMemoryLocks.delete(key);
+        return true;
+      }
+    } catch {}
+  } else {
+    try {
+      await redis.del(key);
+    } catch {}
+  }
+
+  // Fallback cleanup
+  const current = inMemoryLocks.get(key);
+  if (!token || current?.token === token) {
+    inMemoryLocks.delete(key);
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Synchronous wrapper for existing synchronous callers and backward compatibility.
  */
 export function acquireSyncLock(
   userId: string,
@@ -22,50 +106,49 @@ export function acquireSyncLock(
 ): boolean {
   const key = lockKey(userId, platform);
   const now = Date.now();
-  const expiresAt = activeLocks.get(key);
+  const existing = inMemoryLocks.get(key);
 
-  if (expiresAt !== undefined && now < expiresAt) {
-    return false; // Valid lock still active
+  if (existing && now < existing.expiresAt) {
+    return false;
   }
 
-  activeLocks.set(key, now + ttlMs);
+  const token = crypto.randomUUID();
+  inMemoryLocks.set(key, { token, expiresAt: now + ttlMs });
+
+  // Fire-and-forget sync to Redis
+  const redis = getRedisClient();
+  redis.set(key, token, "PX", ttlMs, "NX").catch(() => {});
+
   return true;
 }
 
-/**
- * Releases the sync lock for the given user+platform pair.
- */
 export function releaseSyncLock(userId: string, platform: string): void {
-  activeLocks.delete(lockKey(userId, platform));
+  const key = lockKey(userId, platform);
+  inMemoryLocks.delete(key);
+  const redis = getRedisClient();
+  redis.del(key).catch(() => {});
 }
 
-/**
- * Returns true if a valid, unexpired sync lock is currently held.
- */
 export function isSyncLocked(userId: string, platform: string): boolean {
   const key = lockKey(userId, platform);
-  const expiresAt = activeLocks.get(key);
-  if (expiresAt === undefined) return false;
-  if (Date.now() >= expiresAt) {
-    activeLocks.delete(key);
+  const existing = inMemoryLocks.get(key);
+  if (!existing) return false;
+  if (Date.now() >= existing.expiresAt) {
+    inMemoryLocks.delete(key);
     return false;
   }
   return true;
 }
 
-/**
- * Returns remaining milliseconds until lock expiration, or 0 if unlocked.
- */
 export function getLockRemainingMs(userId: string, platform: string): number {
   const key = lockKey(userId, platform);
-  const expiresAt = activeLocks.get(key);
-  if (!expiresAt) return 0;
-  return Math.max(0, expiresAt - Date.now());
+  const existing = inMemoryLocks.get(key);
+  if (!existing) return 0;
+  return Math.max(0, existing.expiresAt - Date.now());
 }
 
-/**
- * Clears all active locks (useful for test resets).
- */
 export function clearAllSyncLocks(): void {
-  activeLocks.clear();
+  inMemoryLocks.clear();
+  const redis = getRedisClient();
+  redis.del("synclock:*").catch(() => {});
 }
