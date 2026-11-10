@@ -7,6 +7,7 @@ import { PlannerService } from "@/planning/planner.service";
 import { PlanRepository } from "@/planning/plan.repository";
 import { assertGoalOwnership } from "@/lib/authorization";
 import { apiSuccess, handleApiError, apiError } from "@/lib/api-response";
+import { appCache } from "@/lib/cache";
 
 export async function POST(req: NextRequest) {
   try {
@@ -43,6 +44,9 @@ export async function POST(req: NextRequest) {
       goalId,
       planData,
     });
+
+    // Invalidate cached goal context and user dashboard
+    appCache.invalidateGoal(goalId, userId);
 
     return apiSuccess({
       plan: savedPlan,

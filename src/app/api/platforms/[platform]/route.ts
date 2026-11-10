@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
+import { appCache } from "@/lib/cache";
 
 export async function DELETE(
   req: NextRequest,
@@ -27,6 +28,9 @@ export async function DELETE(
     await prisma.platformConnection.delete({
       where: { id: connection.id },
     });
+
+    // Invalidate user dashboard and platform cache
+    appCache.invalidateUser(userId);
 
     return apiSuccess({ disconnected: true, platform });
   } catch (err: any) {

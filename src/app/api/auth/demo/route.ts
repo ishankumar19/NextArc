@@ -8,11 +8,12 @@ export async function POST(req: NextRequest) {
   const limited = applyRateLimit(req, AUTH_RATE_LIMIT);
   if (limited) return limited;
 
-  // Demo login is allowed when not in production, or when ALLOW_DEV_DEMO_USER is true
+  // Demo login is strictly fail-closed: NEVER allowed in production,
+  // and in non-production environments it requires ALLOW_DEV_DEMO_USER === "true".
   const isProduction = process.env.NODE_ENV === "production";
   const allowDevDemo = process.env.ALLOW_DEV_DEMO_USER === "true";
 
-  if (isProduction && !allowDevDemo) {
+  if (isProduction || !allowDevDemo) {
     return apiError("Demo access is disabled in production.", 403, "FORBIDDEN");
   }
 

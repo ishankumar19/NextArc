@@ -48,7 +48,7 @@ async function runPostgresVerification() {
   // 2. User Registration, Password Hashing & Session Lifecycle
   console.log("\n[Step 2] Testing User Auth & Session Lifecycle on PostgreSQL...");
   const rawPassword = "PostgresPassword123!@#";
-  const passwordHash = hashPassword(rawPassword);
+  const passwordHash = await hashPassword(rawPassword);
 
   const user = await prisma.user.create({
     data: {
@@ -60,8 +60,8 @@ async function runPostgresVerification() {
   console.log(` ✓ User created with ID: ${user.id}`);
 
   // Verify password
-  const isValidPass = verifyPassword(rawPassword, user.passwordHash!);
-  const isInvalidPass = verifyPassword("WrongPassword123", user.passwordHash!);
+  const isValidPass = await verifyPassword(rawPassword, user.passwordHash!);
+  const isInvalidPass = await verifyPassword("WrongPassword123", user.passwordHash!);
   if (!isValidPass || isInvalidPass) {
     throw new Error("Password verification logic failed on PostgreSQL entity");
   }

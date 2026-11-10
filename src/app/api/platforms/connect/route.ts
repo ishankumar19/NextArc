@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { getPlatformAdapter, isPlatformSupported } from "@/platforms/platform.registry";
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 import { PlatformType } from "@/core/types";
+import { appCache } from "@/lib/cache";
 
 export async function POST(req: NextRequest) {
   try {
@@ -52,6 +53,9 @@ export async function POST(req: NextRequest) {
         status: "connected",
       },
     });
+
+    // Invalidate dashboard and platform cache
+    appCache.invalidateUser(userId);
 
     return apiSuccess(connection, 201);
   } catch (err: any) {

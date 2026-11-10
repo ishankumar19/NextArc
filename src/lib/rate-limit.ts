@@ -10,23 +10,32 @@ export const AUTH_RATE_LIMIT: RateLimitConfig = { windowMs: 60_000, maxRequests:
 export const SYNC_RATE_LIMIT: RateLimitConfig = { windowMs: 60_000, maxRequests: 30 };
 export const READ_RATE_LIMIT: RateLimitConfig = { windowMs: 60_000, maxRequests: 100 };
 
+const MAX_RATE_LIMIT_KEYS = 10_000;
+
 // Map<key, timestamps[]>
 const store = new Map<string, number[]>();
 
+let totalRateLimitedCount = 0;
+
 /**
- * Extracts rate-limit key from request (IP-based).
+ * Extracts sanitized rate-limit key from request (IP-based).
+ * Truncates to 64 chars to prevent memory expansion attacks via bloated headers.
  */
 export function getRateLimitKey(req: Request): string {
   const forwarded = req.headers.get("x-forwarded-for");
   if (forwarded) {
-    return forwarded.split(",")[0].trim();
+    const rawIp = forwarded.split(",")[0].trim();
+    return rawIp.slice(0, 64);
   }
-  return req.headers.get("x-real-ip") ?? "unknown";
+  const realIp = req.headers.get("x-real-ip");
+  if (realIp) {
+    return realIp.trim().slice(0, 64);
+  }
+  return "unknown";
 }
 
 /**
- * Sliding-window in-memory rate limiter.
- * Returns allowed, remaining, and resetAt timestamp.
+ * Sliding-window in-memory rate limiter with bounded memory and auto-pruning.
  */
 export function checkRateLimit(
   key: string,
@@ -40,11 +49,25 @@ export function checkRateLimit(
   // Prune old timestamps outside the current window
   timestamps = timestamps.filter((t) => t > windowStart);
 
+  // If no recent timestamps remain, remove the key entirely to prevent memory leaks
+  if (timestamps.length === 0) {
+    store.delete(key);
+  }
+
   const resetAt = timestamps.length > 0 ? timestamps[0] + config.windowMs : now + config.windowMs;
 
   if (timestamps.length >= config.maxRequests) {
     store.set(key, timestamps);
+    totalRateLimitedCount++;
     return { allowed: false, remaining: 0, resetAt };
+  }
+
+  // Memory safeguard: if unique keys exceed threshold, evict the oldest key
+  if (store.size >= MAX_RATE_LIMIT_KEYS && !store.has(key)) {
+    const oldestKey = store.keys().next().value;
+    if (oldestKey) {
+      store.delete(oldestKey);
+    }
   }
 
   timestamps.push(now);
@@ -80,4 +103,22 @@ export function applyRateLimit(req: Request, config: RateLimitConfig): Response 
   }
 
   return null;
+}
+
+/**
+ * Resets the rate limiter store (useful in testing).
+ */
+export function resetRateLimits(): void {
+  store.clear();
+  totalRateLimitedCount = 0;
+}
+
+/**
+ * Diagnostic metrics for observability.
+ */
+export function getRateLimitMetrics(): { activeKeys: number; totalRateLimited: number } {
+  return {
+    activeKeys: store.size,
+    totalRateLimited: totalRateLimitedCount,
+  };
 }

@@ -9,6 +9,7 @@ import { PlanRepository } from "@/planning/plan.repository";
 import { AdaptivePlanV1 } from "@/planning/plan.types";
 import { assertGoalOwnership } from "@/lib/authorization";
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
+import { appCache } from "@/lib/cache";
 
 export async function POST(req: NextRequest) {
   try {
@@ -51,6 +52,9 @@ export async function POST(req: NextRequest) {
 
     // 4. Save Version N+1
     const updatedPlan = await PlanRepository.createAdaptedVersion(currentPlan.id, adaptedPlanData);
+
+    // Invalidate cached goal and dashboard
+    appCache.invalidateGoal(goalId, userId);
 
     return apiSuccess({
       plan: updatedPlan,

@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
 import { apiSuccess, handleApiError, apiError } from "@/lib/api-response";
+import { appCache } from "@/lib/cache";
 
 export async function GET(req: NextRequest) {
   try {
@@ -36,12 +37,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const cleanTitle = String(title).trim();
+    if (cleanTitle.length > 200) {
+      return apiError("Goal title cannot exceed 200 characters.", 400, "VALIDATION_ERROR");
+    }
+
+    if (category && String(category).length > 50) {
+      return apiError("Goal category cannot exceed 50 characters.", 400, "VALIDATION_ERROR");
+    }
+
+    const numTargetValue = Number(targetValue);
+    if (!Number.isFinite(numTargetValue) || numTargetValue <= 0) {
+      return apiError("Target value must be a positive number.", 400, "VALIDATION_ERROR");
+    }
+
     const created = await GoalService.createGoal({
       userId,
-      title: String(title).trim(),
+      title: cleanTitle,
       category: category || "competitive_programming",
       targetMetric,
-      targetValue: Number(targetValue),
+      targetValue: numTargetValue,
       initialValue: initialValue !== undefined ? Number(initialValue) : undefined,
       deadline: new Date(deadline),
       availableHoursPerWeek:
@@ -49,6 +64,9 @@ export async function POST(req: NextRequest) {
           ? Number(availableHoursPerWeek)
           : undefined,
     });
+
+    // Invalidate user cache on goal creation
+    appCache.invalidateUser(userId);
 
     return apiSuccess(created, 201);
   } catch (err: any) {

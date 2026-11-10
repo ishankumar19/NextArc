@@ -36,7 +36,13 @@ export async function POST(req: NextRequest) {
       return apiError("Invalid email or password.", 401, "INVALID_CREDENTIALS");
     }
 
-    const valid = verifyPassword(String(password), user.passwordHash);
+    if (typeof password === "string" && password.length > 128) {
+      statusCode = 401;
+      logRequest("POST", "/api/auth/login", null, Date.now() - start, statusCode);
+      return apiError("Invalid email or password.", 401, "INVALID_CREDENTIALS");
+    }
+
+    const valid = await verifyPassword(String(password), user.passwordHash);
     if (!valid) {
       statusCode = 401;
       logRequest("POST", "/api/auth/login", null, Date.now() - start, statusCode);

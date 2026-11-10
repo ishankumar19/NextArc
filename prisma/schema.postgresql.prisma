@@ -118,8 +118,10 @@ model NormalizedSubmission {
 
   // Defensive uniqueness constraint scoped per user as specified in Amendment 5:
   @@unique([userId, platform, externalSubmissionId])
+  @@index([userId, timestamp])
   @@index([userId, platform, timestamp])
   @@index([userId, accepted])
+  @@index([problemId])
   @@map("normalized_submissions")
 }
 
@@ -216,6 +218,7 @@ model TaskEvidenceMatch {
 
   @@unique([taskId, submissionId])
   @@unique([taskId, contestHistoryId])
+  @@index([submissionId])
   @@map("task_evidence_matches")
 }
 
@@ -244,5 +247,6 @@ model Session {
   createdAt    DateTime @default(now())
 
   @@index([userId])
+  @@index([expires])
   @@map("sessions")
 }

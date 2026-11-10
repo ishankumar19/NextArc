@@ -14,6 +14,7 @@ export class LeetCodeAdapter implements PlatformAdapter {
     string,
     { difficulty: string; tags: string[] }
   >();
+  private readonly maxMetaCacheSize = 2000;
 
   /**
    * Helper to perform GraphQL requests against LeetCode's public endpoint.
@@ -31,6 +32,7 @@ export class LeetCodeAdapter implements PlatformAdapter {
           Referer: "https://leetcode.com",
         },
         body: JSON.stringify({ query, variables }),
+        signal: AbortSignal.timeout(15000),
       });
 
       if (!response.ok) {
@@ -54,6 +56,14 @@ export class LeetCodeAdapter implements PlatformAdapter {
       return json.data as T;
     } catch (err: any) {
       if (err instanceof PlatformError) throw err;
+      if (err.name === "TimeoutError" || err.name === "AbortError") {
+        throw new PlatformError(
+          "leetcode",
+          "Request to LeetCode timed out after 15000ms.",
+          "TIMEOUT",
+          504
+        );
+      }
       throw new PlatformError(
         "leetcode",
         `Network or connection failure: ${err?.message || "Unknown error"}`,
@@ -255,6 +265,10 @@ export class LeetCodeAdapter implements PlatformAdapter {
           difficulty: data.question.difficulty || "Medium",
           tags: data.question.topicTags.map((t) => t.name),
         };
+        if (this.problemMetaCache.size >= this.maxMetaCacheSize) {
+          const firstKey = this.problemMetaCache.keys().next().value;
+          if (firstKey) this.problemMetaCache.delete(firstKey);
+        }
         this.problemMetaCache.set(titleSlug, meta);
         return meta;
       }

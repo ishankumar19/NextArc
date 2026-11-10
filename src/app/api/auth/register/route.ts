@@ -24,10 +24,16 @@ export async function POST(req: NextRequest) {
       return apiError("A valid email address is required.", 400, "INVALID_EMAIL");
     }
 
-    if (!password || typeof password !== "string" || password.length < 8) {
+    if (!password || typeof password !== "string" || password.length < 8 || password.length > 128) {
       statusCode = 400;
       logRequest("POST", "/api/auth/register", null, Date.now() - start, statusCode);
-      return apiError("Password must be at least 8 characters long.", 400, "INVALID_PASSWORD");
+      return apiError("Password must be between 8 and 128 characters long.", 400, "INVALID_PASSWORD");
+    }
+
+    if (name && (typeof name !== "string" || name.length > 100)) {
+      statusCode = 400;
+      logRequest("POST", "/api/auth/register", null, Date.now() - start, statusCode);
+      return apiError("Name cannot exceed 100 characters.", 400, "INVALID_NAME");
     }
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -42,7 +48,7 @@ export async function POST(req: NextRequest) {
       return apiError("An account with this email already exists.", 409, "USER_EXISTS");
     }
 
-    const passwordHash = hashPassword(password);
+    const passwordHash = await hashPassword(password);
 
     const user = await prisma.user.create({
       data: {

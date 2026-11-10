@@ -16,6 +16,10 @@ export async function POST(req: NextRequest) {
       return apiError("Question is required.", 400, "MISSING_QUESTION");
     }
 
+    if (question.length > 500) {
+      return apiError("Question cannot exceed 500 characters.", 400, "QUESTION_TOO_LONG");
+    }
+
     if (!goalId) {
       const activeGoal = await GoalService.getActiveGoal(userId);
       if (!activeGoal) {

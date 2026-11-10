@@ -75,12 +75,31 @@ export class CodeforcesAdapter implements PlatformAdapter {
   private async throttledFetch<T>(endpoint: string): Promise<T> {
     return this.throttler.enqueue(async () => {
       const url = `${this.baseUrl}/${endpoint}`;
-      const response = await fetch(url, {
-        headers: {
-          "User-Agent": "ProgressPlatform/1.0 (SkillProgressionTracker)",
-          Accept: "application/json",
-        },
-      });
+      let response: Response;
+
+      try {
+        response = await fetch(url, {
+          headers: {
+            "User-Agent": "ProgressPlatform/1.0 (SkillProgressionTracker)",
+            Accept: "application/json",
+          },
+          signal: AbortSignal.timeout(15000),
+        });
+      } catch (err: any) {
+        if (err.name === "TimeoutError" || err.name === "AbortError") {
+          throw new PlatformError(
+            "codeforces",
+            `Request to Codeforces timed out after 15000ms: ${endpoint}`,
+            "TIMEOUT",
+            504
+          );
+        }
+        throw new PlatformError(
+          "codeforces",
+          `Network connection error: ${err.message}`,
+          "NETWORK_ERROR"
+        );
+      }
 
       if (!response.ok) {
         if (response.status === 404 || response.status === 400) {

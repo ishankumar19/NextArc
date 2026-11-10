@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { getActiveUserId } from "@/lib/auth";
 import { GoalService } from "@/goals/goal.service";
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
+import { appCache } from "@/lib/cache";
 
 export async function GET(
   req: NextRequest,
@@ -30,6 +31,10 @@ export async function DELETE(
     const { id } = await context.params;
     const userId = await getActiveUserId(req);
     await GoalService.deleteGoal(id, userId);
+
+    // Invalidate cached goal and dashboard data
+    appCache.invalidateGoal(id, userId);
+
     return apiSuccess({ deleted: true });
   } catch (err: any) {
     return handleApiError(err);
