@@ -1,8 +1,8 @@
-# Progress — Evidence-First, Goal-Adaptive Skill Progression Platform
+# CodeForge — Evidence-First, Goal-Adaptive Skill Progression Platform
 
 > **Release**: `v0.2.0-phase2` (Phase 2 Frozen Baseline)
 
-Progress is an evidence-first skill progression platform for Competitive Programming and Data Structures & Algorithms. It shifts tracking from passive logging (*"What did I do?"*) to goal-directed intelligence (*"Where am I relative to my goal, what should I do next, and did the previous plan work?"*).
+CodeForge is an evidence-first skill progression platform for Competitive Programming and Data Structures & Algorithms. It shifts tracking from passive logging (*"What did I do?"*) to goal-directed intelligence (*"Where am I relative to my goal, what should I do next, and did the previous plan work?"*).
 
 ---
 

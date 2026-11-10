@@ -42,7 +42,7 @@ export default async function DashboardPage() {
         </div>
         <div>
           <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            Welcome to Progress
+            Welcome to CodeForge
           </h1>
           <p className="text-sm text-slate-400 mt-2 max-w-md mx-auto">
             An evidence-first skill progression platform. Declare your target goal and connect your practice platforms to start tracking genuine evidence.

@@ -96,11 +96,11 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto py-12 px-4">
       {/* Brand Header */}
       <div className="text-center mb-8 space-y-2">
-        <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-600/30 mx-auto">
-          P
+        <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center font-bold text-white text-base shadow-lg shadow-indigo-600/30 mx-auto">
+          CF
         </div>
         <h1 className="text-2xl font-bold text-white tracking-tight">
-          Welcome to Progress
+          Welcome to CodeForge
         </h1>
         <p className="text-xs text-slate-400 max-w-xs mx-auto">
           Evidence-first skill progression platform for Competitive Programming &amp; DSA.

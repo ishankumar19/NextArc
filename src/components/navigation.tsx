@@ -48,11 +48,11 @@ export function Navigation() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-600/30 group-hover:bg-indigo-500 transition">
-              P
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-xs shadow-lg shadow-indigo-600/30 group-hover:bg-indigo-500 transition">
+              CF
             </div>
             <span className="font-bold tracking-tight text-white text-lg">
-              PROGRESS
+              CODEFORGE
             </span>
           </Link>
 

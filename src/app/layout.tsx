@@ -3,7 +3,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 
 export const metadata: Metadata = {
-  title: "Progress | Evidence-First Goal Progression",
+  title: "CodeForge | Evidence-First Goal Progression",
   description: "Goal-adaptive skill progression platform for Competitive Programming & DSA",
 };
 
