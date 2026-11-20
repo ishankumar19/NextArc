@@ -88,8 +88,8 @@ export async function validateSession(
   }
 
   const sessionWithUser = session as SessionWithUser;
-  // Cache for 60 seconds to eliminate repeated WAN roundtrips on every request
-  appCache.set(cacheKey, sessionWithUser, 60);
+  // Cache for 60 seconds (in milliseconds) to eliminate repeated WAN roundtrips on every request
+  appCache.set(cacheKey, sessionWithUser, 60 * 1000);
 
   // Probabilistic background cleanup (~1% of requests)
   if (Math.random() < 0.01) {

@@ -4,6 +4,7 @@ import { GoalService } from "@/goals/goal.service";
 import { EvidenceService } from "@/goals/evidence.service";
 import { ActivityFeedService } from "@/analytics/activity-feed.service";
 import { AnalyticsService } from "@/analytics/analytics.service";
+import { PlatformService } from "@/platforms/platform.service";
 import prisma from "@/lib/prisma";
 import { GoalHero } from "@/components/goal-hero";
 import { EvidenceCard } from "@/components/evidence-card";
@@ -26,7 +27,7 @@ export default async function DashboardPage() {
 
   const [goals, connections, activityFeed, fullAnalytics] = await Promise.all([
     GoalService.getUserGoals(userId),
-    prisma.platformConnection.findMany({ where: { userId } }),
+    PlatformService.getUserConnections(userId),
     ActivityFeedService.getUnifiedActivity(userId, 8),
     AnalyticsService.getUserAnalytics(userId),
   ]);

@@ -38,7 +38,7 @@ export class AnalyticsService {
         contests,
       };
 
-      await appCache.setAsync(cacheKey, result, 30);
+      await appCache.setAsync(cacheKey, result, 30 * 1000);
       return result;
     });
   }

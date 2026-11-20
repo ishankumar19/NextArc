@@ -190,8 +190,12 @@ export class DistributedCache {
     this.delete(cacheKey.dashboard(userId));
     this.delete(cacheKey.analytics(userId));
     this.delete(cacheKey.activity(userId));
+    this.delete(`analytics:${userId}`);
     this.delete(`analytics:difficulty:${userId}`);
     this.delete(`analytics:topics:${userId}`);
+    this.delete(`goals:${userId}`);
+    this.delete(`platforms:${userId}`);
+    this.invalidatePrefix(`activity:${userId}`);
     this.invalidatePrefix(`cache:user:${userId}`);
   }
 

@@ -12,17 +12,20 @@ export function Navigation() {
   const [user, setUser] = useState<{ email: string; name: string | null } | null>(null);
 
   useEffect(() => {
-    fetch("/api/auth/session")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((json) => {
-        if (json?.success && json?.data?.user) {
-          setUser(json.data.user);
-        } else {
-          setUser(null);
-        }
-      })
-      .catch(() => setUser(null));
-  }, [pathname]);
+    // Only fetch session if not already loaded or if navigating away from /login
+    if (!user || pathname === "/") {
+      fetch("/api/auth/session")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((json) => {
+          if (json?.success && json?.data?.user) {
+            setUser(json.data.user);
+          } else {
+            setUser(null);
+          }
+        })
+        .catch(() => setUser(null));
+    }
+  }, [pathname === "/login"]);
 
   async function handleLogout() {
     try {
@@ -65,6 +68,7 @@ export function Navigation() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    prefetch={true}
                     className={clsx(
                       "flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition",
                       isActive

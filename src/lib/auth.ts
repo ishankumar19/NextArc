@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { SESSION_COOKIE_NAME, validateSession, SessionWithUser } from "@/lib/session";
 import { AuthenticationError } from "@/lib/errors";
+import { cache } from "react";
 
 /**
  * Extracts a session token from either Authorization header or Cookie header.
@@ -34,8 +35,9 @@ export function extractSessionToken(req: Request): string | null {
  * Clients CANNOT spoof identity via `x-user-id` or `?userId=`.
  * Dev demo user fallback is strictly fail-closed: only allowed when
  * NODE_ENV !== "production" AND ALLOW_DEV_DEMO_USER === "true".
+ * Wrapped in React cache() to memoize per-render-pass calls in Server Components.
  */
-export async function resolveSession(req?: Request): Promise<SessionWithUser | null> {
+export const resolveSession = cache(async (req?: Request): Promise<SessionWithUser | null> => {
   let token: string | null = null;
 
   if (req) {
@@ -77,7 +79,7 @@ export async function resolveSession(req?: Request): Promise<SessionWithUser | n
   }
 
   return null;
-}
+});
 
 /**
  * Requires an authenticated user session. Throws AuthenticationError if absent or invalid.

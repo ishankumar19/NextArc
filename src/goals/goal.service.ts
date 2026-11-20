@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { CreateGoalDTO, GoalProgressView, UpdateGoalDTO } from "./goal.types";
 import { differenceInCalendarDays } from "date-fns";
 import { GoalNotFoundError } from "@/core/errors";
+import { appCache, singleFlight } from "@/lib/cache";
 
 export class GoalService {
   /**
@@ -107,48 +108,60 @@ export class GoalService {
       },
     });
 
+    appCache.delete(`goals:${dto.userId}`);
     return goal;
   }
 
   /**
    * Fetches all goals for a user with computed gap and remaining time.
+   * Caches response for 30s with single-flight protection to eliminate latency on tab navigation.
    */
   static async getUserGoals(userId: string): Promise<GoalProgressView[]> {
-    const goals = await prisma.goal.findMany({
-      where: { userId },
-      orderBy: { createdAt: "desc" },
-    });
+    const cacheKey = `goals:${userId}`;
+    const cached = await appCache.getAsync<GoalProgressView[]>(cacheKey);
+    if (cached) return cached;
 
-    const views: GoalProgressView[] = [];
+    return singleFlight(cacheKey, async () => {
+      const doubleCheck = await appCache.getAsync<GoalProgressView[]>(cacheKey);
+      if (doubleCheck) return doubleCheck;
 
-    for (const g of goals) {
-      const resolved = await this.resolveCurrentMetricValue(
-        userId,
-        g.targetMetric
-      );
-      const currentValue = resolved > 0 ? resolved : g.initialValue;
-      const prog = this.calculateProgress(g.targetValue, currentValue, g.deadline, g.startDate);
-
-      views.push({
-        id: g.id,
-        userId: g.userId,
-        title: g.title,
-        category: g.category,
-        targetMetric: g.targetMetric,
-        targetValue: g.targetValue,
-        initialValue: g.initialValue,
-        currentValue: prog.currentValue,
-        gap: prog.gap,
-        daysRemaining: prog.daysRemaining,
-        isOverdue: prog.isOverdue,
-        status: g.status,
-        startDate: g.startDate.toISOString(),
-        deadline: g.deadline.toISOString(),
-        availableHoursPerWeek: g.availableHoursPerWeek,
+      const goals = await prisma.goal.findMany({
+        where: { userId },
+        orderBy: { createdAt: "desc" },
       });
-    }
 
-    return views;
+      const views: GoalProgressView[] = [];
+
+      for (const g of goals) {
+        const resolved = await this.resolveCurrentMetricValue(
+          userId,
+          g.targetMetric
+        );
+        const currentValue = resolved > 0 ? resolved : g.initialValue;
+        const prog = this.calculateProgress(g.targetValue, currentValue, g.deadline, g.startDate);
+
+        views.push({
+          id: g.id,
+          userId: g.userId,
+          title: g.title,
+          category: g.category,
+          targetMetric: g.targetMetric,
+          targetValue: g.targetValue,
+          initialValue: g.initialValue,
+          currentValue: prog.currentValue,
+          gap: prog.gap,
+          daysRemaining: prog.daysRemaining,
+          isOverdue: prog.isOverdue,
+          status: g.status,
+          startDate: g.startDate.toISOString(),
+          deadline: g.deadline.toISOString(),
+          availableHoursPerWeek: g.availableHoursPerWeek,
+        });
+      }
+
+      await appCache.setAsync(cacheKey, views, 30 * 1000);
+      return views;
+    });
   }
 
   /**
@@ -207,7 +220,7 @@ export class GoalService {
       throw new GoalNotFoundError(goalId);
     }
 
-    return prisma.goal.update({
+    const updated = await prisma.goal.update({
       where: { id: goalId },
       data: {
         ...(dto.title ? { title: dto.title } : {}),
@@ -219,6 +232,9 @@ export class GoalService {
         ...(dto.status ? { status: dto.status } : {}),
       },
     });
+
+    appCache.delete(`goals:${userId}`);
+    return updated;
   }
 
   /**
@@ -230,8 +246,11 @@ export class GoalService {
       throw new GoalNotFoundError(goalId);
     }
 
-    return prisma.goal.delete({
+    const deleted = await prisma.goal.delete({
       where: { id: goalId },
     });
+
+    appCache.delete(`goals:${userId}`);
+    return deleted;
   }
 }

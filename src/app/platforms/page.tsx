@@ -1,6 +1,6 @@
 import { resolveSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import { PlatformService } from "@/platforms/platform.service";
 import { getPlatformQualityReport } from "@/platforms/capabilities";
 import { PlatformType } from "@/core/types";
 import { PlatformCard } from "@/components/platform-card";
@@ -17,10 +17,7 @@ export default async function PlatformsPage() {
   }
   const userId = session.userId;
 
-  const connections = await prisma.platformConnection.findMany({
-    where: { userId },
-    orderBy: { createdAt: "asc" },
-  });
+  const connections = await PlatformService.getUserConnections(userId);
 
   return (
     <main className="space-y-8">
