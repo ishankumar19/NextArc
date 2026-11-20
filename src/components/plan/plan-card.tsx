@@ -14,7 +14,9 @@ import {
   Send,
   ChevronDown,
   ChevronUp,
+  ExternalLink,
 } from "lucide-react";
+import { getDailyBadgeLabel, getDailyProblemForCriteria } from "@/planning/problems/problem-catalog";
 
 interface TaskMatch {
   id: string;
@@ -38,6 +40,11 @@ interface PlanTaskView {
   evidenceReferences: string; // JSON string
   status: string;
   matches?: TaskMatch[];
+  problemId?: string | null;
+  problemName?: string | null;
+  problemUrl?: string | null;
+  problemRating?: number | null;
+  dailyDate?: string | null;
 }
 
 interface PlanVersionView {
@@ -245,6 +252,33 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
             const pct = Math.min(100, Math.round((task.quantityCompleted / task.quantity) * 100));
             const isDone = task.quantityCompleted >= task.quantity;
 
+            let parsedTopics: string[] = [];
+            try {
+              parsedTopics = JSON.parse(task.topics || "[]");
+            } catch {}
+
+            // Dynamically resolve today's rotating daily problem
+            const resolvedProblem = task.problemUrl
+              ? {
+                  id: task.problemId || "",
+                  name: task.problemName || "",
+                  url: task.problemUrl,
+                  rating: task.problemRating || task.minDifficulty || 800,
+                  topics: parsedTopics,
+                }
+              : (task.type === "practice" || task.type === "review" || task.type === "upsolve")
+              ? getDailyProblemForCriteria(
+                  task.platform || "codeforces",
+                  task.minDifficulty ?? undefined,
+                  task.maxDifficulty ?? undefined,
+                  parsedTopics
+                )
+              : null;
+
+            const displayTitle = resolvedProblem && (!task.problemName || task.title.includes("problems rated") || task.title.includes("problems focusing"))
+              ? `Solve: ${resolvedProblem.id} - ${resolvedProblem.name} (CF ${resolvedProblem.rating} • ${parsedTopics[0] || resolvedProblem.topics[0] || "practice"})`
+              : task.title;
+
             return (
               <div
                 key={task.id}
@@ -253,7 +287,7 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-semibold text-white">{task.title}</span>
+                      <span className="text-xs font-semibold text-white">{displayTitle}</span>
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono uppercase">
                         {task.type}
                       </span>
@@ -265,7 +299,11 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                     </div>
                     <div className="text-xs text-slate-400 flex items-center gap-1.5">
                       <span className="text-slate-500">Why:</span>
-                      <span>{task.reason}</span>
+                      <span>
+                        {resolvedProblem && (!task.problemName || task.reason.includes("limited recent exposure"))
+                          ? `Today's recommended problem at rating ${resolvedProblem.rating} focusing on '${parsedTopics[0] || "practice"}'. Rotates daily to establish consistency.`
+                          : task.reason}
+                      </span>
                     </div>
                   </div>
 
@@ -294,6 +332,36 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                     style={{ width: `${pct}%` }}
                   />
                 </div>
+
+                {/* Daily Problem Action Bar with Direct Link */}
+                {resolvedProblem && (
+                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-3 flex-wrap">
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-300 font-semibold border border-indigo-500/30">
+                        <Sparkles className="w-2.5 h-2.5" />
+                        Today's Pick • {getDailyBadgeLabel()}
+                      </span>
+                      {resolvedProblem.rating && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-amber-300 font-mono">
+                          Rating {resolvedProblem.rating}
+                        </span>
+                      )}
+                      <span className="text-[11px] text-slate-500 hidden sm:inline">
+                        Rotates daily at 00:00 UTC
+                      </span>
+                    </div>
+
+                    <a
+                      href={resolvedProblem.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm shadow-indigo-600/30 transition cursor-pointer shrink-0"
+                    >
+                      <span>Solve on {task.platform === "leetcode" ? "LeetCode" : "Codeforces"}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                )}
 
                 {task.matches && task.matches.length > 0 && (
                   <div className="text-[11px] text-slate-400 flex items-center gap-1.5 pt-1">

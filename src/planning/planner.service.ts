@@ -4,6 +4,7 @@ import { AdaptivePlanV1, PlanTask } from "./plan.types";
 import { PlanValidator } from "./plan.validator";
 import { PlanOutcome } from "./evaluation/evaluation.types";
 import { buildPlannerSystemPrompt, buildPlannerUserMessage } from "./prompts/planner-prompt";
+import { getDailyProblemForCriteria } from "./problems/problem-catalog";
 
 export interface GeneratePlanParams {
   context: ProgressContextV1;
@@ -35,17 +36,35 @@ export class DeterministicPlanner {
     // SCENARIO H: Goal already achieved
     const isGoalAchieved = context.goal.gap <= 0 || (context.goal.currentValue >= context.goal.targetValue);
     if (isGoalAchieved) {
+      const maintProblem = getDailyProblemForCriteria(
+        "codeforces",
+        Math.max(800, context.goal.targetValue - 100),
+        context.goal.targetValue,
+        ["greedy", "binary-search"],
+        now
+      );
+      const maintTitle = maintProblem
+        ? `Solve ${maintProblem.id} - ${maintProblem.name} (CF ${maintProblem.rating} • ${maintProblem.topics[0]})`
+        : "Maintain core rating consistency with 1 problem in your target tier";
+
       const maintenanceTask: PlanTask = {
         id: `task-${versionNumber}-maintenance`,
         type: "practice",
-        title: "Maintain core rating consistency with 3 problems in your target tier",
-        quantity: 3,
+        title: maintTitle,
+        quantity: 1,
         platform: "codeforces",
         difficulty: { min: Math.max(800, context.goal.targetValue - 100), max: context.goal.targetValue },
         topics: ["greedy", "binary-search"],
-        reason: `Target metric of ${context.goal.targetValue} has already been achieved. Plan focus is on skill maintenance.`,
+        reason: maintProblem
+          ? `Target metric achieved. Today's daily maintenance problem is ${maintProblem.id} - ${maintProblem.name} (rotates daily).`
+          : `Target metric of ${context.goal.targetValue} has already been achieved. Plan focus is on skill maintenance.`,
         evidenceReferences: [signals[0]?.id ?? "sig-goal-achieved"],
         completionMetric: "cf_target_maintenance_solves",
+        problemId: maintProblem?.id,
+        problemName: maintProblem ? `${maintProblem.id} - ${maintProblem.name}` : undefined,
+        problemUrl: maintProblem?.url,
+        problemRating: maintProblem?.rating,
+        dailyDate: now.toISOString().slice(0, 10),
       };
 
       const achievedPlan: AdaptivePlanV1 = {
@@ -200,32 +219,68 @@ export class DeterministicPlanner {
     const primaryTaskQty = totalProblemBudget === 2 ? 1 : Math.max(1, Math.ceil(totalProblemBudget * 0.6));
     const secondaryTaskQty = totalProblemBudget === 2 ? 1 : Math.max(1, totalProblemBudget - primaryTaskQty);
 
+    const primaryProblem = getDailyProblemForCriteria(
+      "codeforces",
+      minDiff,
+      maxDiff,
+      [practiceTopic],
+      now
+    );
+
+    const secondaryProblem = getDailyProblemForCriteria(
+      "codeforces",
+      minDiff,
+      maxDiff,
+      ["two-pointers", "binary-search"],
+      now
+    );
+
+    const primaryTitle = primaryProblem
+      ? `Solve ${primaryProblem.id} - ${primaryProblem.name} (CF ${primaryProblem.rating} • ${practiceTopic})`
+      : `Solve ${primaryTaskQty} Codeforces problems rated ${minDiff}–${maxDiff} in ${practiceTopic}`;
+
+    const secondaryTitle = secondaryProblem
+      ? `Solve ${secondaryProblem.id} - ${secondaryProblem.name} (CF ${secondaryProblem.rating} • ${secondaryProblem.topics[0]})`
+      : `Solve ${secondaryTaskQty} problems focusing on Two Pointers / Binary Search`;
+
     const tasks: PlanTask[] = [
       {
         id: `task-${versionNumber}-1`,
         type: "practice",
-        title: `Solve ${primaryTaskQty} Codeforces problems rated ${minDiff}–${maxDiff} in ${practiceTopic}`,
-        quantity: primaryTaskQty,
+        title: primaryTitle,
+        quantity: 1,
         platform: "codeforces",
         difficulty: { min: minDiff, max: maxDiff },
         topics: [practiceTopic],
         reason: dropoffSignal
-          ? `Your success rate at rating ${minDiff} drops significantly, and '${practiceTopic}' has limited recent exposure.`
-          : `Targeted problem set designed to establish consistency at ${minDiff}-${maxDiff}.`,
+          ? `Your success rate at rating ${minDiff} drops significantly, and '${practiceTopic}' has limited recent exposure. Today's problem is ${primaryProblem?.id ?? "158A"} - ${primaryProblem?.name ?? "Next Round"} (rotates daily).`
+          : `Targeted daily problem to establish consistency at ${minDiff}-${maxDiff} (rotates daily).`,
         evidenceReferences: evidenceRefs.map((e) => e.signalId),
         completionMetric: `cf_${minDiff}_${practiceTopic}_solves`,
+        problemId: primaryProblem?.id,
+        problemName: primaryProblem ? `${primaryProblem.id} - ${primaryProblem.name}` : undefined,
+        problemUrl: primaryProblem?.url,
+        problemRating: primaryProblem?.rating,
+        dailyDate: now.toISOString().slice(0, 10),
       },
       {
         id: `task-${versionNumber}-2`,
         type: "practice",
-        title: `Solve ${secondaryTaskQty} problems focusing on Two Pointers / Binary Search`,
-        quantity: secondaryTaskQty,
+        title: secondaryTitle,
+        quantity: 1,
         platform: "codeforces",
         difficulty: { min: minDiff, max: maxDiff },
         topics: ["two-pointers", "binary-search"],
-        reason: "Reinforces foundational problem patterns that appear frequently alongside current stretch difficulty.",
+        reason: secondaryProblem
+          ? `Reinforces foundational problem patterns with today's daily focus: ${secondaryProblem.id} - ${secondaryProblem.name} (rotates daily).`
+          : "Reinforces foundational problem patterns that appear frequently alongside current stretch difficulty.",
         evidenceReferences: [evidenceRefs[0]?.signalId ?? "sig-default"],
         completionMetric: "cf_two_pointers_binary_search_solves",
+        problemId: secondaryProblem?.id,
+        problemName: secondaryProblem ? `${secondaryProblem.id} - ${secondaryProblem.name}` : undefined,
+        problemUrl: secondaryProblem?.url,
+        problemRating: secondaryProblem?.rating,
+        dailyDate: now.toISOString().slice(0, 10),
       },
     ];
 

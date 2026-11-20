@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { AdaptivePlanV1, PlanTask as DomainPlanTask } from "./plan.types";
+import { getDailyProblemForCriteria } from "./problems/problem-catalog";
 
 export interface CreatePlanParams {
   userId: string;
@@ -165,6 +166,35 @@ export class PlanRepository {
         },
       },
     });
+
+    if (plan?.versions?.[0]?.tasks) {
+      const today = new Date();
+      for (const task of plan.versions[0].tasks) {
+        if (task.type === "practice" || task.type === "review" || task.type === "upsolve") {
+          let parsedTopics: string[] = [];
+          try {
+            parsedTopics = JSON.parse(task.topics);
+          } catch {}
+
+          const todayProblem = getDailyProblemForCriteria(
+            task.platform || "codeforces",
+            task.minDifficulty ?? undefined,
+            task.maxDifficulty ?? undefined,
+            parsedTopics,
+            today
+          );
+
+          if (todayProblem) {
+            (task as any).problemId = todayProblem.id;
+            (task as any).problemName = `${todayProblem.id} - ${todayProblem.name}`;
+            (task as any).problemUrl = todayProblem.url;
+            (task as any).problemRating = todayProblem.rating;
+            (task as any).dailyDate = today.toISOString().slice(0, 10);
+            (task as any).title = `Solve: ${todayProblem.id} - ${todayProblem.name} (CF ${todayProblem.rating} • ${parsedTopics[0] || todayProblem.topics[0] || "practice"})`;
+          }
+        }
+      }
+    }
 
     return plan;
   }

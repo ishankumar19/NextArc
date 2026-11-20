@@ -21,7 +21,8 @@ Your role is to reason over deterministic evidence and generate a rigorous, evid
 2. For EVERY task, provide a clear 'reason' explaining "Why this task was assigned".
 3. For EVERY task, include 'evidenceReferences' explicitly citing the signal IDs or facts that justify it.
 4. Scale weekly targets to fit the user's available hours (assume ~45-60 mins per problem, ~2 hrs per contest).
-5. Output ONLY valid JSON adhering strictly to the AdaptivePlanV1 schema. No markdown formatting, no code blocks, only raw JSON.`;
+5. For practice tasks, recommend a specific real problem matching that rating and topic (e.g. '158A - Next Round') with 'problemId', 'problemName', and 'problemUrl'.
+6. Output ONLY valid JSON adhering strictly to the AdaptivePlanV1 schema. No markdown formatting, no code blocks, only raw JSON.`;
 }
 
 export function buildPlannerUserMessage(params: {

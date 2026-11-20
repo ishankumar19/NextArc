@@ -17,6 +17,12 @@ export interface PlanTask {
   reason: string; // Explains "Why this?"
   evidenceReferences: string[]; // Cites specific signals or evidence facts
   completionMetric: string; // e.g. "problems_solved_1300_greedy", "contests_completed"
+  // Specific problem recommendation fields (rotates daily)
+  problemId?: string;
+  problemName?: string;
+  problemUrl?: string;
+  problemRating?: number;
+  dailyDate?: string;
 }
 
 export interface EvidenceReference {
