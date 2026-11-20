@@ -85,15 +85,11 @@ export default async function DashboardPage() {
     );
   }
 
-  // Supporting Evidence for primary goal
-  const evidence = await EvidenceService.computeSupportingEvidence(
-    userId,
-    primaryGoal.id
-  );
-
-  // Sync latest matches and load active plan
-  await TaskEvidenceMatcher.matchTasksForGoal(primaryGoal.id);
-  const activePlanRaw = await PlanRepository.getActivePlan(primaryGoal.id);
+  // Parallel load of supporting evidence and active plan for instant SSR response
+  const [evidence, activePlanRaw] = await Promise.all([
+    EvidenceService.computeSupportingEvidence(userId, primaryGoal.id),
+    PlanRepository.getActivePlan(primaryGoal.id),
+  ]);
 
   // Safely serialize dates to strings for client component
   const initialPlan = activePlanRaw

@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import prisma from "@/lib/prisma";
+import { appCache } from "@/lib/cache";
 
 export const SESSION_COOKIE_NAME = "auth_session";
 export const SESSION_TTL_DAYS = 30;
@@ -52,6 +53,15 @@ export async function validateSession(
     return null;
   }
 
+  const cacheKey = `sess:${sessionToken}`;
+  const cached = appCache.get<SessionWithUser>(cacheKey);
+  if (cached) {
+    if (new Date(cached.expires).getTime() > Date.now()) {
+      return cached;
+    }
+    appCache.delete(cacheKey);
+  }
+
   const session = await prisma.session.findUnique({
     where: { sessionToken },
     include: {
@@ -77,12 +87,16 @@ export async function validateSession(
     return null;
   }
 
+  const sessionWithUser = session as SessionWithUser;
+  // Cache for 60 seconds to eliminate repeated WAN roundtrips on every request
+  appCache.set(cacheKey, sessionWithUser, 60);
+
   // Probabilistic background cleanup (~1% of requests)
   if (Math.random() < 0.01) {
     cleanupExpiredSessions().catch(() => {});
   }
 
-  return session as SessionWithUser;
+  return sessionWithUser;
 }
 
 /**
@@ -90,6 +104,7 @@ export async function validateSession(
  */
 export async function destroySession(sessionToken: string): Promise<boolean> {
   if (!sessionToken) return false;
+  appCache.delete(`sess:${sessionToken}`);
   try {
     await prisma.session.delete({
       where: { sessionToken },

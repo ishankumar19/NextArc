@@ -85,8 +85,9 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
         body: JSON.stringify({ goalId }),
       });
       const data = await res.json();
-      if (data.success && data.plan) {
-        setPlan(data.plan);
+      const planPayload = data.data?.plan ?? data.plan;
+      if (data.success && planPayload) {
+        setPlan(planPayload);
       }
     } catch (e) {
       console.error("Failed to generate plan", e);
@@ -104,8 +105,9 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
         body: JSON.stringify({ goalId }),
       });
       const data = await res.json();
-      if (data.success && data.plan) {
-        setPlan(data.plan);
+      const planPayload = data.data?.plan ?? data.plan;
+      if (data.success && planPayload) {
+        setPlan(planPayload);
       }
     } catch (e) {
       console.error("Failed to adapt plan", e);
@@ -125,10 +127,11 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
         body: JSON.stringify({ goalId, question: q }),
       });
       const data = await res.json();
-      if (data.success) {
-        setCoachAnswer(data.answer);
+      const answer = data.data?.answer ?? data.answer;
+      if (data.success && answer) {
+        setCoachAnswer(answer);
       } else {
-        setCoachAnswer("Could not retrieve answer: " + data.error);
+        setCoachAnswer("Could not retrieve answer: " + (data.error?.message || data.error || "Unknown error"));
       }
     } catch (e: any) {
       setCoachAnswer("Network error contacting Goal Coach.");
@@ -145,7 +148,7 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                Phase 2 Adaptive Planning
+                Adaptive Practice Planning
               </span>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300 font-mono">
                 AI REASONER

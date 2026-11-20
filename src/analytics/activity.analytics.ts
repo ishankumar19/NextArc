@@ -18,6 +18,7 @@ export interface ActivityStats {
   };
   totalActiveDays: number;
   currentStreak: number;
+  dailyCounts?: Record<string, number>;
 }
 
 export class ActivityAnalytics {
@@ -54,11 +55,13 @@ export class ActivityAnalytics {
     const activeDatesAll = new Set<string>();
     const activeDates7d = new Set<string>();
     const activeDates30d = new Set<string>();
+    const dailyCounts: Record<string, number> = {};
 
     for (const sub of allSubmissions) {
       attemptedProblemIds.add(sub.problemId);
       const dateKey = format(sub.timestamp, "yyyy-MM-dd");
       activeDatesAll.add(dateKey);
+      dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
 
       if (sub.accepted) {
         totalAccepted++;
@@ -100,6 +103,7 @@ export class ActivityAnalytics {
       },
       totalActiveDays: activeDatesAll.size,
       currentStreak,
+      dailyCounts,
     };
   }
 

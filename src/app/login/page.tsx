@@ -68,30 +68,6 @@ export default function LoginPage() {
     }
   }
 
-  async function handleDemoLogin() {
-    setError(null);
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/auth/demo", {
-        method: "POST",
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.success) {
-        setError(data.error?.message || "Demo login is unavailable.");
-        return;
-      }
-
-      router.push("/");
-      router.refresh();
-    } catch {
-      setError("Network error occurred. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <div className="max-w-md mx-auto py-12 px-4">
       {/* Brand Header */}
@@ -109,39 +85,6 @@ export default function LoginPage() {
 
       {/* Main Card */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-        {/* Quick Demo Access (1-Click) */}
-        <div className="bg-indigo-950/40 border border-indigo-500/20 rounded-xl p-4 space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-indigo-300 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-              Developer Verification
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-900/60 text-indigo-300">
-              Demo Mode
-            </span>
-          </div>
-          <p className="text-xs text-slate-400">
-            Instantly explore the app with pre-seeded Codeforces/LeetCode evidence and adaptive plans:
-          </p>
-          <button
-            type="button"
-            onClick={handleDemoLogin}
-            disabled={loading}
-            className="w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium flex items-center justify-center gap-2 transition disabled:opacity-50 cursor-pointer shadow-md shadow-indigo-600/20"
-          >
-            <span>Continue as Demo Engineer</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* Divider */}
-        <div className="relative flex items-center justify-center">
-          <div className="border-t border-slate-800 w-full"></div>
-          <span className="bg-slate-900 px-3 text-[11px] uppercase tracking-wider text-slate-500 font-semibold absolute">
-            or sign in
-          </span>
-        </div>
-
         {/* Tab Toggle */}
         <div className="grid grid-cols-2 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs font-medium">
           <button

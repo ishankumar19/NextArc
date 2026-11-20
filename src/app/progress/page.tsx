@@ -2,6 +2,8 @@ import { resolveSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { AnalyticsService } from "@/analytics/analytics.service";
 import { GoalService } from "@/goals/goal.service";
+import { RatingTrajectoryChart } from "@/components/rating-trajectory-chart";
+import { ActivityHeatmap } from "@/components/activity-heatmap";
 import Link from "next/link";
 import {
   TrendingUp,
@@ -82,47 +84,20 @@ export default async function ProgressPage() {
           </div>
         </div>
 
-        {analytics.contests.recentContests.length === 0 ? (
-          <div className="text-sm text-slate-500 py-6 text-center">
-            No rated contest history recorded yet. Contests will appear here as you compete.
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b border-slate-800 text-slate-400 uppercase font-medium">
-                  <th className="py-2.5 px-3">Contest</th>
-                  <th className="py-2.5 px-3">Rank</th>
-                  <th className="py-2.5 px-3">Rating Change</th>
-                  <th className="py-2.5 px-3">New Rating</th>
-                  <th className="py-2.5 px-3 text-right">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60">
-                {analytics.contests.recentContests.map((c) => (
-                  <tr key={c.contestId} className="hover:bg-slate-950/40 transition">
-                    <td className="py-2.5 px-3 font-medium text-white">{c.contestName}</td>
-                    <td className="py-2.5 px-3 text-slate-300">#{c.rank}</td>
-                    <td className="py-2.5 px-3">
-                      <span
-                        className={`font-semibold ${
-                          c.ratingChange >= 0 ? "text-emerald-400" : "text-rose-400"
-                        }`}
-                      >
-                        {c.ratingChange >= 0 ? `+${c.ratingChange}` : c.ratingChange}
-                      </span>
-                    </td>
-                    <td className="py-2.5 px-3 font-bold text-white">{c.newRating}</td>
-                    <td className="py-2.5 px-3 text-slate-400 text-right">
-                      {new Date(c.timestamp).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <RatingTrajectoryChart
+          contests={analytics.contests.recentContests}
+          currentRating={analytics.contests.currentRating}
+          maxRating={analytics.contests.maxRating}
+        />
       </section>
+
+      {/* 2. Practice & Contest Activity Heatmap */}
+      <ActivityHeatmap
+        dailyCounts={analytics.activity.dailyCounts}
+        totalActiveDays={analytics.activity.totalActiveDays}
+        currentStreak={analytics.activity.currentStreak}
+        contestDates={analytics.contests.recentContests.map((c) => c.timestamp)}
+      />
 
       {/* 2. Practice Volume & Consistency */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
