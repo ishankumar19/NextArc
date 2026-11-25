@@ -35,7 +35,7 @@ export function LandingPage() {
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#172923] tracking-tight leading-[1.12]">
           Solve with purpose. <br className="hidden sm:inline" />
-          <span className="text-[#176B5B]">Grow with Progress.</span>
+          <span className="text-[#176B5B]">Grow with nextARC.</span>
         </h1>
 
         {/* Supporting Copy */}
@@ -361,7 +361,7 @@ export function LandingPage() {
             Designed for genuine skill progression
           </h2>
           <p className="text-sm sm:text-base text-[#52665D] leading-relaxed">
-            Progress replaces random problem solving with an evidence-based feedback loop that diagnoses your bottlenecks and accelerates your rating gains.
+            nextARC replaces random problem solving with an evidence-based feedback loop that diagnoses your bottlenecks and accelerates your rating gains.
           </p>
         </div>
 
@@ -376,7 +376,7 @@ export function LandingPage() {
                 1. Goal-Oriented Progression
               </h3>
               <p className="text-xs sm:text-sm text-[#52665D] leading-relaxed">
-                Declare a concrete rating goal and horizon deadline. Progress organizes your entire training cycle around bridging that exact gap rather than aimless grinding.
+                Declare a concrete rating goal and horizon deadline. nextARC organizes your entire training cycle around bridging that exact gap rather than aimless grinding.
               </p>
             </div>
           </div>
@@ -436,7 +436,7 @@ export function LandingPage() {
                 5. Personalized Practice Recommendations
               </h3>
               <p className="text-xs sm:text-sm text-[#52665D] leading-relaxed max-w-xl">
-                Every day, Progress curates fresh problems calibrated to your current rating and weak topics, giving you deliberate practice with zero decision fatigue. Direct solve links make daily training effortless.
+                Every day, nextARC curates fresh problems calibrated to your current rating and weak topics, giving you deliberate practice with zero decision fatigue. Direct solve links make daily training effortless.
               </p>
             </div>
           </div>
@@ -452,7 +452,7 @@ export function LandingPage() {
             Three Simple Steps
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172923] tracking-tight">
-            How Progress accelerates your training
+            How nextARC accelerates your training
           </h2>
           <p className="text-sm sm:text-base text-[#52665D] leading-relaxed">
             Go from scattered practice to systematic improvement in less than two minutes.
@@ -470,7 +470,7 @@ export function LandingPage() {
                 Connect your handles
               </h3>
               <p className="text-xs sm:text-sm text-[#52665D] leading-relaxed">
-                Enter your public Codeforces and LeetCode handles. No passwords or tokens are needed. Progress syncs your full submission and contest record safely.
+                Enter your public Codeforces and LeetCode handles. No passwords or tokens are needed. nextARC syncs your full submission and contest record safely.
               </p>
             </div>
           </div>
@@ -550,7 +550,7 @@ export function LandingPage() {
       <footer className="pt-8 border-t border-[#E2E8E3] space-y-8 text-xs text-[#52665D]">
         <div className="bg-[#F8FAF7] border border-[#E2E8E3] rounded-2xl p-6 sm:p-8 text-center space-y-2">
           <div className="text-[11px] font-mono uppercase tracking-wider text-[#176B5B] font-semibold">
-            The Progress Philosophy
+            The nextARC Philosophy
           </div>
           <p className="text-base sm:text-lg font-medium text-[#172923] italic max-w-2xl mx-auto">
             &ldquo;Don&apos;t just track how many problems someone solves. Understand whether they&apos;re actually getting better.&rdquo;
@@ -575,7 +575,7 @@ export function LandingPage() {
                 <path d="M12 6.5V17" />
               </svg>
             </div>
-            <span className="font-bold text-[#172923]">PROGRESS INTELLIGENCE</span>
+            <span className="font-bold text-[#172923]">nextARC INTELLIGENCE</span>
             <span className="text-[#8E9F97]">• Evidence-first progression</span>
           </div>
 

@@ -57,7 +57,7 @@ export default async function DashboardPage() {
             COMPETITIVE PROGRAMMING INTELLIGENCE
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#172923] tracking-tight">
-            Welcome to Progress
+            Welcome to nextARC
           </h1>
           <p className="text-sm sm:text-base text-[#52665D] max-w-xl mx-auto leading-relaxed">
             An evidence-first skill progression engine. Declare your target rating goal, connect your practice handles, and let real performance facts guide your daily practice.

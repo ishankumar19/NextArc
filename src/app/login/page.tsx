@@ -114,7 +114,7 @@ function LoginForm() {
         </Link>
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#172923] tracking-tight">
-            Progress
+            nextARC
           </h1>
           <p className="text-xs sm:text-sm text-[#52665D] max-w-xs mx-auto leading-relaxed">
             Evidence-first competitive programming intelligence platform.
@@ -211,7 +211,7 @@ function LoginForm() {
             disabled={loading}
             className="w-full py-3 px-5 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white text-xs sm:text-sm font-semibold transition disabled:opacity-50 cursor-pointer shadow-sm flex items-center justify-center gap-2 mt-2"
           >
-            <span>{loading ? "Authenticating..." : tab === "login" ? "Sign In to Progress" : "Create Account"}</span>
+            <span>{loading ? "Authenticating..." : tab === "login" ? "Sign In to nextARC" : "Create Account"}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>

@@ -3,7 +3,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 
 export const metadata: Metadata = {
-  title: "Progress — Competitive Programming Intelligence",
+  title: "nextARC — Competitive Programming Intelligence",
   description:
     "Evidence-first skill progression platform for competitive programmers. Connect your Codeforces and LeetCode accounts, uncover strengths and weaknesses, and systematically reach your rating goals.",
   keywords: [
@@ -16,19 +16,19 @@ export const metadata: Metadata = {
     "deliberate practice",
     "rating milestone",
   ],
-  authors: [{ name: "Progress Team" }],
+  authors: [{ name: "nextARC Team" }],
   openGraph: {
-    title: "Progress — Competitive Programming Intelligence",
+    title: "nextARC — Competitive Programming Intelligence",
     description:
-      "Evidence-first skill progression platform. Solve with purpose. Grow with Progress.",
+      "Evidence-first skill progression platform. Solve with purpose. Grow with nextARC.",
     url: "https://next-arc-kappa.vercel.app",
-    siteName: "Progress",
+    siteName: "nextARC",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Progress — Competitive Programming Intelligence",
+    title: "nextARC — Competitive Programming Intelligence",
     description:
       "Your competitive programming journey, understood. Evidence-first goal progression for Codeforces and LeetCode.",
   },

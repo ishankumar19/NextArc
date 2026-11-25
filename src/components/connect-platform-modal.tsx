@@ -107,7 +107,7 @@ export function ConnectPlatformModal() {
                   placeholder={platform === "codeforces" ? "e.g. tourist" : "e.g. neetcode"}
                 />
                 <p className="text-xs text-[#52665D] leading-relaxed pt-0.5">
-                  Account must be publicly visible. Progress will verify the handle against the official API.
+                  Account must be publicly visible. nextARC will verify the handle against the official API.
                 </p>
               </div>
 

@@ -94,7 +94,7 @@ export function Navigation() {
             </div>
             <div className="flex items-center gap-2">
               <span className="font-bold tracking-tight text-[#172923] text-base">
-                PROGRESS
+                nextARC
               </span>
               <span className="hidden sm:inline-block text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-[#E5F1EB] text-[#145B4D] border border-[#BCE0D4] font-medium">
                 INTELLIGENCE
