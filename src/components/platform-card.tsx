@@ -62,11 +62,21 @@ export function PlatformCard({
     }
   }
 
-  const syncTimeAgo = lastSyncedAt
-    ? `${formatDistanceToNow(new Date(lastSyncedAt), { addSuffix: true })}`
-    : "Never synced";
+  let syncTimeAgo = "Never synced";
+  if (lastSyncedAt) {
+    try {
+      const d = new Date(lastSyncedAt);
+      if (!isNaN(d.getTime())) {
+        syncTimeAgo = formatDistanceToNow(d, { addSuffix: true });
+      }
+    } catch {
+      syncTimeAgo = "Recently";
+    }
+  }
 
-  const isAuthoritative = qualityReport.reliabilityTier === "authoritative";
+  const isAuthoritative = qualityReport?.reliabilityTier === "authoritative";
+  const supportedMetrics = qualityReport?.supportedMetrics || [];
+  const knownLimitations = qualityReport?.knownLimitations || [];
 
   return (
     <div className="bg-[#0C1017] border border-white/[0.08] hover:border-white/[0.12] rounded-xl p-5 sm:p-6 shadow-subtle space-y-4 transition">
@@ -145,13 +155,13 @@ export function PlatformCard({
           <div>
             <span className="text-slate-500">Supported Metrics:</span>{" "}
             <span className="text-slate-300 font-mono">
-              {qualityReport.supportedMetrics.slice(0, 3).join(", ")}
-              {qualityReport.supportedMetrics.length > 3 && ", ..."}
+              {supportedMetrics.slice(0, 3).join(", ")}
+              {supportedMetrics.length > 3 && ", ..."}
             </span>
           </div>
-          {qualityReport.knownLimitations.length > 0 && (
+          {knownLimitations.length > 0 && (
             <div className="text-slate-500 italic text-[11px]">
-              Constraint: {qualityReport.knownLimitations[0]}
+              Constraint: {knownLimitations[0]}
             </div>
           )}
         </div>

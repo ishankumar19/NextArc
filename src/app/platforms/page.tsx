@@ -17,7 +17,12 @@ export default async function PlatformsPage() {
   }
   const userId = session.userId;
 
-  const connections = await PlatformService.getUserConnections(userId);
+  let connections: any[] = [];
+  try {
+    connections = await PlatformService.getUserConnections(userId);
+  } catch (err) {
+    console.error("[PlatformsPage] Failed to fetch user connections:", err);
+  }
 
   return (
     <main className="space-y-7 animate-in fade-in duration-200">
@@ -60,7 +65,7 @@ export default async function PlatformsPage() {
       </div>
 
       {/* Platform Cards List */}
-      {connections.length === 0 ? (
+      {!connections || connections.length === 0 ? (
         <div className="bg-[#0C1017] border border-white/[0.08] rounded-xl p-12 text-center space-y-4 shadow-subtle">
           <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto text-slate-400">
             <Layers className="w-6 h-6" />
@@ -78,17 +83,30 @@ export default async function PlatformsPage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {connections.map((conn) => {
-            const p = conn.platform as PlatformType;
-            const qualityReport = getPlatformQualityReport(p);
+            const qualityReport = getPlatformQualityReport(conn.platform);
+
+            let syncIso: string | null = null;
+            if (conn.lastSyncedAt) {
+              if (typeof conn.lastSyncedAt === "string") {
+                syncIso = conn.lastSyncedAt;
+              } else if (conn.lastSyncedAt instanceof Date && !isNaN(conn.lastSyncedAt.getTime())) {
+                syncIso = conn.lastSyncedAt.toISOString();
+              } else {
+                try {
+                  const d = new Date(conn.lastSyncedAt);
+                  if (!isNaN(d.getTime())) syncIso = d.toISOString();
+                } catch {}
+              }
+            }
 
             return (
               <PlatformCard
-                key={conn.id}
+                key={conn.id || conn.platform}
                 platform={conn.platform}
                 username={conn.username}
-                status={conn.status}
-                lastError={conn.lastError}
-                lastSyncedAt={conn.lastSyncedAt ? conn.lastSyncedAt.toISOString() : null}
+                status={conn.status || "connected"}
+                lastError={conn.lastError || null}
+                lastSyncedAt={syncIso}
                 qualityReport={qualityReport}
               />
             );

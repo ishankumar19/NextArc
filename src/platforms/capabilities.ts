@@ -65,13 +65,14 @@ export const PLATFORM_CAPABILITIES_MAP: Record<PlatformType, PlatformCapabilitie
   leetcode: LEETCODE_CAPABILITIES,
 };
 
-export function getPlatformQualityReport(platform: PlatformType): PlatformQualityReport {
-  const caps = PLATFORM_CAPABILITIES_MAP[platform];
+export function getPlatformQualityReport(platform: string): PlatformQualityReport {
+  const norm = (platform || "").toLowerCase();
+  const caps = (PLATFORM_CAPABILITIES_MAP as any)[norm] || CODEFORCES_CAPABILITIES;
 
-  if (platform === "codeforces") {
+  if (norm === "codeforces") {
     return {
-      platform,
-      reliabilityTier: caps.reliabilityTier,
+      platform: "codeforces",
+      reliabilityTier: caps.reliabilityTier || "authoritative",
       completeness: "complete",
       supportedMetrics: [
         "codeforces_rating",
@@ -88,10 +89,10 @@ export function getPlatformQualityReport(platform: PlatformType): PlatformQualit
     };
   }
 
-  // LeetCode quality report with explicit best-effort / partial completeness
+  // LeetCode or any other platform default
   return {
-    platform,
-    reliabilityTier: caps.reliabilityTier,
+    platform: (norm === "leetcode" ? "leetcode" : norm) as PlatformType,
+    reliabilityTier: caps?.reliabilityTier || "best_effort",
     completeness: "partial",
     supportedMetrics: [
       "leetcode_solved_total",
