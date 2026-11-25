@@ -69,13 +69,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto py-10 sm:py-16 px-4 animate-in fade-in duration-200">
+    <div className="max-w-md mx-auto py-14 sm:py-20 px-4 animate-in fade-in duration-200">
       {/* Brand Header */}
-      <div className="text-center mb-8 space-y-3">
-        <div className="w-11 h-11 rounded-xl bg-indigo-600/90 border border-indigo-400/30 flex items-center justify-center text-white shadow-sm shadow-indigo-600/30 mx-auto">
+      <div className="text-center mb-9 space-y-3">
+        <div className="w-12 h-12 rounded-xl bg-indigo-600 border border-indigo-400/40 flex items-center justify-center text-white shadow-sm shadow-indigo-600/30 mx-auto">
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -88,26 +88,26 @@ export default function LoginPage() {
             <path d="M12 6.5V17" />
           </svg>
         </div>
-        <div className="space-y-1">
-          <h1 className="text-2xl font-extrabold text-white tracking-tight">
+        <div className="space-y-1.5">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
             Progress
           </h1>
-          <p className="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 max-w-xs mx-auto leading-relaxed">
             Evidence-first competitive programming intelligence platform.
           </p>
         </div>
       </div>
 
       {/* Main Card */}
-      <div className="bg-[#0C1017] border border-white/[0.08] rounded-xl p-6 sm:p-7 shadow-elevated space-y-6">
+      <div className="bg-[#0C1017] border border-white/[0.08] rounded-2xl p-7 sm:p-9 shadow-elevated space-y-7">
         {/* Tab Toggle */}
-        <div className="grid grid-cols-2 bg-[#080A0F] p-1 rounded-lg border border-white/[0.06] text-xs font-medium">
+        <div className="grid grid-cols-2 bg-[#080A0F] p-1.5 rounded-xl border border-white/[0.06] text-xs font-medium">
           <button
             type="button"
             onClick={() => { setTab("login"); setError(null); }}
-            className={`py-1.5 rounded-md transition cursor-pointer font-medium ${
+            className={`py-2 rounded-lg transition cursor-pointer font-semibold ${
               tab === "login"
-                ? "bg-white/[0.08] text-white font-semibold shadow-sm"
+                ? "bg-white/[0.08] text-white shadow-sm"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
@@ -116,9 +116,9 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => { setTab("register"); setError(null); }}
-            className={`py-1.5 rounded-md transition cursor-pointer font-medium ${
+            className={`py-2 rounded-lg transition cursor-pointer font-semibold ${
               tab === "register"
-                ? "bg-white/[0.08] text-white font-semibold shadow-sm"
+                ? "bg-white/[0.08] text-white shadow-sm"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
@@ -128,56 +128,56 @@ export default function LoginPage() {
 
         {/* Error Alert */}
         {error && (
-          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs p-3 rounded-lg flex items-start gap-2">
+          <div className="bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs p-4 rounded-xl flex items-start gap-2.5">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
             <span className="leading-relaxed">{error}</span>
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={tab === "login" ? handleLogin : handleRegister} className="space-y-4">
+        <form onSubmit={tab === "login" ? handleLogin : handleRegister} className="space-y-5">
           {tab === "register" && (
-            <div className="space-y-1">
-              <label className="text-xs font-medium text-slate-300 block">Name</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-300 block">Name</label>
               <div className="relative">
-                <User className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                <User className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
                 <input
                   type="text"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-[#080A0F] border border-white/[0.08] rounded-md pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                  className="w-full bg-[#080A0F] border border-white/[0.08] rounded-lg pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
           )}
 
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-300 block">Email Address</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-300 block">Email Address</label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
               <input
                 type="email"
                 required
                 placeholder="developer@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#080A0F] border border-white/[0.08] rounded-md pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono"
+                className="w-full bg-[#080A0F] border border-white/[0.08] rounded-lg pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-mono"
               />
             </div>
           </div>
 
-          <div className="space-y-1">
-            <label className="text-xs font-medium text-slate-300 block">Password</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-slate-300 block">Password</label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
               <input
                 type="password"
                 required
                 placeholder={tab === "register" ? "Minimum 8 characters" : "••••••••"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-[#080A0F] border border-white/[0.08] rounded-md pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#080A0F] border border-white/[0.08] rounded-lg pl-10 pr-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -185,16 +185,16 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition disabled:opacity-50 cursor-pointer shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-1.5"
+            className="w-full py-3 px-5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold transition disabled:opacity-50 cursor-pointer shadow-sm shadow-indigo-600/30 flex items-center justify-center gap-2 mt-2"
           >
             <span>{loading ? "Authenticating..." : tab === "login" ? "Sign In to Progress" : "Create Account"}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </form>
       </div>
 
-      <div className="text-center text-[11px] text-slate-500 mt-6 flex items-center justify-center gap-1.5">
-        <ShieldCheck className="w-3.5 h-3.5 text-slate-500" />
+      <div className="text-center text-xs text-slate-500 mt-7 flex items-center justify-center gap-2">
+        <ShieldCheck className="w-4 h-4 text-slate-500" />
         <span>Grounded in cryptographic session tokens &amp; isolated user evidence</span>
       </div>
     </div>

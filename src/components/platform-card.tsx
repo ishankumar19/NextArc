@@ -79,14 +79,14 @@ export function PlatformCard({
   const knownLimitations = qualityReport?.knownLimitations || [];
 
   return (
-    <div className="bg-[#0C1017] border border-white/[0.08] hover:border-white/[0.12] rounded-xl p-5 sm:p-6 shadow-subtle space-y-4 transition">
+    <div className="bg-[#0C1017] border border-white/[0.08] hover:border-white/[0.14] rounded-2xl p-7 sm:p-8 shadow-subtle space-y-6 transition">
       {/* Header */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <h3 className="text-base font-bold text-white capitalize tracking-tight">{platform}</h3>
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2.5">
+            <h3 className="text-lg font-bold text-white capitalize tracking-tight">{platform}</h3>
             <span
-              className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded border ${
+              className={`text-xs font-mono font-semibold px-2.5 py-0.5 rounded-md border ${
                 status === "connected"
                   ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
                   : status === "syncing"
@@ -97,41 +97,41 @@ export function PlatformCard({
               {status}
             </span>
           </div>
-          <div className="text-xs text-slate-400 font-mono">@{username}</div>
+          <div className="text-xs sm:text-sm text-slate-400 font-mono">@{username}</div>
         </div>
 
         {/* Completeness Badge */}
         <div className="text-right shrink-0">
           <div
-            className={`inline-flex items-center gap-1 text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full border ${
+            className={`inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-3 py-1 rounded-full border ${
               isAuthoritative
-                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/20"
-                : "bg-amber-500/10 text-amber-300 border-amber-500/20"
+                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/25"
+                : "bg-amber-500/10 text-amber-300 border-amber-500/25"
             }`}
           >
             {isAuthoritative ? (
-              <ShieldCheck className="w-3 h-3 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             ) : (
-              <HelpCircle className="w-3 h-3 text-amber-400" />
+              <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
             )}
             <span>
               {isAuthoritative ? "Authoritative Source" : "Best-Effort / Partial"}
             </span>
           </div>
-          <div className="text-[10px] text-slate-500 font-mono mt-1">
-            Synced: <span className="text-slate-400">{syncTimeAgo}</span>
+          <div className="text-xs text-slate-400 font-mono mt-1.5">
+            Synced: <span className="text-slate-300 font-medium">{syncTimeAgo}</span>
           </div>
         </div>
       </div>
 
       {/* Non-destructive Error Banner */}
       {errorMsg && (
-        <div className="bg-rose-500/10 border border-rose-500/20 rounded-lg p-3 text-xs text-rose-300 space-y-1">
-          <div className="flex items-center gap-1.5 font-semibold">
-            <AlertTriangle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-            <span className="font-mono text-[11px] uppercase tracking-wider">Sync Notice</span>
+        <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-xs text-rose-300 space-y-1.5">
+          <div className="flex items-center gap-2 font-semibold">
+            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+            <span className="font-mono text-xs uppercase tracking-wider">Sync Notice</span>
           </div>
-          <p className="text-[11px] text-rose-300/90 leading-relaxed">
+          <p className="text-xs text-rose-300/90 leading-relaxed">
             {platform === "leetcode"
               ? "LeetCode couldn't be refreshed right now. Showing data from your last successful sync."
               : `${platform} sync notice: ${errorMsg}. Previously synced data remains active.`}
@@ -140,18 +140,18 @@ export function PlatformCard({
       )}
 
       {statusMsg && (
-        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-2.5 text-xs text-emerald-300 flex items-center gap-1.5 font-mono text-[11px]">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3.5 text-xs text-emerald-300 flex items-center gap-2 font-mono">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
           <span>{statusMsg}</span>
         </div>
       )}
 
       {/* Capabilities & Known Limitations */}
-      <div className="bg-[#080A0F] border border-white/[0.06] rounded-lg p-3.5 text-xs text-slate-400 space-y-2">
-        <div className="font-mono text-[11px] uppercase tracking-wider font-semibold text-slate-300">
+      <div className="bg-[#080A0F] border border-white/[0.08] rounded-xl p-5 text-xs text-slate-400 space-y-3">
+        <div className="font-mono text-xs uppercase tracking-wider font-semibold text-slate-300">
           Data Completeness Telemetry
         </div>
-        <div className="space-y-1 text-[11px]">
+        <div className="space-y-1.5 text-xs">
           <div>
             <span className="text-slate-500">Supported Metrics:</span>{" "}
             <span className="text-slate-300 font-mono">
@@ -160,7 +160,7 @@ export function PlatformCard({
             </span>
           </div>
           {knownLimitations.length > 0 && (
-            <div className="text-slate-500 italic text-[11px]">
+            <div className="text-slate-500 italic text-xs leading-relaxed">
               Constraint: {knownLimitations[0]}
             </div>
           )}
@@ -168,22 +168,22 @@ export function PlatformCard({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-1">
+      <div className="flex items-center justify-between pt-2">
         <button
           onClick={handleSync}
           disabled={syncing}
-          className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition disabled:opacity-50 cursor-pointer shadow-sm shadow-indigo-600/30"
+          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg transition disabled:opacity-50 cursor-pointer shadow-sm shadow-indigo-600/30"
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${syncing ? "animate-spin" : ""}`} />
+          <RefreshCw className={`w-4 h-4 ${syncing ? "animate-spin" : ""}`} />
           <span>{syncing ? "Syncing Telemetry..." : "Sync Now"}</span>
         </button>
 
         <button
           onClick={handleDisconnect}
           disabled={syncing}
-          className="flex items-center gap-1 text-slate-500 hover:text-rose-400 text-xs transition px-2 py-1 cursor-pointer font-medium"
+          className="flex items-center gap-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 text-xs transition px-3 py-2 rounded-lg cursor-pointer font-medium"
         >
-          <Trash2 className="w-3.5 h-3.5" />
+          <Trash2 className="w-4 h-4" />
           <span>Disconnect</span>
         </button>
       </div>

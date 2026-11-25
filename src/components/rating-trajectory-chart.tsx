@@ -28,14 +28,14 @@ export function RatingTrajectoryChart({
 
   if (points.length === 0) {
     return (
-      <div className="py-12 text-center space-y-2.5 bg-[#080A0F] border border-white/[0.06] rounded-lg">
-        <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-slate-400 mx-auto">
-          <Trophy className="w-4 h-4 text-slate-400" />
+      <div className="py-16 text-center space-y-3 bg-[#080A0F] border border-white/[0.08] rounded-xl">
+        <div className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-slate-400 mx-auto">
+          <Trophy className="w-5 h-5 text-slate-400" />
         </div>
-        <div className="text-xs font-semibold text-slate-300">
+        <div className="text-sm font-semibold text-slate-300">
           No rated contest history recorded yet
         </div>
-        <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
+        <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
           Participate in Codeforces rounds or connect an active handle with rated contests to view your rating curve.
         </p>
       </div>
@@ -49,9 +49,9 @@ export function RatingTrajectoryChart({
   const range = maxR - minR || 1;
 
   const width = 800;
-  const height = 180;
-  const paddingX = 40;
-  const paddingY = 25;
+  const height = 240;
+  const paddingX = 45;
+  const paddingY = 35;
 
   const chartPoints = points.map((p, idx) => {
     const x =
@@ -68,9 +68,9 @@ export function RatingTrajectoryChart({
   },${height - paddingY}`;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* SVG Trajectory Chart */}
-      <div className="relative w-full h-[190px] overflow-hidden rounded-lg bg-[#080A0F] border border-white/[0.06] p-2">
+      <div className="relative w-full h-[250px] sm:h-[280px] overflow-hidden rounded-xl bg-[#080A0F] border border-white/[0.08] p-3 sm:p-4">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-full overflow-visible"
@@ -78,7 +78,7 @@ export function RatingTrajectoryChart({
         >
           <defs>
             <linearGradient id="cfTrajectoryGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#6366F1" stopOpacity="0.3" />
+              <stop offset="0%" stopColor="#6366F1" stopOpacity="0.35" />
               <stop offset="100%" stopColor="#6366F1" stopOpacity="0.0" />
             </linearGradient>
           </defs>
@@ -89,7 +89,7 @@ export function RatingTrajectoryChart({
             y1={paddingY}
             x2={width - paddingX}
             y2={paddingY}
-            stroke="rgba(255,255,255,0.05)"
+            stroke="rgba(255,255,255,0.06)"
             strokeDasharray="4 4"
           />
           <line
@@ -97,7 +97,7 @@ export function RatingTrajectoryChart({
             y1={height / 2}
             x2={width - paddingX}
             y2={height / 2}
-            stroke="rgba(255,255,255,0.05)"
+            stroke="rgba(255,255,255,0.06)"
             strokeDasharray="4 4"
           />
           <line
@@ -105,7 +105,7 @@ export function RatingTrajectoryChart({
             y1={height - paddingY}
             x2={width - paddingX}
             y2={height - paddingY}
-            stroke="rgba(255,255,255,0.08)"
+            stroke="rgba(255,255,255,0.09)"
           />
 
           {/* Fill Area */}
@@ -115,7 +115,7 @@ export function RatingTrajectoryChart({
           <polyline
             fill="none"
             stroke="#6366F1"
-            strokeWidth="2.5"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
             points={polylinePath}
@@ -132,18 +132,18 @@ export function RatingTrajectoryChart({
               <circle
                 cx={p.x}
                 cy={p.y}
-                r="4.5"
+                r="5.5"
                 fill="#080A0F"
                 stroke="#6366F1"
-                strokeWidth="2"
-                className="transition-all duration-150 group-hover:r-6 group-hover:fill-indigo-400"
+                strokeWidth="2.5"
+                className="transition-all duration-150 group-hover:r-7 group-hover:fill-indigo-400"
               />
               <text
                 x={p.x}
-                y={p.y - 10}
+                y={p.y - 12}
                 textAnchor="middle"
                 fill="#f8fafc"
-                fontSize="10"
+                fontSize="11"
                 fontFamily="monospace"
                 fontWeight="bold"
                 className="opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
@@ -155,7 +155,7 @@ export function RatingTrajectoryChart({
         </svg>
 
         {activePoint && (
-          <div className="absolute top-2 right-3 bg-[#0C1017] border border-white/[0.08] px-3 py-1.5 rounded-md text-[11px] font-mono text-slate-300 shadow-card flex items-center gap-2">
+          <div className="absolute top-3 right-4 bg-[#0C1017] border border-white/[0.1] px-4 py-2 rounded-lg text-xs font-mono text-slate-300 shadow-elevated flex items-center gap-2.5">
             <span className="text-white font-semibold">{activePoint.contestName}</span>
             <span className="text-slate-500">•</span>
             <span className="text-indigo-400 font-bold">{activePoint.newRating}</span>
@@ -167,25 +167,25 @@ export function RatingTrajectoryChart({
       </div>
 
       {/* Trajectory Data Table */}
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-xl border border-white/[0.08]">
         <table className="w-full text-left text-xs">
-          <thead>
-            <tr className="border-b border-white/[0.06] text-slate-400 text-[11px] font-mono uppercase font-semibold">
-              <th className="py-2.5 px-3">Contest Round</th>
-              <th className="py-2.5 px-3">Rank</th>
-              <th className="py-2.5 px-3">Rating Delta</th>
-              <th className="py-2.5 px-3">Post-Round Rating</th>
-              <th className="py-2.5 px-3 text-right">Date</th>
+          <thead className="bg-[#080A0F]">
+            <tr className="border-b border-white/[0.08] text-slate-300 text-xs font-mono uppercase font-semibold">
+              <th className="py-3.5 px-4 sm:px-5">Contest Round</th>
+              <th className="py-3.5 px-4 sm:px-5">Rank</th>
+              <th className="py-3.5 px-4 sm:px-5">Rating Delta</th>
+              <th className="py-3.5 px-4 sm:px-5">Post-Round Rating</th>
+              <th className="py-3.5 px-4 sm:px-5 text-right">Date</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/[0.04]">
+          <tbody className="divide-y divide-white/[0.04] bg-[#0C1017]">
             {contests.map((c) => (
-              <tr key={c.contestId} className="hover:bg-white/[0.02] transition">
-                <td className="py-2.5 px-3 font-medium text-white truncate max-w-[260px]">
+              <tr key={c.contestId} className="hover:bg-white/[0.03] transition">
+                <td className="py-3.5 px-4 sm:px-5 font-medium text-white truncate max-w-[280px]">
                   {c.contestName}
                 </td>
-                <td className="py-2.5 px-3 text-slate-400 font-mono text-[11px]">#{c.rank}</td>
-                <td className="py-2.5 px-3 font-mono text-[11px]">
+                <td className="py-3.5 px-4 sm:px-5 text-slate-400 font-mono text-xs">#{c.rank}</td>
+                <td className="py-3.5 px-4 sm:px-5 font-mono text-xs">
                   <span
                     className={`font-semibold ${
                       c.ratingChange >= 0 ? "text-emerald-400" : "text-rose-400"
@@ -194,8 +194,8 @@ export function RatingTrajectoryChart({
                     {c.ratingChange >= 0 ? `+${c.ratingChange}` : c.ratingChange}
                   </span>
                 </td>
-                <td className="py-2.5 px-3 font-bold font-mono text-slate-100">{c.newRating}</td>
-                <td className="py-2.5 px-3 text-slate-500 text-right font-mono text-[11px]">
+                <td className="py-3.5 px-4 sm:px-5 font-bold font-mono text-slate-100">{c.newRating}</td>
+                <td className="py-3.5 px-4 sm:px-5 text-slate-400 text-right font-mono text-xs">
                   {new Date(c.timestamp).toLocaleDateString()}
                 </td>
               </tr>

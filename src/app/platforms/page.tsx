@@ -25,21 +25,21 @@ export default async function PlatformsPage() {
   }
 
   return (
-    <main className="space-y-7 animate-in fade-in duration-200">
+    <main className="space-y-10 sm:space-y-12 animate-in fade-in duration-200">
       {/* Header */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-white/[0.08]">
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-5 pb-6 border-b border-white/[0.08]">
         <div>
           <Link
             href="/"
-            className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 transition mb-2 font-medium"
+            className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 transition mb-2.5 font-medium"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-4 h-4" />
             <span>Back to Overview</span>
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
             Evidence Source Integrations
           </h1>
-          <p className="text-xs text-slate-400 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl leading-relaxed">
             Platforms serve as raw evidence inputs for your goal. Sync updates your activity facts and feeds adaptive planning.
           </p>
         </div>
@@ -48,12 +48,12 @@ export default async function PlatformsPage() {
       </header>
 
       {/* Evidence Source Philosophy Callout */}
-      <div className="bg-[#0C1017] border border-white/[0.08] rounded-xl p-4 sm:p-5 flex items-start gap-3.5 shadow-subtle">
-        <div className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-          <ShieldCheck className="w-4 h-4" />
+      <div className="bg-[#0C1017] border border-white/[0.08] rounded-2xl p-6 sm:p-7 flex items-start gap-4 shadow-subtle">
+        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+          <ShieldCheck className="w-5 h-5" />
         </div>
-        <div className="text-xs space-y-1">
-          <div className="font-semibold text-slate-200 tracking-tight">
+        <div className="text-xs sm:text-sm space-y-1.5">
+          <div className="font-semibold text-slate-200 tracking-tight text-sm sm:text-base">
             Evidence Source Philosophy
           </div>
           <div className="text-slate-400 leading-relaxed">
@@ -66,13 +66,13 @@ export default async function PlatformsPage() {
 
       {/* Platform Cards List */}
       {!connections || connections.length === 0 ? (
-        <div className="bg-[#0C1017] border border-white/[0.08] rounded-xl p-12 text-center space-y-4 shadow-subtle">
-          <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto text-slate-400">
-            <Layers className="w-6 h-6" />
+        <div className="bg-[#0C1017] border border-white/[0.08] rounded-2xl p-12 sm:p-16 text-center space-y-5 shadow-subtle">
+          <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto text-slate-400">
+            <Layers className="w-7 h-7" />
           </div>
-          <div className="space-y-1">
-            <h3 className="text-base font-bold text-white tracking-tight">No Evidence Platforms Connected</h3>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+          <div className="space-y-1.5">
+            <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">No Evidence Platforms Connected</h3>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto leading-relaxed">
               Link your public Codeforces or LeetCode handle to feed verified practice telemetry toward your skill target.
             </p>
           </div>
@@ -81,7 +81,7 @@ export default async function PlatformsPage() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {connections.map((conn) => {
             const qualityReport = getPlatformQualityReport(conn.platform);
 

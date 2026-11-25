@@ -53,15 +53,15 @@ export function Navigation() {
   const isLoginPage = pathname === "/login";
 
   return (
-    <nav className="border-b border-white/[0.08] bg-[#080A0F]/85 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-15 flex items-center justify-between">
+    <nav className="border-b border-white/[0.08] bg-[#080A0F]/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between">
         {/* Brand & Desktop Links */}
-        <div className="flex items-center gap-7">
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 rounded-lg bg-indigo-600/90 border border-indigo-400/30 flex items-center justify-center text-white shadow-sm shadow-indigo-600/30 group-hover:bg-indigo-500 transition">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 border border-indigo-400/40 flex items-center justify-center text-white shadow-sm shadow-indigo-600/30 group-hover:bg-indigo-500 transition">
               <svg
-                width="15"
-                height="15"
+                width="16"
+                height="16"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -74,18 +74,18 @@ export function Navigation() {
                 <path d="M12 6.5V17" />
               </svg>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold tracking-tight text-white text-[15px]">
+            <div className="flex items-center gap-2">
+              <span className="font-bold tracking-tight text-white text-base">
                 PROGRESS
               </span>
-              <span className="hidden sm:inline-block text-[9px] font-mono tracking-widest uppercase px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+              <span className="hidden sm:inline-block text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium">
                 INTELLIGENCE
               </span>
             </div>
           </Link>
 
           {!isLoginPage && (
-            <div className="hidden md:flex items-center gap-1 pl-1">
+            <div className="hidden md:flex items-center gap-2 pl-2">
               {links.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href;
@@ -95,13 +95,13 @@ export function Navigation() {
                     href={link.href}
                     prefetch={true}
                     className={clsx(
-                      "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition",
+                      "flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition",
                       isActive
-                        ? "bg-white/[0.08] text-white font-semibold border border-white/[0.08]"
+                        ? "bg-white/[0.08] text-white font-semibold border border-white/[0.08] shadow-sm"
                         : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
                     )}
                   >
-                    <Icon className="w-3.5 h-3.5 opacity-80" />
+                    <Icon className="w-4 h-4 opacity-80" />
                     <span>{link.label}</span>
                   </Link>
                 );
@@ -111,12 +111,12 @@ export function Navigation() {
         </div>
 
         {/* Right Section: User Status or Auth Button */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3.5">
           {user ? (
-            <div className="flex items-center gap-2">
-              <div className="hidden sm:flex items-center gap-2 bg-[#0C1017] border border-white/[0.08] px-3 py-1 rounded-full text-xs text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="font-mono text-[11px] text-slate-300 truncate max-w-[150px]">
+            <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-2 bg-[#0C1017] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs text-slate-300 shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="font-mono text-xs text-slate-300 font-medium truncate max-w-[160px]">
                   {user.name || user.email}
                 </span>
               </div>
@@ -124,15 +124,15 @@ export function Navigation() {
                 type="button"
                 onClick={handleLogout}
                 title="Sign out"
-                className="text-slate-400 hover:text-rose-400 p-1.5 rounded-md hover:bg-white/[0.04] transition cursor-pointer"
+                className="text-slate-400 hover:text-rose-400 p-2 rounded-lg hover:bg-white/[0.05] transition cursor-pointer"
               >
-                <LogOut className="w-3.5 h-3.5" />
+                <LogOut className="w-4 h-4" />
               </button>
             </div>
           ) : !isLoginPage ? (
             <Link
               href="/login"
-              className="text-xs font-semibold px-3.5 py-1.5 rounded-md bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-sm border border-indigo-400/30"
+              className="text-xs font-semibold px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-sm border border-indigo-400/30"
             >
               Sign In
             </Link>
@@ -143,7 +143,7 @@ export function Navigation() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 text-slate-400 hover:text-white rounded-md hover:bg-white/[0.05]"
+              className="md:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.05]"
               aria-label="Toggle navigation"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -154,7 +154,7 @@ export function Navigation() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && !isLoginPage && (
-        <div className="md:hidden border-t border-white/[0.08] bg-[#0C1017] px-4 py-3 space-y-1">
+        <div className="md:hidden border-t border-white/[0.08] bg-[#0C1017] px-5 py-4 space-y-1.5">
           {links.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -164,7 +164,7 @@ export function Navigation() {
                 href={link.href}
                 prefetch={true}
                 className={clsx(
-                  "flex items-center gap-2.5 px-3 py-2 rounded-md text-xs font-medium transition",
+                  "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition",
                   isActive
                     ? "bg-white/[0.08] text-white font-semibold"
                     : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
@@ -176,11 +176,11 @@ export function Navigation() {
             );
           })}
           {user && (
-            <div className="pt-2 mt-2 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 px-3 py-1">
-              <span className="font-mono text-[11px] truncate max-w-[200px]">{user.email}</span>
+            <div className="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 px-3.5 py-1.5">
+              <span className="font-mono text-xs truncate max-w-[200px] text-slate-300">{user.email}</span>
               <button
                 onClick={handleLogout}
-                className="text-rose-400 hover:text-rose-300 font-semibold"
+                className="text-rose-400 hover:text-rose-300 font-semibold px-2 py-1 rounded hover:bg-rose-500/10"
               >
                 Sign out
               </button>
