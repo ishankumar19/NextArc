@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Target, BarChart3, Layers, LogOut, Menu, X } from "lucide-react";
+import { Target, BarChart3, Layers, LogOut, Menu, X, ArrowRight } from "lucide-react";
 import clsx from "clsx";
 
 export function Navigation() {
@@ -11,51 +11,71 @@ export function Navigation() {
   const router = useRouter();
   const [user, setUser] = useState<{ email: string; name: string | null } | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    if (!user || pathname === "/") {
-      fetch("/api/auth/session")
-        .then((res) => (res.ok ? res.json() : null))
-        .then((json) => {
-          if (json?.success && json?.data?.user) {
-            setUser(json.data.user);
-          } else {
-            setUser(null);
-          }
-        })
-        .catch(() => setUser(null));
-    }
-  }, [pathname === "/login"]);
+    fetch("/api/auth/session")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json?.success && json?.data?.user) {
+          setUser(json.data.user);
+        } else {
+          setUser(null);
+        }
+      })
+      .catch(() => setUser(null));
+  }, [pathname]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   async function handleLogout() {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
       setUser(null);
-      router.push("/login");
+      router.push("/");
       router.refresh();
     } catch (e) {
       console.error("Logout failed:", e);
     }
   }
 
-  const links = [
+  const authenticatedLinks = [
     { href: "/", label: "Overview", icon: Target },
     { href: "/progress", label: "Analytics & Skills", icon: BarChart3 },
     { href: "/platforms", label: "Platforms", icon: Layers },
   ];
 
+  const publicNavLinks = [
+    { href: "#features", label: "Features" },
+    { href: "#preview", label: "Product Preview" },
+    { href: "#how-it-works", label: "How It Works" },
+  ];
+
   const isLoginPage = pathname === "/login";
 
   return (
-    <nav className="border-b border-[#E2E8E3] bg-[#FFFFFF]/90 backdrop-blur-md sticky top-0 z-50">
+    <nav
+      className={clsx(
+        "sticky top-0 z-50 transition-all duration-200 border-b border-[#E2E8E3]",
+        isScrolled
+          ? "bg-[#FFFFFF]/95 backdrop-blur-md shadow-xs"
+          : "bg-[#FFFFFF]/85 backdrop-blur-sm"
+      )}
+    >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between">
-        {/* Brand & Desktop Links */}
+        {/* Brand & Left Navigation */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-lg bg-[#176B5B] flex items-center justify-center text-white shadow-sm shadow-[#176B5B]/20 group-hover:bg-[#115246] transition">
               <svg
                 width="16"
@@ -82,9 +102,10 @@ export function Navigation() {
             </div>
           </Link>
 
-          {!isLoginPage && (
-            <div className="hidden md:flex items-center gap-2 pl-2">
-              {links.map((link) => {
+          {/* Authenticated Dashboard Links */}
+          {user && !isLoginPage && (
+            <div className="hidden md:flex items-center gap-1.5 pl-2">
+              {authenticatedLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href;
                 return (
@@ -93,9 +114,9 @@ export function Navigation() {
                     href={link.href}
                     prefetch={true}
                     className={clsx(
-                      "flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition",
+                      "flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition",
                       isActive
-                        ? "bg-[#E5F1EB] text-[#176B5B] font-semibold border border-[#CCE4D8] shadow-sm"
+                        ? "bg-[#E5F1EB] text-[#176B5B] font-semibold border border-[#CCE4D8]"
                         : "text-[#52665D] hover:text-[#172923] hover:bg-[#F0F4F1]"
                     )}
                   >
@@ -106,15 +127,30 @@ export function Navigation() {
               })}
             </div>
           )}
+
+          {/* Public Landing Links (when unauthenticated and on root or other pages) */}
+          {!user && !isLoginPage && (
+            <div className="hidden md:flex items-center gap-6 pl-4 text-xs font-medium text-[#52665D]">
+              {publicNavLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-[#176B5B] transition py-1"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Right Section: User Status or Auth Button */}
-        <div className="flex items-center gap-3.5">
+        {/* Right Section: User Status OR Login & Register CTAs */}
+        <div className="flex items-center gap-3">
           {user ? (
             <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center gap-2 bg-[#FFFFFF] border border-[#E2E8E3] px-3.5 py-1.5 rounded-full text-xs text-[#52665D] shadow-subtle">
+              <div className="hidden sm:flex items-center gap-2 bg-[#F8FAF7] border border-[#E2E8E3] px-3 py-1.5 rounded-full text-xs text-[#52665D]">
                 <span className="w-2 h-2 rounded-full bg-[#176B5B] animate-pulse"></span>
-                <span className="font-mono text-xs text-[#172923] font-medium truncate max-w-[160px]">
+                <span className="font-mono text-xs text-[#172923] font-medium truncate max-w-[150px]">
                   {user.name || user.email}
                 </span>
               </div>
@@ -128,12 +164,21 @@ export function Navigation() {
               </button>
             </div>
           ) : !isLoginPage ? (
-            <Link
-              href="/login"
-              className="text-xs font-semibold px-4 py-2 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white transition shadow-sm shadow-[#176B5B]/20"
-            >
-              Sign In
-            </Link>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link
+                href="/login?tab=login"
+                className="text-xs sm:text-sm font-semibold text-[#172923] hover:text-[#176B5B] px-3 py-2 rounded-lg hover:bg-[#F0F4F1] transition"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/login?tab=register"
+                className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white transition shadow-sm shadow-[#176B5B]/20 flex items-center gap-1.5"
+              >
+                <span>Get Started</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           ) : null}
 
           {/* Mobile Menu Hamburger */}
@@ -152,36 +197,65 @@ export function Navigation() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && !isLoginPage && (
-        <div className="md:hidden border-t border-[#E2E8E3] bg-[#FFFFFF] px-5 py-4 space-y-1.5 shadow-card">
-          {links.map((link) => {
-            const Icon = link.icon;
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                prefetch={true}
-                className={clsx(
-                  "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition",
-                  isActive
-                    ? "bg-[#E5F1EB] text-[#176B5B] font-semibold"
-                    : "text-[#52665D] hover:text-[#172923] hover:bg-[#F0F4F1]"
-                )}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{link.label}</span>
-              </Link>
-            );
-          })}
-          {user && (
-            <div className="pt-3 mt-3 border-t border-[#E2E8E3] flex items-center justify-between text-xs text-[#52665D] px-3.5 py-1.5">
-              <span className="font-mono text-xs truncate max-w-[200px] text-[#172923]">{user.email}</span>
-              <button
-                onClick={handleLogout}
-                className="text-[#C65D5D] hover:text-[#9C3939] font-semibold px-2 py-1 rounded hover:bg-[#FDF2F2]"
-              >
-                Sign out
-              </button>
+        <div className="md:hidden border-t border-[#E2E8E3] bg-[#FFFFFF] px-5 py-4 space-y-2 shadow-card">
+          {user ? (
+            <>
+              {authenticatedLinks.map((link) => {
+                const Icon = link.icon;
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    prefetch={true}
+                    className={clsx(
+                      "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition",
+                      isActive
+                        ? "bg-[#E5F1EB] text-[#176B5B] font-semibold"
+                        : "text-[#52665D] hover:text-[#172923] hover:bg-[#F0F4F1]"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span>{link.label}</span>
+                  </Link>
+                );
+              })}
+              <div className="pt-3 mt-3 border-t border-[#E2E8E3] flex items-center justify-between text-xs text-[#52665D] px-3.5 py-1.5">
+                <span className="font-mono text-xs truncate max-w-[200px] text-[#172923]">{user.email}</span>
+                <button
+                  onClick={handleLogout}
+                  className="text-[#C65D5D] hover:text-[#9C3939] font-semibold px-2 py-1 rounded hover:bg-[#FDF2F2]"
+                >
+                  Sign out
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="space-y-3">
+              {publicNavLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3.5 py-2 text-sm font-medium text-[#52665D] hover:text-[#176B5B] hover:bg-[#F8FAF7] rounded-lg"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="pt-3 border-t border-[#E2E8E3] grid grid-cols-2 gap-2">
+                <Link
+                  href="/login?tab=login"
+                  className="text-center py-2 px-3 text-xs font-semibold text-[#172923] bg-[#F8FAF7] border border-[#E2E8E3] rounded-lg"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/login?tab=register"
+                  className="text-center py-2 px-3 text-xs font-semibold text-white bg-[#176B5B] rounded-lg"
+                >
+                  Get Started
+                </Link>
+              </div>
             </div>
           )}
         </div>

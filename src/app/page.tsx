@@ -1,5 +1,5 @@
 import { resolveSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { LandingPage } from "@/components/landing-page";
 import { GoalService } from "@/goals/goal.service";
 import { EvidenceService } from "@/goals/evidence.service";
 import { ActivityFeedService } from "@/analytics/activity-feed.service";
@@ -30,7 +30,7 @@ export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const session = await resolveSession();
   if (!session) {
-    redirect("/login");
+    return <LandingPage />;
   }
   const userId = session.userId;
 

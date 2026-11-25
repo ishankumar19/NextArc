@@ -1,18 +1,40 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Lock, Mail, User, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
-  const [tab, setTab] = useState<"login" | "register">("login");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "register" ? "register" : "login";
+
+  const [tab, setTab] = useState<"login" | "register">(initialTab);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const requestedTab = searchParams.get("tab");
+    if (requestedTab === "register" || requestedTab === "login") {
+      setTab(requestedTab);
+    }
+  }, [searchParams]);
+
+  // If already authenticated, redirect to dashboard
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json?.success && json?.data?.user) {
+          router.replace("/");
+        }
+      })
+      .catch(() => {});
+  }, [router]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -72,22 +94,24 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto py-12 sm:py-16 px-4 animate-in fade-in duration-200">
       {/* Brand Header */}
       <div className="text-center mb-8 space-y-3">
-        <div className="w-12 h-12 rounded-xl bg-[#176B5B] border border-[#145B4D] flex items-center justify-center text-white shadow-sm mx-auto">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M4.5 16.5c1.5 1.26 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0" />
-            <path d="M7 11.5L12 6.5L17 11.5" />
-            <path d="M12 6.5V17" />
-          </svg>
-        </div>
+        <Link href="/" className="inline-block group">
+          <div className="w-12 h-12 rounded-xl bg-[#176B5B] border border-[#145B4D] flex items-center justify-center text-white shadow-sm mx-auto group-hover:bg-[#115246] transition">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M4.5 16.5c1.5 1.26 3 1.5 4.5 0s3-1.5 4.5 0 3 1.5 4.5 0" />
+              <path d="M7 11.5L12 6.5L17 11.5" />
+              <path d="M12 6.5V17" />
+            </svg>
+          </div>
+        </Link>
         <div className="space-y-1">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[#172923] tracking-tight">
             Progress
@@ -198,5 +222,13 @@ export default function LoginPage() {
         <span>Grounded in cryptographic session tokens &amp; isolated user evidence</span>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="max-w-md mx-auto py-16 text-center text-sm text-[#52665D]">Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
