@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #080a0f;
-  --foreground: #f8fafc;
-  --surface: #0c1017;
-  --surface-hover: #121722;
-  --border-hairline: rgba(255, 255, 255, 0.08);
+  --background: #F5F7F4;
+  --foreground: #172923;
+  --surface: #FFFFFF;
+  --surface-hover: #F8FAF7;
+  --border: #E2E8E3;
 }
 
 * {
@@ -15,7 +15,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -37,29 +37,21 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(23, 41, 35, 0.15);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(23, 41, 35, 0.28);
 }
 
 ::selection {
-  background-color: rgba(99, 102, 241, 0.35);
-  color: #ffffff;
+  background-color: #CCE4D8;
+  color: #0A2923;
 }
 
-/* Subtle hairline utility classes */
 @layer utilities {
   .surface-card {
-    background-color: #0c1017;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .surface-card-hover {
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .surface-card-hover:hover {
-    background-color: #10151f;
-    border-color: rgba(255, 255, 255, 0.14);
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8E3;
   }
 }

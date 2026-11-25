@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Target, BarChart3, Layers, LogOut, Menu, X, ArrowUpRight } from "lucide-react";
+import { Target, BarChart3, Layers, LogOut, Menu, X } from "lucide-react";
 import clsx from "clsx";
 
 export function Navigation() {
@@ -13,7 +13,6 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Only fetch session if not already loaded or if navigating away from /login
     if (!user || pathname === "/") {
       fetch("/api/auth/session")
         .then((res) => (res.ok ? res.json() : null))
@@ -28,7 +27,6 @@ export function Navigation() {
     }
   }, [pathname === "/login"]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -53,12 +51,12 @@ export function Navigation() {
   const isLoginPage = pathname === "/login";
 
   return (
-    <nav className="border-b border-white/[0.08] bg-[#080A0F]/90 backdrop-blur-md sticky top-0 z-50">
+    <nav className="border-b border-[#E2E8E3] bg-[#FFFFFF]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 h-16 flex items-center justify-between">
         {/* Brand & Desktop Links */}
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600 border border-indigo-400/40 flex items-center justify-center text-white shadow-sm shadow-indigo-600/30 group-hover:bg-indigo-500 transition">
+            <div className="w-8 h-8 rounded-lg bg-[#176B5B] flex items-center justify-center text-white shadow-sm shadow-[#176B5B]/20 group-hover:bg-[#115246] transition">
               <svg
                 width="16"
                 height="16"
@@ -75,10 +73,10 @@ export function Navigation() {
               </svg>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-bold tracking-tight text-white text-base">
+              <span className="font-bold tracking-tight text-[#172923] text-base">
                 PROGRESS
               </span>
-              <span className="hidden sm:inline-block text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 font-medium">
+              <span className="hidden sm:inline-block text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-[#E5F1EB] text-[#145B4D] border border-[#BCE0D4] font-medium">
                 INTELLIGENCE
               </span>
             </div>
@@ -97,8 +95,8 @@ export function Navigation() {
                     className={clsx(
                       "flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium transition",
                       isActive
-                        ? "bg-white/[0.08] text-white font-semibold border border-white/[0.08] shadow-sm"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
+                        ? "bg-[#E5F1EB] text-[#176B5B] font-semibold border border-[#CCE4D8] shadow-sm"
+                        : "text-[#52665D] hover:text-[#172923] hover:bg-[#F0F4F1]"
                     )}
                   >
                     <Icon className="w-4 h-4 opacity-80" />
@@ -114,9 +112,9 @@ export function Navigation() {
         <div className="flex items-center gap-3.5">
           {user ? (
             <div className="flex items-center gap-3">
-              <div className="hidden sm:flex items-center gap-2 bg-[#0C1017] border border-white/[0.08] px-3.5 py-1.5 rounded-full text-xs text-slate-300 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="font-mono text-xs text-slate-300 font-medium truncate max-w-[160px]">
+              <div className="hidden sm:flex items-center gap-2 bg-[#FFFFFF] border border-[#E2E8E3] px-3.5 py-1.5 rounded-full text-xs text-[#52665D] shadow-subtle">
+                <span className="w-2 h-2 rounded-full bg-[#176B5B] animate-pulse"></span>
+                <span className="font-mono text-xs text-[#172923] font-medium truncate max-w-[160px]">
                   {user.name || user.email}
                 </span>
               </div>
@@ -124,7 +122,7 @@ export function Navigation() {
                 type="button"
                 onClick={handleLogout}
                 title="Sign out"
-                className="text-slate-400 hover:text-rose-400 p-2 rounded-lg hover:bg-white/[0.05] transition cursor-pointer"
+                className="text-[#8E9F97] hover:text-[#C65D5D] p-2 rounded-lg hover:bg-[#FDF2F2] transition cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -132,7 +130,7 @@ export function Navigation() {
           ) : !isLoginPage ? (
             <Link
               href="/login"
-              className="text-xs font-semibold px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-sm border border-indigo-400/30"
+              className="text-xs font-semibold px-4 py-2 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white transition shadow-sm shadow-[#176B5B]/20"
             >
               Sign In
             </Link>
@@ -143,7 +141,7 @@ export function Navigation() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.05]"
+              className="md:hidden p-2 text-[#52665D] hover:text-[#172923] rounded-lg hover:bg-[#F0F4F1]"
               aria-label="Toggle navigation"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -154,7 +152,7 @@ export function Navigation() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && !isLoginPage && (
-        <div className="md:hidden border-t border-white/[0.08] bg-[#0C1017] px-5 py-4 space-y-1.5">
+        <div className="md:hidden border-t border-[#E2E8E3] bg-[#FFFFFF] px-5 py-4 space-y-1.5 shadow-card">
           {links.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -166,8 +164,8 @@ export function Navigation() {
                 className={clsx(
                   "flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition",
                   isActive
-                    ? "bg-white/[0.08] text-white font-semibold"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-white/[0.04]"
+                    ? "bg-[#E5F1EB] text-[#176B5B] font-semibold"
+                    : "text-[#52665D] hover:text-[#172923] hover:bg-[#F0F4F1]"
                 )}
               >
                 <Icon className="w-4 h-4" />
@@ -176,11 +174,11 @@ export function Navigation() {
             );
           })}
           {user && (
-            <div className="pt-3 mt-3 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-400 px-3.5 py-1.5">
-              <span className="font-mono text-xs truncate max-w-[200px] text-slate-300">{user.email}</span>
+            <div className="pt-3 mt-3 border-t border-[#E2E8E3] flex items-center justify-between text-xs text-[#52665D] px-3.5 py-1.5">
+              <span className="font-mono text-xs truncate max-w-[200px] text-[#172923]">{user.email}</span>
               <button
                 onClick={handleLogout}
-                className="text-rose-400 hover:text-rose-300 font-semibold px-2 py-1 rounded hover:bg-rose-500/10"
+                className="text-[#C65D5D] hover:text-[#9C3939] font-semibold px-2 py-1 rounded hover:bg-[#FDF2F2]"
               >
                 Sign out
               </button>

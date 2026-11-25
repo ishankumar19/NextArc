@@ -79,25 +79,25 @@ export function PlatformCard({
   const knownLimitations = qualityReport?.knownLimitations || [];
 
   return (
-    <div className="bg-[#0C1017] border border-white/[0.08] hover:border-white/[0.14] rounded-2xl p-7 sm:p-8 shadow-subtle space-y-6 transition">
+    <div className="bg-[#FFFFFF] border border-[#E2E8E3] hover:border-[#CBD5CD] rounded-2xl p-7 sm:p-8 shadow-card space-y-6 transition">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2.5">
-            <h3 className="text-lg font-bold text-white capitalize tracking-tight">{platform}</h3>
+            <h3 className="text-lg font-bold text-[#172923] capitalize tracking-tight">{platform}</h3>
             <span
               className={`text-xs font-mono font-semibold px-2.5 py-0.5 rounded-md border ${
                 status === "connected"
-                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                  ? "bg-[#EDF7F2] text-[#145B4D] border-[#C2E5D4]"
                   : status === "syncing"
-                  ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/20 animate-pulse"
-                  : "bg-rose-500/10 text-rose-400 border-rose-500/20"
+                  ? "bg-[#E5F1EB] text-[#176B5B] border-[#BCE0D4] animate-pulse"
+                  : "bg-[#FDF2F2] text-[#9C3939] border-[#F5C6C6]"
               }`}
             >
               {status}
             </span>
           </div>
-          <div className="text-xs sm:text-sm text-slate-400 font-mono">@{username}</div>
+          <div className="text-xs sm:text-sm text-[#52665D] font-mono">@{username}</div>
         </div>
 
         {/* Completeness Badge */}
@@ -105,33 +105,33 @@ export function PlatformCard({
           <div
             className={`inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-3 py-1 rounded-full border ${
               isAuthoritative
-                ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/25"
-                : "bg-amber-500/10 text-amber-300 border-amber-500/25"
+                ? "bg-[#EDF7F2] text-[#145B4D] border-[#C2E5D4]"
+                : "bg-[#FDF8EE] text-[#96601A] border-[#F3DCB1]"
             }`}
           >
             {isAuthoritative ? (
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#176B5B]" />
             ) : (
-              <HelpCircle className="w-3.5 h-3.5 text-amber-400" />
+              <HelpCircle className="w-3.5 h-3.5 text-[#C58A36]" />
             )}
             <span>
               {isAuthoritative ? "Authoritative Source" : "Best-Effort / Partial"}
             </span>
           </div>
-          <div className="text-xs text-slate-400 font-mono mt-1.5">
-            Synced: <span className="text-slate-300 font-medium">{syncTimeAgo}</span>
+          <div className="text-xs text-[#52665D] font-mono mt-1.5">
+            Synced: <span className="text-[#172923] font-medium">{syncTimeAgo}</span>
           </div>
         </div>
       </div>
 
       {/* Non-destructive Error Banner */}
       {errorMsg && (
-        <div className="bg-rose-500/10 border border-rose-500/20 rounded-xl p-4 text-xs text-rose-300 space-y-1.5">
+        <div className="bg-[#FDF8EE] border border-[#F3DCB1] rounded-xl p-4 text-xs text-[#96601A] space-y-1.5">
           <div className="flex items-center gap-2 font-semibold">
-            <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-[#C58A36] shrink-0" />
             <span className="font-mono text-xs uppercase tracking-wider">Sync Notice</span>
           </div>
-          <p className="text-xs text-rose-300/90 leading-relaxed">
+          <p className="text-xs text-[#96601A] leading-relaxed">
             {platform === "leetcode"
               ? "LeetCode couldn't be refreshed right now. Showing data from your last successful sync."
               : `${platform} sync notice: ${errorMsg}. Previously synced data remains active.`}
@@ -140,27 +140,27 @@ export function PlatformCard({
       )}
 
       {statusMsg && (
-        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3.5 text-xs text-emerald-300 flex items-center gap-2 font-mono">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+        <div className="bg-[#EDF7F2] border border-[#C2E5D4] rounded-xl p-3.5 text-xs text-[#145B4D] flex items-center gap-2 font-mono">
+          <CheckCircle2 className="w-4 h-4 text-[#176B5B] shrink-0" />
           <span>{statusMsg}</span>
         </div>
       )}
 
       {/* Capabilities & Known Limitations */}
-      <div className="bg-[#080A0F] border border-white/[0.08] rounded-xl p-5 text-xs text-slate-400 space-y-3">
-        <div className="font-mono text-xs uppercase tracking-wider font-semibold text-slate-300">
+      <div className="bg-[#F8FAF7] border border-[#E2E8E3] rounded-xl p-5 text-xs text-[#52665D] space-y-3">
+        <div className="font-mono text-xs uppercase tracking-wider font-semibold text-[#172923]">
           Data Completeness Telemetry
         </div>
         <div className="space-y-1.5 text-xs">
           <div>
-            <span className="text-slate-500">Supported Metrics:</span>{" "}
-            <span className="text-slate-300 font-mono">
+            <span className="text-[#8E9F97]">Supported Metrics:</span>{" "}
+            <span className="text-[#172923] font-mono">
               {supportedMetrics.slice(0, 3).join(", ")}
               {supportedMetrics.length > 3 && ", ..."}
             </span>
           </div>
           {knownLimitations.length > 0 && (
-            <div className="text-slate-500 italic text-xs leading-relaxed">
+            <div className="text-[#64746C] italic text-xs leading-relaxed">
               Constraint: {knownLimitations[0]}
             </div>
           )}
@@ -172,7 +172,7 @@ export function PlatformCard({
         <button
           onClick={handleSync}
           disabled={syncing}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg transition disabled:opacity-50 cursor-pointer shadow-sm shadow-indigo-600/30"
+          className="flex items-center gap-2 bg-[#176B5B] hover:bg-[#115246] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg transition disabled:opacity-50 cursor-pointer shadow-sm shadow-[#176B5B]/20"
         >
           <RefreshCw className={`w-4 h-4 ${syncing ? "animate-spin" : ""}`} />
           <span>{syncing ? "Syncing Telemetry..." : "Sync Now"}</span>
@@ -181,7 +181,7 @@ export function PlatformCard({
         <button
           onClick={handleDisconnect}
           disabled={syncing}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 text-xs transition px-3 py-2 rounded-lg cursor-pointer font-medium"
+          className="flex items-center gap-1.5 text-[#8E9F97] hover:text-[#C65D5D] hover:bg-[#FDF2F2] text-xs transition px-3 py-2 rounded-lg cursor-pointer font-medium"
         >
           <Trash2 className="w-4 h-4" />
           <span>Disconnect</span>

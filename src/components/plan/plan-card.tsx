@@ -36,9 +36,9 @@ interface PlanTaskView {
   minDifficulty?: number | null;
   maxDifficulty?: number | null;
   difficultyTier?: string | null;
-  topics: string; // JSON string
+  topics: string;
   reason: string;
-  evidenceReferences: string; // JSON string
+  evidenceReferences: string;
   status: string;
   matches?: TaskMatch[];
   problemId?: string | null;
@@ -148,22 +148,21 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
     }
   }
 
-  // Empty state when no plan has been generated yet
   if (!activeVersion) {
     return (
-      <section className="bg-[#0C1017] border border-white/[0.08] rounded-2xl p-7 sm:p-9 lg:p-10 shadow-subtle relative overflow-hidden">
+      <section className="bg-[#FFFFFF] border border-[#E2E8E3] rounded-2xl p-7 sm:p-9 lg:p-10 shadow-card relative overflow-hidden">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono uppercase tracking-wider text-indigo-400 font-semibold">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#145B4D] font-semibold">
                 Evidence-Based Planner
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 font-mono border border-indigo-500/20 font-medium">
+              <span className="text-xs px-2 py-0.5 rounded bg-[#E5F1EB] text-[#145B4D] font-mono border border-[#BCE0D4] font-medium">
                 ACTIVE REASONER
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Adaptive Practice Plan</h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-xl leading-relaxed">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#172923] tracking-tight">Adaptive Practice Plan</h2>
+            <p className="text-xs sm:text-sm text-[#52665D] max-w-xl leading-relaxed">
               Generate an adaptive practice plan grounded directly in your verified platform facts. Identifies performance drop-offs and prescribes targeted daily problems.
             </p>
           </div>
@@ -171,7 +170,7 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
           <button
             onClick={handleGeneratePlan}
             disabled={loading}
-            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs sm:text-sm transition shrink-0 disabled:opacity-50 shadow-sm shadow-indigo-600/30 cursor-pointer"
+            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white font-semibold text-xs sm:text-sm transition shrink-0 disabled:opacity-50 shadow-sm shadow-[#176B5B]/20 cursor-pointer"
           >
             <Sparkles className="w-4 h-4" />
             <span>{loading ? "Reasoning over Evidence..." : "Generate Adaptive Plan"}</span>
@@ -185,38 +184,38 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
   const reviewDateFormatted = format(new Date(activeVersion.targetReviewDate), "MMM d");
 
   return (
-    <section className="bg-[#0C1017] border border-white/[0.08] rounded-2xl p-7 sm:p-9 lg:p-10 space-y-7 shadow-card relative overflow-hidden">
+    <section className="bg-[#FFFFFF] border border-[#E2E8E3] rounded-2xl p-7 sm:p-9 lg:p-10 space-y-7 shadow-card relative overflow-hidden">
       {/* 1. Header with Version and Timeframe */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-white/[0.06]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#EBEFEA]">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2.5 flex-wrap">
-            <span className="text-xs font-mono uppercase tracking-wider text-indigo-300 font-semibold">
+            <span className="text-xs font-mono uppercase tracking-wider text-[#176B5B] font-semibold">
               Active Practice Plan
             </span>
-            <span className="text-xs px-2.5 py-0.5 rounded-md font-mono font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+            <span className="text-xs px-2.5 py-0.5 rounded-md font-mono font-semibold bg-[#E5F1EB] text-[#145B4D] border border-[#BCE0D4]">
               v{activeVersion.versionNumber}
             </span>
-            <span className="text-slate-600">•</span>
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-[#CBD5CD]">•</span>
+            <span className="text-xs text-[#52665D] font-medium">
               Window: {startDateFormatted} – {reviewDateFormatted}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-2xl">{activeVersion.summary}</p>
+          <p className="text-xs sm:text-sm text-[#52665D] leading-relaxed max-w-2xl">{activeVersion.summary}</p>
         </div>
 
         <div className="flex items-center gap-2.5 shrink-0">
           <button
             onClick={() => setShowCoach(!showCoach)}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 text-xs font-semibold border border-white/[0.08] transition cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-[#F8FAF7] hover:bg-[#F0F4F1] text-[#172923] text-xs font-semibold border border-[#E2E8E3] transition cursor-pointer"
           >
-            <MessageSquare className="w-4 h-4 text-indigo-400" />
+            <MessageSquare className="w-4 h-4 text-[#176B5B]" />
             <span>Goal Coach</span>
           </button>
 
           <button
             onClick={handleAdaptPlan}
             disabled={adapting}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 text-indigo-300 text-xs font-semibold border border-indigo-500/30 transition disabled:opacity-50 cursor-pointer shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E5F1EB] hover:bg-[#CCE4D8] text-[#145B4D] text-xs font-semibold border border-[#BCE0D4] transition disabled:opacity-50 cursor-pointer shadow-subtle"
             title="Evaluate observed evidence and generate adapted Plan v(N+1)"
           >
             <RotateCcw className={`w-4 h-4 ${adapting ? "animate-spin" : ""}`} />
@@ -226,20 +225,20 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
       </div>
 
       {/* 2. Next Milestone Box */}
-      <div className="bg-[#080A0F] border border-white/[0.08] rounded-xl p-5 sm:p-6 flex items-start gap-4">
-        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
+      <div className="bg-[#F8FAF7] border border-[#E2E8E3] rounded-xl p-5 sm:p-6 flex items-start gap-4">
+        <div className="w-8 h-8 rounded-lg bg-[#E5F1EB] border border-[#BCE0D4] text-[#176B5B] flex items-center justify-center shrink-0 mt-0.5">
           <Target className="w-4 h-4" />
         </div>
         <div className="space-y-1 min-w-0">
-          <div className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold">
+          <div className="text-xs font-mono uppercase tracking-wider text-[#52665D] font-semibold">
             Next Milestone Objective
           </div>
-          <div className="text-base font-bold text-white truncate">
+          <div className="text-base font-bold text-[#172923] truncate">
             {activeVersion.milestoneTitle}
           </div>
-          <div className="text-xs text-slate-400">
+          <div className="text-xs text-[#52665D]">
             Identified Bottleneck:{" "}
-            <span className="text-amber-300 font-medium font-mono">
+            <span className="text-[#C58A36] font-semibold font-mono">
               {activeVersion.bottleneckType.replace(/_/g, " ")}
             </span>
           </div>
@@ -249,10 +248,10 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
       {/* 3. Task Progress List with Daily Rotating Problems */}
       <div className="space-y-4">
         <div className="flex items-center justify-between pb-1">
-          <div className="text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold">
+          <div className="text-xs font-mono uppercase tracking-wider text-[#52665D] font-semibold">
             Target Tasks &amp; Daily Problems
           </div>
-          <span className="text-xs text-slate-500 font-mono">
+          <span className="text-xs text-[#8E9F97] font-mono">
             Rotates daily at 00:00 UTC
           </span>
         </div>
@@ -293,26 +292,26 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
             return (
               <div
                 key={task.id}
-                className="bg-[#080A0F] border border-white/[0.08] hover:border-white/[0.14] rounded-xl p-5 sm:p-6 space-y-4 transition shadow-sm"
+                className="bg-[#F8FAF7] border border-[#E2E8E3] hover:border-[#CBD5CD] rounded-xl p-5 sm:p-6 space-y-4 transition shadow-subtle"
               >
                 {/* Title & Completion Status */}
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5 min-w-0">
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="text-sm font-semibold text-white font-mono tracking-tight">
+                      <span className="text-sm font-semibold text-[#172923] font-mono tracking-tight">
                         {displayTitle}
                       </span>
-                      <span className="text-xs px-2 py-0.5 rounded-md bg-white/[0.05] text-slate-300 font-mono uppercase border border-white/[0.06] font-medium">
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-[#FFFFFF] text-[#52665D] font-mono uppercase border border-[#E2E8E3] font-medium">
                         {task.type}
                       </span>
                       {task.platform && (
-                        <span className="text-xs px-2 py-0.5 rounded-md bg-white/[0.04] text-slate-400 font-mono">
+                        <span className="text-xs px-2 py-0.5 rounded-md bg-[#FFFFFF] text-[#52665D] font-mono border border-[#E2E8E3]">
                           {task.platform}
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-slate-400 flex items-start gap-1.5 leading-relaxed">
-                      <span className="text-slate-500 shrink-0 font-medium">Why:</span>
+                    <div className="text-xs text-[#52665D] flex items-start gap-1.5 leading-relaxed">
+                      <span className="text-[#8E9F97] shrink-0 font-medium">Why:</span>
                       <span>
                         {resolvedProblem && (!task.problemName || task.reason.includes("limited recent exposure"))
                           ? `Today's targeted problem at rating ${resolvedProblem.rating} focusing on '${parsedTopics[0] || "practice"}'. Rotates daily to establish consistency.`
@@ -322,12 +321,12 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                   </div>
 
                   <div className="text-right shrink-0 pl-3">
-                    <div className="text-sm font-bold font-mono text-white">
+                    <div className="text-sm font-bold font-mono text-[#172923]">
                       {task.quantityCompleted} / {task.quantity}
                     </div>
-                    <div className="text-xs text-slate-500 font-mono mt-0.5">
+                    <div className="text-xs text-[#8E9F97] font-mono mt-0.5">
                       {isDone ? (
-                        <span className="text-emerald-400 font-semibold flex items-center gap-1 justify-end">
+                        <span className="text-[#176B5B] font-semibold flex items-center gap-1 justify-end">
                           <CheckCircle2 className="w-3.5 h-3.5" /> Done
                         </span>
                       ) : (
@@ -338,10 +337,10 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                 </div>
 
                 {/* Deterministic Evidence Progress Bar */}
-                <div className="w-full bg-[#121721] rounded-full h-2 overflow-hidden">
+                <div className="w-full bg-[#EBEFEA] rounded-full h-2 overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      isDone ? "bg-emerald-400" : "bg-indigo-500"
+                      isDone ? "bg-[#176B5B]" : "bg-[#176B5B]"
                     }`}
                     style={{ width: `${pct}%` }}
                   />
@@ -349,14 +348,14 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
 
                 {/* Daily Problem Action Bar with Direct Link */}
                 {resolvedProblem && (
-                  <div className="pt-3 border-t border-white/[0.04] flex items-center justify-between gap-3 flex-wrap">
+                  <div className="pt-3 border-t border-[#E2E8E3] flex items-center justify-between gap-3 flex-wrap">
                     <div className="flex items-center gap-2.5 flex-wrap">
-                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 font-semibold border border-indigo-500/20">
-                        <Sparkles className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-[#E5F1EB] text-[#145B4D] font-semibold border border-[#BCE0D4]">
+                        <Sparkles className="w-3 h-3 text-[#176B5B]" />
                         Today's Pick • {getDailyBadgeLabel()}
                       </span>
                       {resolvedProblem.rating && (
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/[0.05] text-amber-300 font-mono border border-white/[0.06]">
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-[#FFFFFF] text-[#C58A36] font-mono border border-[#E2E8E3] font-semibold">
                           Rating {resolvedProblem.rating}
                         </span>
                       )}
@@ -366,7 +365,7 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                       href={resolvedProblem.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-sm shadow-indigo-600/30 cursor-pointer"
+                      className="inline-flex items-center gap-1.5 bg-[#176B5B] hover:bg-[#115246] text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-sm shadow-[#176B5B]/20 cursor-pointer"
                     >
                       <span>Solve Problem</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -380,32 +379,32 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
       </div>
 
       {/* 4. Plan Rationale Accordion */}
-      <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs text-slate-500">
+      <div className="pt-2 border-t border-[#EBEFEA] flex items-center justify-between text-xs text-[#52665D]">
         <button
           onClick={() => setShowWhyModal(!showWhyModal)}
-          className="flex items-center gap-1.5 text-slate-400 hover:text-white transition font-medium cursor-pointer"
+          className="flex items-center gap-1.5 text-[#52665D] hover:text-[#172923] transition font-medium cursor-pointer"
         >
-          <HelpCircle className="w-3.5 h-3.5 text-indigo-400" />
+          <HelpCircle className="w-3.5 h-3.5 text-[#176B5B]" />
           <span>Why this plan? Rationale &amp; Evidence</span>
           {showWhyModal ? <ChevronUp className="w-3.5 h-3.5 ml-1" /> : <ChevronDown className="w-3.5 h-3.5 ml-1" />}
         </button>
-        <span className="font-mono text-xs text-slate-500">Deterministic matching via synced activity</span>
+        <span className="font-mono text-xs text-[#8E9F97]">Deterministic matching via synced activity</span>
       </div>
 
       {/* 5. Detailed Rationale Panel */}
       {showWhyModal && (
-        <div className="bg-[#080A0F] p-5 sm:p-6 rounded-xl border border-white/[0.08] text-xs space-y-4 animate-in fade-in duration-200">
-          <div className="font-semibold text-slate-200 text-xs uppercase tracking-wider font-mono">
+        <div className="bg-[#F8FAF7] p-5 sm:p-6 rounded-xl border border-[#E2E8E3] text-xs space-y-4 animate-in fade-in duration-200">
+          <div className="font-semibold text-[#172923] text-xs uppercase tracking-wider font-mono">
             Plan Reasoning &amp; Constraint Logic
           </div>
-          <p className="text-slate-400 leading-relaxed text-xs">
+          <p className="text-[#52665D] leading-relaxed text-xs">
             This plan was deterministically synthesized from your connected platform submissions, contest history, and goal deadline. Tasks focus strictly on identified difficulty drop-offs and weak topic clusters to maximize rating progression velocity.
           </p>
           <div className="space-y-2.5 pt-1">
             {activeVersion.tasks.map((t) => (
-              <div key={t.id} className="bg-[#0C1017] p-3.5 rounded-lg border border-white/[0.06] space-y-1">
-                <div className="font-semibold text-white font-mono text-xs">{t.title}</div>
-                <div className="text-slate-400 text-xs leading-relaxed">{t.reason}</div>
+              <div key={t.id} className="bg-[#FFFFFF] p-3.5 rounded-lg border border-[#E2E8E3] space-y-1">
+                <div className="font-semibold text-[#172923] font-mono text-xs">{t.title}</div>
+                <div className="text-[#52665D] text-xs leading-relaxed">{t.reason}</div>
               </div>
             ))}
           </div>
@@ -414,19 +413,19 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
 
       {/* 6. Goal Coach Drawer */}
       {showCoach && (
-        <div className="bg-[#080A0F] p-5 sm:p-6 rounded-xl border border-indigo-500/25 text-xs space-y-4 mt-3 animate-in fade-in duration-200 shadow-elevated">
-          <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+        <div className="bg-[#F8FAF7] p-5 sm:p-6 rounded-xl border border-[#BCE0D4] text-xs space-y-4 mt-3 animate-in fade-in duration-200 shadow-elevated">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E2E8E3]">
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 text-indigo-400" />
-              <span className="font-mono font-bold text-white uppercase tracking-wider text-xs">
+              <MessageSquare className="w-4 h-4 text-[#176B5B]" />
+              <span className="font-mono font-bold text-[#172923] uppercase tracking-wider text-xs">
                 Goal Coach (Evidence-Constrained)
               </span>
             </div>
-            <span className="text-xs text-slate-500 font-mono">Answers grounded in verified facts</span>
+            <span className="text-xs text-[#8E9F97] font-mono">Answers grounded in verified facts</span>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-slate-400 text-xs">Quick Prompts:</span>
+            <span className="text-[#52665D] text-xs">Quick Prompts:</span>
             {[
               "Why this plan?",
               "Why am I practicing this difficulty?",
@@ -439,7 +438,7 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
                   setCoachQuestion(prompt);
                   handleAskCoach(prompt);
                 }}
-                className="px-3 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-indigo-300 border border-white/[0.08] text-xs transition cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#F0F4F1] text-[#145B4D] border border-[#BCE0D4] text-xs transition cursor-pointer font-medium"
               >
                 {prompt}
               </button>
@@ -458,12 +457,12 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
               value={coachQuestion}
               onChange={(e) => setCoachQuestion(e.target.value)}
               placeholder="Ask a question about your plan, goal, or evidence..."
-              className="flex-1 bg-[#0C1017] border border-white/[0.08] rounded-lg px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 font-sans"
+              className="flex-1 bg-[#FFFFFF] border border-[#E2E8E3] rounded-lg px-4 py-2.5 text-xs text-[#172923] placeholder-[#8E9F97] focus:outline-none focus:border-[#176B5B] font-sans"
             />
             <button
               type="submit"
               disabled={coachLoading || !coachQuestion.trim()}
-              className="px-4 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-2 disabled:opacity-50 transition shrink-0 cursor-pointer shadow-sm shadow-indigo-600/30"
+              className="px-4 py-2.5 rounded-lg bg-[#176B5B] hover:bg-[#115246] text-white font-semibold text-xs flex items-center gap-2 disabled:opacity-50 transition shrink-0 cursor-pointer shadow-sm shadow-[#176B5B]/20"
             >
               <Send className="w-3.5 h-3.5" />
               <span>Ask</span>
@@ -471,15 +470,15 @@ export function PlanCard({ initialPlan, goalId }: PlanCardProps) {
           </form>
 
           {coachLoading && (
-            <div className="text-xs text-indigo-400 animate-pulse py-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+            <div className="text-xs text-[#176B5B] animate-pulse py-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#176B5B] animate-ping"></span>
               <span>Goal Coach is reviewing your goal evidence and current plan...</span>
             </div>
           )}
 
           {coachAnswer && (
-            <div className="bg-[#0C1017] border border-white/[0.08] p-4 rounded-xl text-slate-200 leading-relaxed text-xs">
-              <span className="font-semibold text-indigo-400 font-mono">Coach: </span>
+            <div className="bg-[#FFFFFF] border border-[#E2E8E3] p-4 rounded-xl text-[#172923] leading-relaxed text-xs">
+              <span className="font-semibold text-[#176B5B] font-mono">Coach: </span>
               {coachAnswer}
             </div>
           )}
