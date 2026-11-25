@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { format, subDays, startOfWeek, addDays, isSameDay } from "date-fns";
+import { format, subDays, startOfWeek, addDays } from "date-fns";
+import { Flame, Calendar, Trophy } from "lucide-react";
 
 interface ActivityHeatmapProps {
   dailyCounts?: Record<string, number>;
@@ -21,8 +22,10 @@ export function ActivityHeatmap({
     const today = new Date();
     // Start 15 weeks ago on Monday
     const startDate = startOfWeek(subDays(today, 15 * 7), { weekStartsOn: 1 });
-    
-    const weeksArr: Array<Array<{ date: Date; dateStr: string; count: number; hasContest: boolean; isFuture: boolean }>> = [];
+
+    const weeksArr: Array<
+      Array<{ date: Date; dateStr: string; count: number; hasContest: boolean; isFuture: boolean }>
+    > = [];
     const months: Array<{ label: string; colIndex: number }> = [];
     let lastMonth = "";
 
@@ -57,34 +60,37 @@ export function ActivityHeatmap({
   }, [dailyCounts, contestDates]);
 
   function getColor(count: number, hasContest: boolean, isFuture: boolean) {
-    if (isFuture) return "bg-slate-900/30 border-transparent opacity-30";
-    if (hasContest) return "bg-amber-500 border-amber-400 shadow-sm shadow-amber-500/50";
+    if (isFuture) return "bg-[#080A0F]/30 border-transparent opacity-20 pointer-events-none";
+    if (hasContest) return "bg-amber-400 border-amber-300 shadow-sm shadow-amber-500/30";
     if (count >= 5) return "bg-indigo-500 border-indigo-400";
-    if (count >= 3) return "bg-indigo-600/90 border-indigo-500/50";
-    if (count >= 1) return "bg-indigo-900/80 border-indigo-800/40";
-    return "bg-slate-950 border-slate-800/60";
+    if (count >= 3) return "bg-indigo-600/90 border-indigo-500/40";
+    if (count >= 1) return "bg-indigo-950/90 border-indigo-800/40";
+    return "bg-[#080A0F] border-white/[0.04]";
   }
 
-  const daysOfWeek = ["Mon", "Wed", "Fri", "Sun"];
-
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+    <div className="bg-[#0C1017] border border-white/[0.08] rounded-xl p-5 sm:p-6 shadow-subtle space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-            Practice &amp; Contest Activity Heatmap
+          <h3 className="text-xs font-mono uppercase tracking-wider text-slate-300 font-semibold flex items-center gap-2">
+            <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+            <span>Practice &amp; Contest Activity Radar</span>
           </h3>
           <p className="text-[11px] text-slate-500 mt-0.5">
-            16-week trailing submission frequency and contest participation
+            16-week trailing submission frequency and official contest participation
           </p>
         </div>
+
         <div className="flex items-center gap-4 text-xs font-mono">
-          <span className="text-slate-400">
-            Active Days: <strong className="text-white">{totalActiveDays}</strong>
-          </span>
-          <span className="text-slate-400">
-            Current Streak: <strong className="text-amber-400">{currentStreak}d</strong>
-          </span>
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <span>Active Days:</span>
+            <strong className="text-white font-bold">{totalActiveDays}</strong>
+          </div>
+          <div className="flex items-center gap-1.5 text-slate-400">
+            <Flame className="w-3.5 h-3.5 text-amber-400" />
+            <span>Streak:</span>
+            <strong className="text-amber-400 font-bold">{currentStreak}d</strong>
+          </div>
         </div>
       </div>
 
@@ -92,7 +98,7 @@ export function ActivityHeatmap({
       <div className="overflow-x-auto pb-1">
         <div className="inline-block min-w-full">
           {/* Month Header */}
-          <div className="flex text-[10px] text-slate-500 font-mono mb-1.5 pl-7">
+          <div className="flex text-[10px] text-slate-500 font-mono mb-1.5 pl-6">
             {monthLabels.map((m, idx) => (
               <span
                 key={idx}
@@ -123,7 +129,9 @@ export function ActivityHeatmap({
                   {week.map((day, dIdx) => (
                     <div
                       key={dIdx}
-                      title={`${format(day.date, "MMM d, yyyy")}: ${day.count} submission${day.count === 1 ? "" : "s"}${day.hasContest ? " (Contest Participated)" : ""}`}
+                      title={`${format(day.date, "MMM d, yyyy")}: ${day.count} submission${
+                        day.count === 1 ? "" : "s"
+                      }${day.hasContest ? " (Official Contest Participated)" : ""}`}
                       className={`w-3 h-3 rounded-[2.5px] border transition-all duration-150 cursor-pointer hover:scale-125 hover:z-10 ${getColor(
                         day.count,
                         day.hasContest,
@@ -139,18 +147,21 @@ export function ActivityHeatmap({
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-between pt-2 border-t border-slate-800/60 text-[11px] text-slate-500">
+      <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-white/[0.04] flex-wrap gap-2">
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-amber-500 border border-amber-400 inline-block" />
-          <span>Contest Event</span>
+          <span className="w-2.5 h-2.5 rounded-[2px] bg-amber-400 border border-amber-300"></span>
+          <span className="font-mono text-slate-400">Contest Day</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <span>Less</span>
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-slate-950 border border-slate-800/80 inline-block" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-900/80 border border-indigo-800/40 inline-block" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-600/90 border border-indigo-500/50 inline-block" />
-          <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-500 border border-indigo-400 inline-block" />
-          <span>More</span>
+
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-slate-500">Less</span>
+          <div className="flex items-center gap-1">
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-[#080A0F] border border-white/[0.04]"></span>
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-950 border border-indigo-800/40"></span>
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-600 border border-indigo-500"></span>
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-indigo-500 border border-indigo-400"></span>
+          </div>
+          <span className="text-[10px] text-slate-500">More</span>
         </div>
       </div>
     </div>

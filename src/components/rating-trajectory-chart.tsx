@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ContestHistoryItem } from "@/analytics/contest.analytics";
+import { Trophy, TrendingUp, Calendar } from "lucide-react";
 
 interface RatingTrajectoryChartProps {
   contests: ContestHistoryItem[];
@@ -14,6 +15,8 @@ export function RatingTrajectoryChart({
   currentRating,
   maxRating,
 }: RatingTrajectoryChartProps) {
+  const [activePoint, setActivePoint] = useState<any | null>(null);
+
   // Sort contests chronologically for plotting
   const points = useMemo(() => {
     if (!contests || contests.length === 0) return [];
@@ -25,11 +28,14 @@ export function RatingTrajectoryChart({
 
   if (points.length === 0) {
     return (
-      <div className="py-10 text-center space-y-2">
-        <div className="text-sm font-semibold text-slate-400">
-          No rated contest history recorded yet.
+      <div className="py-12 text-center space-y-2.5 bg-[#080A0F] border border-white/[0.06] rounded-lg">
+        <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-slate-400 mx-auto">
+          <Trophy className="w-4 h-4 text-slate-400" />
         </div>
-        <p className="text-xs text-slate-500 max-w-sm mx-auto">
+        <div className="text-xs font-semibold text-slate-300">
+          No rated contest history recorded yet
+        </div>
+        <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
           Participate in Codeforces rounds or connect an active handle with rated contests to view your rating curve.
         </p>
       </div>
@@ -64,16 +70,16 @@ export function RatingTrajectoryChart({
   return (
     <div className="space-y-4">
       {/* SVG Trajectory Chart */}
-      <div className="relative w-full h-[190px] overflow-hidden rounded-lg bg-slate-950/60 border border-slate-800/80 p-2">
+      <div className="relative w-full h-[190px] overflow-hidden rounded-lg bg-[#080A0F] border border-white/[0.06] p-2">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           className="w-full h-full overflow-visible"
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="cfGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
+            <linearGradient id="cfTrajectoryGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#6366F1" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#6366F1" stopOpacity="0.0" />
             </linearGradient>
           </defs>
 
@@ -83,7 +89,7 @@ export function RatingTrajectoryChart({
             y1={paddingY}
             x2={width - paddingX}
             y2={paddingY}
-            stroke="#1e293b"
+            stroke="rgba(255,255,255,0.05)"
             strokeDasharray="4 4"
           />
           <line
@@ -91,7 +97,7 @@ export function RatingTrajectoryChart({
             y1={height / 2}
             x2={width - paddingX}
             y2={height / 2}
-            stroke="#1e293b"
+            stroke="rgba(255,255,255,0.05)"
             strokeDasharray="4 4"
           />
           <line
@@ -99,16 +105,16 @@ export function RatingTrajectoryChart({
             y1={height - paddingY}
             x2={width - paddingX}
             y2={height - paddingY}
-            stroke="#334155"
+            stroke="rgba(255,255,255,0.08)"
           />
 
           {/* Fill Area */}
-          <polygon points={areaPath} fill="url(#cfGradient)" />
+          <polygon points={areaPath} fill="url(#cfTrajectoryGradient)" />
 
           {/* Trajectory Line */}
           <polyline
             fill="none"
-            stroke="#06b6d4"
+            stroke="#6366F1"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -117,22 +123,26 @@ export function RatingTrajectoryChart({
 
           {/* Data Points */}
           {chartPoints.map((p, idx) => (
-            <g key={idx} className="cursor-pointer group">
+            <g
+              key={idx}
+              className="cursor-pointer group"
+              onMouseEnter={() => setActivePoint(p)}
+              onMouseLeave={() => setActivePoint(null)}
+            >
               <circle
                 cx={p.x}
                 cy={p.y}
                 r="4.5"
-                fill="#0f172a"
-                stroke="#06b6d4"
-                strokeWidth="2.5"
-                className="transition-all duration-200 group-hover:r-6 group-hover:fill-cyan-400"
+                fill="#080A0F"
+                stroke="#6366F1"
+                strokeWidth="2"
+                className="transition-all duration-150 group-hover:r-6 group-hover:fill-indigo-400"
               />
-              {/* Tooltip text above point on hover */}
               <text
                 x={p.x}
                 y={p.y - 10}
                 textAnchor="middle"
-                fill="#e2e8f0"
+                fill="#f8fafc"
                 fontSize="10"
                 fontFamily="monospace"
                 fontWeight="bold"
@@ -143,36 +153,49 @@ export function RatingTrajectoryChart({
             </g>
           ))}
         </svg>
+
+        {activePoint && (
+          <div className="absolute top-2 right-3 bg-[#0C1017] border border-white/[0.08] px-3 py-1.5 rounded-md text-[11px] font-mono text-slate-300 shadow-card flex items-center gap-2">
+            <span className="text-white font-semibold">{activePoint.contestName}</span>
+            <span className="text-slate-500">•</span>
+            <span className="text-indigo-400 font-bold">{activePoint.newRating}</span>
+            <span className={activePoint.ratingChange >= 0 ? "text-emerald-400" : "text-rose-400"}>
+              ({activePoint.ratingChange >= 0 ? `+${activePoint.ratingChange}` : activePoint.ratingChange})
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Trajectory Data Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">
           <thead>
-            <tr className="border-b border-slate-800 text-slate-400 uppercase font-medium">
-              <th className="py-2.5 px-3">Contest</th>
+            <tr className="border-b border-white/[0.06] text-slate-400 text-[11px] font-mono uppercase font-semibold">
+              <th className="py-2.5 px-3">Contest Round</th>
               <th className="py-2.5 px-3">Rank</th>
-              <th className="py-2.5 px-3">Rating Change</th>
-              <th className="py-2.5 px-3">New Rating</th>
+              <th className="py-2.5 px-3">Rating Delta</th>
+              <th className="py-2.5 px-3">Post-Round Rating</th>
               <th className="py-2.5 px-3 text-right">Date</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60">
+          <tbody className="divide-y divide-white/[0.04]">
             {contests.map((c) => (
-              <tr key={c.contestId} className="hover:bg-slate-950/40 transition">
-                <td className="py-2.5 px-3 font-medium text-white">{c.contestName}</td>
-                <td className="py-2.5 px-3 text-slate-300 font-mono">#{c.rank}</td>
-                <td className="py-2.5 px-3">
+              <tr key={c.contestId} className="hover:bg-white/[0.02] transition">
+                <td className="py-2.5 px-3 font-medium text-white truncate max-w-[260px]">
+                  {c.contestName}
+                </td>
+                <td className="py-2.5 px-3 text-slate-400 font-mono text-[11px]">#{c.rank}</td>
+                <td className="py-2.5 px-3 font-mono text-[11px]">
                   <span
-                    className={`font-semibold font-mono ${
+                    className={`font-semibold ${
                       c.ratingChange >= 0 ? "text-emerald-400" : "text-rose-400"
                     }`}
                   >
                     {c.ratingChange >= 0 ? `+${c.ratingChange}` : c.ratingChange}
                   </span>
                 </td>
-                <td className="py-2.5 px-3 font-bold font-mono text-white">{c.newRating}</td>
-                <td className="py-2.5 px-3 text-slate-400 text-right">
+                <td className="py-2.5 px-3 font-bold font-mono text-slate-100">{c.newRating}</td>
+                <td className="py-2.5 px-3 text-slate-500 text-right font-mono text-[11px]">
                   {new Date(c.timestamp).toLocaleDateString()}
                 </td>
               </tr>
