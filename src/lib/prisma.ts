@@ -7,9 +7,11 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient };
  * Sized according to the horizontal scaling connection budget:
  * Total = (App Instances * 10) + (Workers * 5) + 10 Reserves <= Target DB Limit.
  */
-function getDatasourceUrl(): string | undefined {
-  const url = process.env.DATABASE_URL;
-  if (!url || !url.startsWith("postgres")) return url;
+function getDatasourceUrl(): string {
+  const url =
+    process.env.DATABASE_URL ||
+    "postgresql://postgres:postgres@localhost:5432/postgres?sslmode=disable";
+  if (!url.startsWith("postgres")) return url;
 
   // If URL already specifies connection_limit, leave it intact
   if (url.includes("connection_limit=")) return url;
